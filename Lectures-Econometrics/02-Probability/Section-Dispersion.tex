@@ -1,0 +1,23 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Measures of Dispersion}
+\begin{itemize}
+\item \emph{Population standard deviation:} \quad $\sigma_{Y}$.
+\item A population STD may or may not exist. For a population of size $N$, 
+\begin{align*}
+\sigma_Y = \sqrt{\dfrac{\sum_{i=1}^N (Y_i-\mean{Y})^2}{N}}
+\end{align*}
+\item \emph{Sample standard deviation:} \quad $\hat\sigma_{Y}$ or $s_{Y}$.
+\item Measures how far away, on average, a random observation $Y_i$ is from the sample mean $\mean{Y}$,
+\begin{align*}
+\hat\sigma_Y = \sqrt{\dfrac{\sum_{i=1}^n (y_i-\mean{Y})^2}{n-1}}
+\end{align*}
+The hat is a short-hand for ``estimated.'' Division by $n-1$ (rather than $n$) makes the estimate unbiased --- for large $n$, it makes little difference.
+\item Other measures of dispersion: \emph{Variance}, \emph{Range}, \emph{Interquartile Range (IQR)}, \emph{Median Absolute Deviation (MAD)}, \emph{Average Absolute Deviation (AAD)}.
+\item The MAD is more robust to outliers than the STD.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,189 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Many-Predictor Problem}
+\begin{itemize}
+\item The analysis of the district test score data reveals nonlinearities and interactions in the test score regressions. For example, there is a nonlinear relationship between test scores and the student-teacher ratio and this relationship differs depending on whether there are a large number of English learners in the district. These nonlinearities are handled by including third-degree polynomials of the student–teacher ratio and interaction terms.
+\item If only the main variables are used, there are $38$ regressors. Including interactions, squares, and cubes increases the number of predictors to $817$. 
+\item We can also use a larger data set with $2,065$ predictors more than the $1,966$ observations in the estimation sample. While it does not violate the Gauss–Markov theorem, OLS can produce poor predictions when the number of predictors is large relative to the sample size. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variables in the 817-Predictor School Test Score Data Set}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]%
+{StockWatson4e-14-tbl-01-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Mean Squared Prediction Error}
+\begin{itemize}
+\item \emph{Mean-Squared Prediction Error (MSPE):}
+Expected value of the square of the prediction error that arises when the model is used to make a prediction for an observation not in the data set.
+\begin{align*}
+\vn{MSPE} = \exp[Y^{\text{OOS}} - \hat{Y}(X^{\text{OOS}})]^{2}
+\end{align*}
+where $X^{\text{OOS}}$ and $Y^{\text{OOS}}$ are out-of-sample observations on $X$ and $Y$; where $\hat{Y}(x)$ is the predicted value of $Y$ for some given value $x$. 
+\item \emph{Oracle prediction:}
+$\exp[Y^{\text{OOS}}|X^{\text{OOS}}]$ 
+The conditional mean minimizes the MSPE. It is not directly observable, so estimating it with the model coefficients of the prediction model introduces additional sources of error.
+\item The Oracle prediction is the benchmark against which to judge all feasible predictions. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Predictive Regression Model with Standardized Regressors}
+\begin{itemize}
+\item \emph{Standardized regressors:}
+Regressors are transformed to have mean $0$ and variance $1$.
+\begin{align*}
+X_{ji} = \frac{X_{ji}^{\text{original}}-\mu_{X_{j}^{\text{original}}}}{\sigma_{X_{j}^{\text{original}}}}
+\end{align*}
+where $\mu_{X_{j}^{\text{original}}}$ is the population mean of the original regressor. 
+\item \emph{Standardized regressand:}
+The regressand is transformed to have mean $0$. 
+\item \emph{Standardized predictive regression model:}
+The intercept is excluded because all the variables have mean $0$.
+\begin{align*}
+Y_{i} = \beta_{1} X_{1i} + \beta_{k} X_{ki} + u_{i}
+\end{align*}
+\item The regression coefficients have the same units. 
+\item \emph{Interpretation:}
+$\beta_{j}$ is the difference in the predicted value of $Y$ associated with a one standard deviation difference in $X_{j}$, holding 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{MSPE in the Standardized Predictive Regression}
+\emph{Minimize the variance term, taking the bias as given}
+\begin{itemize}
+\item The standardized predictive regression model can be written as the sum of two components:
+\begin{align*}
+\vn{MSPE} 
+    = \sigma^{2}_{u} 
+        + \exp\left[
+              (\hat{\beta}_{1}-\beta_{1}) X_{1}^{\text{OOS}} 
+            + \ldots
+            + (\hat{\beta}_{k}-\beta_{k}) X_{k}^{\text{OOS}}
+        \right]^{2}
+\end{align*}
+\item \emph{The mean-squared error is the sum of the bias and of the variance.}
+\item The first term $\sigma^{2}_{u} $ is the variance of the oracle prediction error: The prediction error made using the true (unknown) conditional mean. 
+\item The second term is the contribution to the prediction error arising from the estimated regression coefficients. This cost arises from estimating the coefficients instead of using the true oracle prediction.
+\item \emph{Objective:} Minimize the variance term, taking the bias as given. 
+\item \emph{Prediction for an out-of-sample observation:}
+Because the regressors are standardized and the dependent variable is demeaned, the out-of-sample observation on the predictors must be standardized using the in-sample mean and standard deviation, and the in-sample mean of the dependent variable must be added back into the prediction.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{OLS is Best Linear Unbiased}
+\begin{itemize}
+\item In the special case of homoskedastic regression errors, the MSPE of OLS is given by
+\begin{align*}
+\vn{MSPE} \approx \left(1+\frac{k}{n}\right)\, \sigma^{2}_{u}
+\end{align*}
+The approximation more accurate for large $n$ and small $k/n$.
+\item The cost of using OLS, as measured by the MSPE, depends on the ratio of the number of regressors to the sample size. 
+\item In the school test score application with $38$ regressors, using OLS has a loss of only $2\%$ relative to the Oracle prediction. But with $817$ regressors, the loss increases to $40\%$. 
+\begin{align*}
+\frac{k}{n} & = \frac{38}{1,966} \approx 0.02\\
+\frac{k}{n} & = \frac{817}{1,966} \approx 0.40
+\end{align*}
+\item Because OLS is unbiased, the loss is entirely due to the variance term. Under Gauss-Markov, this is the smallest loss in the class of linear, unbiased estimators. 
+\item The loss can be reduced using \ldots biased estimators!
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Principle of Shrinkage}
+\begin{itemize}
+\item \emph{Shrinkage estimator:} Introduces bias by ``shrinking'' the OLS estimator toward a specific number and thereby reducing the variance of the estimator. 
+\item Because the mean squared error is the sum of the variance and the squared bias, if the estimator variance is reduced by enough, then the decrease in the variance can more than compensate for the increase in the squared bias. 
+\item \emph{James-Stein estimator:}
+When the regressors are uncorrelated, the James-Stein estimator can be written $\tilde{\beta}^{JS}=c\hat{\beta}$, where $\hat{\beta}$ is the OLS estimator and $c$ is a factor that is less than $1$ and depends on the data. Since $c<1$, the JS estimator shrinks the OLS estimator toward $0$ and thus is biased toward $0$. 
+\item \emph{James and Stein (1961):}
+If the errors are normally distributed and $k \geq 3$, their estimator has a lower mean squared error than the OLS estimator, regardless of the true value of $\beta$.
+\item James-Stein leads to the family of shrinkage estimators, which includes ridge regression and the Lasso estimator.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Estimation by Split Sample}
+\emph{Split sample:} 
+\begin{itemize}
+\item Estimate the MSPE by dividing the data set into two parts
+\begin{itemize}
+\item an ``estimation'' subsample.
+\item a ``test'' subsample used to simulate out-of- sample prediction. 
+\begin{align*}
+\vn{MSPE}_{\text{split-sample}} = \frac{1}{n_{\text{test subsample}}}\, \sum_{\text{test subsample}} (Y_{i}-\hat{Y}_{i})^{2}
+\end{align*}
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Estimation by m-fold Cross Validation}
+\emph{m-fold cross validation:} 
+\begin{enumerate}
+\item 
+Estimate the MSPE by dividing the data set into two parts: an ``estimation'' subsample and a ``test'' subsample used to simulate out-of-sample prediction. 
+\item Use the combined sub-samples $2,3,\ldots,m$ to compute $\tilde{\beta}$, an estimate of $\beta$.
+\item Use $\tilde{\beta}$ to compute predicted values $\hat{Y}$ and prediction errors $Y-\hat{Y}$ for sub-sample $1$. 
+\item Using sub-sample $1$ as the test sample, estimate the MSPE with the predicted values in sub-sample $1$. 
+\item Repeat steps 2-4 leaving out sub-sample $2$, then $3$, \ldots, then $m$. 
+\item The $m$-fold cross-validation estimator of the MSPE is estimated by averaging these $m$ sub-sample estimates of the MSPE. 
+\begin{align*}
+\widehat{\vn{MSPE}}_{\text{$m$-fold cross-validation}} = \frac{1}{m}\, 
+    \sum_{i=1}^{m} \left(\frac{n_{i}}{n/m}\right) \widehat{\vn{MSPE}_{i}}
+\end{align*}
+where $n_{i}$ is the number of observations in sub-sample $i$. 
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Estimation by m-fold Cross Validation}
+\emph{The tradeoff}
+\begin{itemize}
+\item Choosing the value of $m$ involves a tradeoff between efficiency of the estimators and computational requirements. 
+\item \emph{More observations:}
+A larger value of $m$ produces more efficient estimators of $\beta$, because more observations are used to estimate $\beta$. \emph{leave-one-out cross-validation estimator:} Set $m=n-1$. This maximizes the number of observations used.
+\item \emph{More computations:}
+A larger value of $m$ implies that $\beta$ must be estimated $m$ times. The leave-one-out cross validation may demand too much computational power. 
+\item \emph{School test score application:} 
+A compromise value $m=10$ is selected, meaning that each sub-sample estimator of $\beta$ uses $90\%$ of the sample. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,80 @@
+---
+title: "Confidence Sets for Regression Coefficients"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+### Dataset:
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("caschool.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+## Regression
+Rename variables to match textbook notation
+```{r,  include=TRUE, eval=TRUE}
+names(df)[names(df) == "testscr"] <- "TestScore"
+names(df)[names(df) == "expn_stu"] <- "Expn"
+names(df)[names(df) == "str"] <- "STR"
+names(df)[names(df) == "el_pct"] <- "PctEL"
+df$Expn <- df$Expn/1000
+
+m1 <- lm(TestScore ~ STR + Expn + PctEL, data=df)
+summary(m1)
+```
+
+## Confidence Ellipses
+Draw confidence ellipses for regression coefficients on $STR$ and $Expn$.
+```{r,  include=TRUE, eval=TRUE}
+library(ellipse)
+library(latex2exp)
+conf.ellipse <- data.frame(ellipse(m1, which=c(2,3)))
+ggplot(conf.ellipse, aes(x=STR, y=Expn)) + 
+  geom_path() +
+  geom_polygon(fill="cornflowerblue", alpha=0.5, color="darkblue", size=1) +
+  scale_x_continuous(breaks=seq(-2,2,0.5), limits=c(-1.5,1.5)) + 
+  scale_y_continuous(breaks=seq(-1,9,1)) + 
+  geom_point(x=m1$coefficient[2], y=m1$coefficient[3], shape=3, size=2) +
+  geom_point(x=0, y=0, shape=3, size=2) +
+  labs(x="Coefficient on STR", y="Coefficient on Expn", 
+       title="95% Confidence Set for Coefficients on STR and Expn") +
+  annotate("segment", x=0.75, xend=0.05, y=0, yend=0) +
+  annotate("segment", 
+           x=m1$coefficient[2]+0.05, xend=0.75, 
+           y=m1$coefficient[3]-0.1, yend=1) +
+  annotate("text", x=0.8, y=1, 
+           label=TeX("($\\hat{\\beta}_{1}, \\hat{\\beta}_{2})=(-0.29,3.87)$"), 
+           parse=TRUE, hjust=0) +
+  annotate("text", x=0.8, y=0, 
+           label=TeX("($\\beta_{1}, \\beta_{2})=(0,0)$"), 
+           parse=TRUE, hjust=0) +
+  theme_classic()
+ggsave(last_plot(), file="plot-regression-ellipses.pdf", width=8, height=5)
+```
+
+The $95\%$ confidence set Coefficient on $STR$ ($\beta_{1}$) and $Expn$ ($\beta_{2}$) is an ellipse. The ellipse contains the pairs of values of $\beta_{1}$ and $\beta_{2}$ that cannot be rejected using the F-statistic at the $5\%$ significance level. The point ($\beta_{1}, \beta_{2}$=(0,0)) is not contained in the confidence set, so the null hypothesis $H_{0}\colon \beta_{1}=0
+\text{and} \beta_{2}=0$ is rejected at the $5\%$ significance level.
+
+
+
+## Joint Hypothesis test
+Joint test of hypothesis $H_{0}:$ $STR=0$ and $Expn=0$.
+```{r,  include=TRUE, eval=TRUE}
+library(car)
+H0 <- c("STR=0", "Expn=0")
+tidy(linearHypothesis(m1, H0))
+```
+

@@ -1,0 +1,37 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Prediction With Many Predictors}
+\emph{Shrinkage estimators}
+\begin{itemize}
+\item \emph{Big data:}
+Many observations and/or many predictors. Includes datasets with many categories. 
+\item \emph{Challenges:} 
+Storing and accessing large data sets efficiently and developing fast algorithms for estimating models.
+\item \emph{OLS overfits in large studies:} 
+Use data on $3,932$ elementary schools in California to predict school-level test scores using data on school and community characteristics. Half of these observations are used to estimate prediction models, while the other half are reserved to test their performance. Large datasets have many predictors. The analysis starts with $817$ predictors and is later expanded to $2065$ predictors. With so many predictors, OLS overfits the data and makes poor out-of-sample predictions.
+\item \emph{Shrinkage estimators:} 
+Better out-of-sample predictors than OLS. Shrinkage estimators are biased and may not have a causal interpretation, but the variance of the shrinkage estimator is smaller, which improves out-of-sample prediction.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Applications of Big Data}
+\begin{enumerate}
+\item \emph{Many predictors:}
+ Even if one starts with only a few dozen primitive predictors, including squares, cubes, and interactions very quickly expands the number of regressors into the hundreds or thousands.
+\item \emph{Categorization:}
+Regression with a binary dependent variable and regression with many categories. 
+\item \emph{Testing multiple hypotheses:}
+The F-statistic of a joint hypothesis on a group of coefficients is not well suited to find out which of the treatments is effective. Special methods have been developed to test large numbers of individual hypotheses to determine which treatment effect is nonzero.
+\item \emph{Nonstandard data:}
+Including text and images. 
+\item \emph{Deep learning:}
+Non-linear models are estimated (``trained'') using very many observations. Useful for pattern recognition, such as facial recognition; speech recognition; multi-language translation; detecting anomalies in medical scans; interpreting network data on social media; high-frequency trading in financial markets.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

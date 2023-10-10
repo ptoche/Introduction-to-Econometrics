@@ -1,0 +1,22 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Central Limit Theorem}
+\begin{itemize}
+\item \emph{Central Limit Theorem (CLT)}: Under general conditions, the distribution of $\mean{Y}$ for large $n$ is well approximated by a normal distribution. 
+\item Let $Y_1,\ldots,Y_n$ be i.i.d. random variables drawn from a population with mean $\mu_Y$ and finite variance $\sigma_{Y}^2$. The mean and variance of the sample mean $\mean{Y}$ are
+\begin{align*}
+\exp[\mean{Y}] 
+  & = \mu_Y \\
+\sigma_{\mean{Y}}^2 
+  & = \frac{\sigma_Y^2}{n}
+\end{align*}
+\item For large sample size $n$, the distribution of the sample mean is approximately
+\begin{align*}
+\mean{Y} \sim N\left(\mu_Y, \frac{\sigma_Y^2}{n}\right)
+\end{align*}
+\item For large samples, only the mean and the variance are needed to describe the sampling distribution. In practice, the population parameters are typically unknown and the realized observations are used to estimate them. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

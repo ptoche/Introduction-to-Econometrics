@@ -1,0 +1,42 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~14, Exercise~1.}
+A researcher is interested in predicting average test scores for elementary schools in Arizona. She collects data on three variables from $200$ randomly chosen Arizona elementary schools: average test scores ($\vn{TestScore}$) on a standardized test, the fraction of students who qualify for reduced-priced meals ($\vn{RPM}$), and the average years of teaching experience for the school's teachers ($\vn{TExp}$). The table below shows the sample means and standard deviations from her sample.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Variable 
+    & Sample Mean 
+        & Sample Standard Deviation\\
+\midrule
+$\vn{TestScore}$ 
+    & $750.1$ &  $65.9$\\
+$\vn{RPM}$ 
+    & $0.60$ &  $0.28$\\
+$\vn{TExp}$ 
+    & $13.2$ &  $3.8$\\
+\bottomrule
+\end{tabular}
+\end{center}
+After standardizing $\vn{RPM}$ and $\vn{Texp}$ and substracting the sample mean from $\vn{TestScore}$, she estimates the following regression:
+\begin{align*}
+\widehat{\vn{TestScore}} = -48.7 \times \vn{RPM} + 8.7 \times \vn{TExp}, \vn{SER} = 44.0
+\end{align*}
+\begin{enumerate}
+\item You are interested in using the estimated regression to predict average test scores for an out-of-sample school with $\vn{RPM}=0.52$ and $\vn{TExp}=11.1$.
+\begin{enumerate}
+\item Compute the transformed (standardized) values of $\vn{RPM}$ and $\vn{TExp}$ for this school; that is, compute the $X^{oos}$ values from the $X^{*oos}$ values.
+\item Compute the predicted value of average test scores for this school.
+\label{sw-14-01-a-ii}
+\end{enumerate}
+\item The actual average test score for the school is $775.3$. Compute the error for your prediction.
+\item The regression shown above was estimated using the standardized regressors and the demeaned value of $\vn{TestScore}$. Suppose the regression had been estimated using the raw data for $\vn{TestScore}$, $\vn{RPM}$, and $\vn{TExp}$. Calculate the values of the regression intercept and slope coefficients for this regression.
+\label{sw-14-01-c}
+\item Use the regression coefficients that you computed in \ref{sw-14-01-c} to predict average test scores for an out-of-sample school with $\vn{RPM}=0.52$ and $\vn{TExp}=11.1$. Verify that the prediction is identical to the prediction you computed in \ref{sw-14-01-a-ii}.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

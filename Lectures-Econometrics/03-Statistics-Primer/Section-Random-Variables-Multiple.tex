@@ -1,0 +1,469 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bivariate Random Variables} 
+\begin{itemize}
+\item Consider the relationship between two random variables.
+\begin{itemize}
+\item We care about the relationship between education and income
+\item We care about the relationship between consumption of a medicine and a health outcome
+\end{itemize}
+\item Note that:
+\begin{itemize}
+\item not everyone has the same education/income
+\item not everyone who takes a medicine will have the same health outcome
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bivariate Random Variables} 
+\begin{itemize}
+\item Let $(X,Y)$ be a pair of joint random variables. Let $\Omega$ denote the sample space and $\Pr(\cdot)$ a probability measure defined on subsets of the sample space $E\subseteq\Omega$, that is $\Pr(\cdot)\colon\Omega\to[0,1]$.
+\item Example: Let $X$ denote income and $Y$ denote age. The probability that a randomly selected person from the population has an income between $\$0$ and $\$100,000$ and is between $40$ and $42$ years old is denoted:
+\begin{align*}
+\Pr(\{0\leq X\leq 100,000,~ 40\leq Y\leq 42\})
+\end{align*} 
+\item For two random variables, $X,Y$, we can represent the probability mass function (pmf) as a table. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Random Variables} 
+\begin{itemize}
+\item Let $X$ be a random variable that describes whether a person gets $4$ hours of sleep a night; $8$ hours a sleep a night; or $12$ hours of sleep a night. Let $Y$ be a random variable that describes whether a person drinks $1$ or $2$ cups of coffee a day. 
+\item The joint pmf of $X$ and $Y$ can be described with the table below
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$p(x,y)$
+           & $1$ cup  
+                   & $2$ cups\\
+ $4$ hours &   $0$ & $1/6$ \\
+ $8$ hours & $1/3$ & $1/3$ \\
+$12$ hours & $1/6$ & $0$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\item The probability that a randomly selected person gets $8$ hours of sleep and drinks $1$ cup of coffee a day is $1/3$.
+\item Exercise: What is the probability that a randomly selected person gets $8$ hours of sleep?
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Continuous Random Variables} 
+\begin{itemize}
+\item As with single continuous random variables, the distribution of a continuous random variable is defined by a probability density function, $f_{XY}(x,y)$.
+\item As before, the joint pdf will be related to the joint probability measure $\Pr(\cdot)$
+\begin{align*}
+\Pr(\{a\leq X\leq b, c\leq Y\leq d\}) 
+    = \int_a^b\int_c^d f_{XY}(x,y)\,dy\,dx
+\end{align*} 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Continuous Random Variables} 
+\begin{itemize}
+\item Consider two sprinters in the $100$m dash. Let $X$ denote the finish time of the favorite competitor and $Y$ denote the finish time of the underdog competitor. Suppose their times follow the following joint pdf:
+\begin{align*}
+f_{XY}(x,y) = 
+  \begin{cases}
+  1 & \text{if}~  9.5 \leq x \leq 10.5 ~\text{or}~ 10 \leq y \leq 11 \\
+  0 & \text{otherwise}
+  \end{cases}
+\end{align*}
+\item Calculate the probability that the favorite competitor runs faster than $10$ seconds and that the underdog competitor runs faster than $10.5$ seconds, $\Pr(\{X\leq 10, Y\leq 10.5\})$.
+\begin{align*}
+\Pr(\{X\leq 10,Y\leq 10.5\}) 
+  & = \int_{9.5}^{10} \int_{10}^{10.5} f_{XY}(x,y)\,dy\,dx\\
+  & = \int_{9.5}^{10} \int_{10}^{10.5} 1 \,dy\,dx\\
+  & = \int_{9.5}^{10} 0.5 \,dx\\
+  & = 0.5 \times 0.5\\
+  & = 0.25
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectations} 
+\begin{itemize}
+\item Consider the average or expected value that some function, $g(X,Y)$, of the joint random variables. Calculate $\exp[g(X,Y)]$. 
+\item  Examples of useful functions $g(x,y)$:
+\begin{itemize}
+\item Expected value of $X$: 
+\begin{align*}
+g(x,y) = x\implies \exp[g(X,Y)] = \exp[X]
+\end{align*}
+\item Average difference between $X$ and $Y$: 
+\begin{align*}
+g(x,y) = x-y\implies \exp[g(X,Y)]= \exp[X-Y]
+\end{align*}
+\item Range of interest: 
+\begin{align*}
+g(x,y) = \mathds{1}\{x\leq a, y\leq b\}\implies \exp[g(X,Y)] = \Pr(\{X\leq a,Y\leq b\})
+\end{align*}
+\item Covariance between $X$ and $Y$: 
+\begin{align*}
+g(x,y) = (x-\mu_X)(y-\mu_Y)\implies \exp[g(X,Y)]= \cov(X,Y)
+\end{align*}
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectations} 
+\begin{itemize}
+\item The formula for calculating expected value is the same as before:
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+Discrete R.V & Continuous R.V \\
+$\sum_{a,b\in\Omega} g(a,b) p_{XY}(a,b)$ 
+    & $\int_{X} \int_Y g(a,b) f_{XY}(a,b)\,db\,da$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\item The function is evaluated at each point in the outcome space and weighted by the probability associated with that outcome.
+\item By linearity of the expectation, for any two functions $g(x,y)$ and $h(x,y)$ and any $a,b\in\Real$:
+\begin{align*}
+\exp[a\cdot g(X,Y) + b\cdot h(X,Y)] = a\exp[g(X,Y)] + b\exp[h(X,Y)]
+\end{align*} 
+\item For instance,
+\begin{align*}
+\exp[aX+bY] = a\exp[X]+b\exp[Y]
+\end{align*} 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectations} 
+\begin{itemize}
+\item Consider the $100$m dash example again.
+\begin{align*}
+f_{XY}(x,y) = 
+  \begin{cases}
+  1 & \text{if}~ 9.5 \leq x\leq 10.5, 10 \leq y \leq 11 \\
+  0 &\text{otherwise}
+  \end{cases}
+\end{align*}
+\item Calculate $\exp[X-Y]$, the expected difference in finishing times between the favorite competitor and the underdog:
+\begin{align*}
+\exp[X-Y] 
+    & = \int_{9.5}^{10.5} \int_{10}^{11} (x-y)f_{XY}(x,y)\,dy\,dx\\
+    & = \int_{9.5}^{10.5}\int_{10}^{11} x \,dy\,dx 
+        - \int_{9.5}^{10.5}\int_{10}^{11} y\,dy\,dx\\
+    & = \int_{9.5}^{10.5} x \left(y\bigg|_{10}^{11}\right)\,dx 
+        - \int_{9.5}^{10.5} \left(\frac{y^{2}}{2}\bigg|_{10}^{11}\right)\,dx\\
+    & = 1 \cdot \frac{x^{2}}{2}\bigg|_{9.5}^{10.5}
+        - \frac{21}{2} \cdot x\bigg|_{9.5}^{10.5}\\
+    & = -0.5
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Covariance} 
+\begin{itemize}
+\item The covariance measures how much the variables $X$ and $Y$ co-vary, i.e. how they vibrate together.
+\item The \emph{covariance} between $X$ and $Y$ is:
+\begin{align*}
+\cov(X,Y)= \exp[(X-\exp[X])(Y-\exp[Y])]
+\end{align*} 
+\item Simplify the expression:
+\begin{align*}
+\cov(X,Y) 
+    & = \exp[XY-X\exp[Y] - Y\exp[X] +\exp[X]\exp[Y]]\\
+    & = \exp[XY] - \exp[X]\exp[Y] - \exp[Y]\exp[X] + \exp[X]\exp[Y]\\
+    & = \exp[XY]-\exp[X]\exp[Y]
+\end{align*}
+\item The population covariance is often denoted $\sigma_{XY}$.
+\item The sample covariance is often denoted $s_{XY}$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Covariance} 
+\begin{itemize}
+\item Covariance between $X$ and $Y$:
+\begin{align*}
+f_{XY}(x,y) = 
+  \begin{cases}
+  1 & \text{if}~9.5\leq x\leq 10.5 ~\text{or}~ 10 \leq y \leq 11 \\
+  0 &\text{otherwise}
+\end{cases}
+\end{align*}
+\item We know $\exp[X] = 10$ and $\exp[Y] = 10.5$, so calculate $\exp[XY]$:
+\begin{align*}
+\exp[XY] 
+    & = \int_{9.5}^{10.5} \int_{10}^{11} xy f_{XY}(x,y) \, dy \, dx \\
+    & = \int_{9.5}^{10.5}x \int_{10}^{11} y \,dy \, dx \\
+    & = \int_{9.5}^{10.5}x \cdot \left(\frac{y^{2}}{2}\bigg|_{10}^{11}\right) \, dx\\
+    & = \frac{21}{2} \cdot \left(\frac{x^{2}}{2}\bigg|_{9.5}^{10.5}\right)
+      = 105
+\end{align*}
+\item Thus, $\cov(X,Y) = \exp[XY] - \exp[X]\exp[Y] = 105-10 \cdot 10.5=105-105=0$. 
+\item There is no measurable association between competitors $A$ and $B$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Covariance} 
+\begin{itemize}
+\item Important properties of the covariance follow from $\cov(X,Y) = \exp[XY]- \exp[X]\exp[Y]$:
+\begin{enumerate}
+\item \emph{Linearity:} \quad $\cov(aX,bY) = ab\,\cov(X,Y)$
+\begin{align*}
+\cov(aX, bY) = \exp[(aX)(bY)] - \exp[aX]\exp[bY] = ab\left(\exp[XY] - \exp[X]\exp[Y]\right)
+\end{align*} 
+\item \emph{Symmetry:} \quad $\cov(X,Y) = \cov(Y,X)$ and $\cov(X,X) = \var(X)$
+\begin{align*}
+\cov(X,X) = \exp[XX] - \exp[X]\exp[X] = \exp[X^2]-(\exp[X])^2 = \var(X)
+\end{align*} 
+\item \emph{Addition Rule:} \quad $\var(X+Y) = \var(X) + \var(Y) + 2\cov(X,Y)$
+\begin{align*}
+\var(X+Y)
+    & = \exp[(X+Y)^2] - \exp[(X+Y)]^2	\\
+    & = \exp[X^2 + 2XY + Y^2] - \left(\exp[X] + \exp[Y]\right)^2\\
+    & = \underbrace{\exp[X^2]}_{\var(X)} + 2\underbrace{\exp[XY]}_{\cov(X,Y)} + \underbrace{\exp[Y^2]}_{\var(Y)} - \underbrace{(\exp[X])^2}_{\var(X)} - 2\underbrace{\exp[X]\exp[Y]}_{\cov(X,Y)} - \underbrace{(\exp[Y])^2}_{\var(Y)}\\
+    & = \var(X) + \var(Y) + 2\cov(X,Y)
+\end{align*}
+\end{enumerate}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Covariance} 
+\begin{itemize}
+\item Useful rule:
+\begin{align*}
+\var(aX + bY) 
+    & = \var(aX) + \var(bY) + 2\cov(aX,bY) \\ 
+    & = a^2\var(X) + b^2\var(Y) + 2ab\cov(X,Y)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Correlation} 
+\begin{itemize}
+\item The population \emph{correlation coefficient} is denoted $\rho$:
+\begin{align*}
+\rho_{XY} = \frac{\sigma_{XY}}{\sigma_X\sigma_Y} 
+\end{align*} 
+where
+\begin{align*}
+\sigma_{XY} = \cov(X,Y), \quad
+   \sigma_X = \sqrt{\var(X)}, \quad
+   \sigma_Y = \sqrt{\var(Y)}
+\end{align*}
+\item The sample \emph{correlation coefficient} is denoted $r$:
+\begin{align*}
+r_{XY} = \frac{s_{XY}}{s_X s_Y} 
+\end{align*} 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditioning and Independence} 
+\begin{itemize}
+\item Given two joint random variables, $X$ and $Y$, we may be interested in characteristics of the distribution of $Y$ conditional on $X$ taking a certain value. 
+\item Conditional expectation of $Y$ given $X=x$ $\exp[Y|X=x]$:
+\item Examples:
+\begin{itemize}
+\item The average income of college graduates: 
+\begin{align*}
+\exp[\text{Income} \mid \text{Education = College Graduate}]
+\end{align*}
+\item The average sales price of a home with floor size $1200$ sq. ft: 
+\begin{align*}
+\exp[\text{Sales Price}\mid\text{Sqft} = 1200]
+\end{align*}
+\item The average lifespan for smokers: 
+\begin{align*}
+\exp[\text{Lifespan}\mid\text{Smoker}=1]
+\end{align*}\vspace{-4ex}
+\end{itemize}
+\item Knowing the conditional expectation is particularly useful for predictions when we observe the $X$ variable before we observe the $Y$ variable.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditioning and Independence} 
+\begin{itemize}
+\item  \emph{Conditional expectation:} 
+\begin{enumerate}
+\item Calculate the marginal probability $\Pr(X=x)$.
+\item Fix the $X$ variable at value $X=x$.
+\item Divide by the probability that $X=x$.
+\pause
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+& Discrete R.V & Continuous R.V \\
+$\exp[Y|X=x] = $ 
+    & $ \dfrac{\sum_y y\cdot p_{XY}(y,x)}{\sum_y p_{XY}(x,y)}$ 
+    & $ \dfrac{\int_Y y\cdot f_{XY}(x,y)\,dy}{\int_Y f_{XY}(x,y)\,dy}$\\
+\bottomrule
+\end{tabular}
+\end{center}
+where the marginal distribution of $X$ at value $x$ is:
+\begin{align*}
+\Pr(X=x) 
+    & = \sum_y p_{XY}(x,y) ~\text{for a discrete r.v.}\\
+f_X(x) 
+    & = \int_Y f_{XY}(x,y)\,dy ~\text{for a continuous r.v.}
+\end{align*}
+\end{enumerate}
+\item To compute the marginal distribution, $X$ is fixed at value $x$, while $Y$ is varied.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditioning and Independence} 
+\begin{itemize}
+\item Let $Y$ be hours of sleep and $X$ cups of coffee drunk per day. The joint pmf $p(x,y)$ is:
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$p(x,y)$   & $1$ cup & $2$ cups\\
+\midrule
+$4$ hours  & $0$     & $1/6$ \\
+$8$ hours  & $1/3$   & $1/3$ \\
+$12$ hours & $1/6$   & $0$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\item Compute the expected number of hours of sleep for someone who drinks $2$ cups of coffee. 
+\end{itemize}
+\begin{enumerate}
+\item Calculate the probability that one random person drinks $2$ cups of coffee:
+\begin{align*}
+\Pr(X=x) 
+    & = p_{XY}(x,y) 
+      = \frac{1}{6} + \frac{1}{3} 
+      = \frac{1}{2} 
+\end{align*}
+\item Fix $X=2$ and calculate $\sum_y y\cdot p_{XY}(2,y)$:
+\begin{align*}
+\sum_y y \cdot p_{XY}(2,y) 
+    = 4\cdot \frac{1}{6} + 8\cdot\frac{1}{3} + 12\cdot 0 
+    = \frac{10}{3}   
+\end{align*} 
+\item Calculate $\exp[Y|X=2]$ \vspace*{-2ex}
+\begin{align*}
+\exp[Y|X=2] 
+  = \frac{10}{3}\cdot\frac{2}{1} 
+  = \frac{20}{3} 
+\approx 6.67
+\end{align*} 
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditioning and Independence} 
+\begin{itemize}
+\item If $X$ does not help predict $Y$, we say that $X$ is \emph{independent} of $Y$ and denote $X\indep Y$.
+\item Examples of independent random variables:
+\begin{itemize}
+\item Knowing that one coin flip came up heads doesn't help predict the next coin flip: successive coin flips are independent.
+\item Knowing the numbers that came up in a game of roulette cannot help to devise a better game strategy.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditioning and Independence} 
+\begin{itemize}
+\item If $X$ and $Y$ are independent, $X\indep Y$, then:
+\begin{align*}
+\Pr(a\leq X\leq b, c\leq Y\leq d) 
+  & = \Pr(a\leq X\leq b) \cdot \Pr(c\leq Y\leq d) \quad \forall (a,b,c,d)\\
+\exp[g(Y)|X=x] 
+  & = \exp[g(Y)] \quad \forall x\in\Omega, g(\cdot):\Omega\to\Real
+\end{align*}
+\item Examples of variables that seem independent but may not be:
+\begin{itemize}
+\item weather and average house prices.
+\item academic achievements and average house prices.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Review} 
+\begin{itemize}
+\item \emph{Multiple Random Variables:}
+\begin{itemize}
+\item Describe multiple events whose outcomes are unknown.
+\item Have probabilities that the outcomes jointly take values in arbitrary subsets of the joint sample space.
+\end{itemize}
+\item \emph{Expectations:}
+\begin{itemize}
+\item As before describe the ``average'' value of a function of the joint random variables.
+\item The covariance function is a particular expectation we are interested in as it describes how two variables ``move with'' each other.
+\end{itemize}
+\item \emph{Conditioning and Independence:}
+\begin{itemize}
+\item The conditional expectation is the average value of $Y$ for individuals who have $X=x$.
+\item If knowing $X$ does not give us any information on the distribution of $Y$ we say that $X$ and $Y$ are independent.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

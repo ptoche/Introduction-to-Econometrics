@@ -1,0 +1,561 @@
+---
+title: "Traffic Deaths and Beer Taxes: Panel Data Analysis and Instrumental Variables"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: 
+      extra_dependencies: ["rotating", "booktabs", "caption", "xcolor", "framed", "verbatim"]
+  html_document:
+      highlight: haddock
+classoption: svgnames, handout, t
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(knitr)
+library(stargazer)
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+library(lmtest)
+library(sandwich)
+library(plm)
+library(GGally)
+options(digits=5)
+options(scipen=999) # disable scientific notation
+# R.options=list(width=40) # occasionally useful
+```
+
+```{=latex}
+\definecolor{shadecolor}{HTML}{eaf2f8}
+%\renewenvironment{shaded}{comment}
+```
+
+```{r format,  include=FALSE, eval=TRUE}
+# check the output format: returns "html" or "latex"
+rmd.type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+opts_chunk$set(dev = c("pdf", "png"))
+```
+
+# Traffic Deaths and Beer Taxes
+
+We use Christopher Ruhm's dataset for the period 1982-1988 to model the relationship between the beer tax and the traffic fatality rate, measured as the number of fatalities per $10,000$ inhabitants. 
+
+```{=latex}
+\begin{table}
+\caption{\textbf{Description of Variables}}
+\centering
+\begin{tabular*}{\textwidth}{lll}
+\toprule
+Name         & Type    & Description \\
+\midrule
+state        & factor  & State ID (USPS Code)\\
+year         & factor  & Year\\
+spirits      & numeric & Spirits Consumption\\
+unemp        & numeric & Unemployment Rate (Percent)\\
+income       & numeric & Per Capita Personal Income in 1987 dollars\\
+emppop       & numeric & Employment/Population Ratio\\
+beertax      & numeric & Tax on Case of Beer\\
+baptist      & numeric & Southern Baptist (Percent)\\
+mormon       & numeric & Mormon (Percentage)\\
+drinkage     & numeric & Minimum Legal Drinking Age\\
+dry          & numeric & Residing in Dry Counties (Percent)\\
+youngdrivers & numeric & Drivers Aged 15-24 (Percent)\\
+miles        & numeric & Average Mile per Driver\\
+breath       & factor  & Preliminary Breath Test Law\\
+jail         & factor  & Mandatory Jail Sentence\\
+service      & factor  & Mandatory Community Service\\
+fatal        & numeric & Number of Vehicle Fatalities\\
+nfatal       & numeric & Number of Night-Time Vehicle Fatalities\\
+sfatal       & numeric & Number of Single-Vehicle Fatalities\\
+fatal1517    & numeric & Number of Vehicle Fatalities Aged 15-17\\
+nfatal1517   & numeric & Number of Night-Time Vehicle Fatalities Aged 15-17\\
+fatal1820    & numeric & Number of Vehicle Fatalities Aged 18-20\\
+nfatal1820   & numeric & Number of Night-Time Vehicle Fatalities Aged 18-20\\
+fatal2124    & numeric & Number of Vehicle Fatalities Aged 21-24\\
+nfatal2124   & numeric & Number of Night-Time Vehicle Fatalities Aged 21-24\\
+afatal       & numeric & Number of Alcohol-Involved Vehicle Fatalities\\
+pop          & numeric & Population\\
+pop1517      & numeric & Population Aged 15-17\\
+pop1820      & numeric & Population Aged 18-20\\
+pop2124      & numeric & Population Aged 21-24\\
+milestot     & numeric & Total Vehicle Miles (Millions)\\
+unempus      & numeric & US Unemployment Rate\\
+emppopus     & numeric & US Employment/Population Ratio\\
+gsp          & numeric &  Gross State Product (GSP) Rate of Change\\
+\bottomrule
+\end{tabular*}
+\end{table}
+```
+
+Ruhm, C. J. (1996). "Alcohol Policies and Highway Vehicle Fatalities." *Journal of Health Economics*, 15, 435–454.
+
+Regression models may suffer from problems like omitted variables, measurement errors and simultaneous causality, causing the error term to be correlated with the regressor of interest, with the result that the least squares estimator is inconsistent. Adding omitted variables to the regression and using panel data entity and time fixed effects techniques can reduce estimation bias. However, if there is simultaneous causality (causality runs from $X$ to $Y$ and from $Y$ to $X$), instrumental variables (IV) regression may be more suitable to obtain consistent estimates. We explore these issues in this notebook. 
+
+### The State Traffic Fatality Data Set:
+The data are for the contiguous $48$ U.S. states (excluding Alaska and Hawaii), annually for 1982 through 1988. The traffic fatality rate is the number of traffic deaths in a given state in a given year per $10,000$ people living in that state in that year. Traffic fatality data were obtained from the *U.S. Department of Transportation Fatal Accident Reporting System*. The beer tax (the tax on a case of beer) was obtained from *Beer Institute's Brewers Almanac*. The beer tax is expressed in 1988 dollars. The drinking age variables are binary variables indicating whether the legal drinking age is 18, 19, or 20. The binary punishment variable describes the state's minimum sentencing requirements for an initial drunk driving conviction: $jail="yes"$ if the state requires jail time or community service and $jail="no"$ otherwise. Data on the total vehicle miles traveled annually by state were obtained from the *Department of Transportation*. Personal income data were obtained from the *U.S. Bureau of Economic Analysis*, and the unemployment rate was obtained from the *U.S. Bureau of Labor Statistics*. These data were graciously provided by Professor Christopher J. Ruhm of the Department of Economics at the University of North Carolina.
+
+The dataset consists of $336$ observations on $34$ variables. The variable $state$ is a factor variable with $48$ levels. The variable $year$ is a factor variable with $7$ levels identifying the year when the observation was made. This gives $7\times48=336$ observations in total. Since all variables are observed for all entities and over all time periods, the panel is *balanced*. 
+
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+# read data from xlsx
+library(readxl)
+df <- read_xlsx("Fatalities.xlsx", col_names=TRUE)
+```
+
+
+### Data preparation:
+Convert binary variables to factors:
+```{r,  include=TRUE, eval=TRUE}
+df$state <- factor(df$state)
+df$year <- factor(df$year)
+df$breath <- factor(df$breath, levels=c("yes", "no"), labels=c(TRUE, FALSE))
+df$jail <- factor(df$jail, levels=c("yes", "no"), labels=c(TRUE, FALSE))
+df$service <- factor(df$service, levels=c("yes", "no"), labels=c(TRUE, FALSE))
+```
+
+Define the fatality rate per $10,000$:
+```{r,  include=TRUE, eval=TRUE}
+df$fatality <- df$fatal / df$pop * 10000
+```
+
+
+# Question 1. 
+
+### Causality
+
+Why would an increase in the beer tax be expected to reduce traffic fatalities? Detail the potential causality channels.
+
+\begin{shaded}
+By raising the price of beer, beer taxes discourage drinking, thereby reducing drink-driving and fatalities.
+\end{shaded}
+
+
+# Question 2.
+
+### Pooled Linear Regression With No Controls
+
+Estimate a simple linear regression model of the effect of the beer tax on the fatality rate, with no controls. Report the estimated coefficient and standard error. Is the coefficient significant at the $0.05$ significance level? Does the coefficient have the expected sign? Comment.
+```{r,  include=TRUE, eval=TRUE}
+lm(fatality ~ beertax, data=df) %>% summary()
+```
+
+\begin{shaded}
+The estimated coefficient is $0.3646$ and standard error $0.0622$. The estimate is significant at the $0.05$ significance level. But the positive sign is not what was expected.
+\end{shaded}
+
+# Question 3. 
+
+### Scatterplot with Pooled Regression Lines
+
+Produce a scatterplot of the fatality rate and the beer tax. Add a linear regression line to the scatterplot. Does the regression line have the expected slope?
+```{r,  include=TRUE, eval=TRUE, message=FALSE}
+ggplot(df, aes(x=beertax, y=fatality)) +
+  geom_point() +
+  geom_smooth(method="lm") +
+  theme_minimal() +
+  labs(title="Beer Tax and Fatality Rate",
+       x="Beer Tax",
+       y="Fatality Rate",
+       subtitle="Scatterplot with Least Squares Regression Line")
+```
+
+\begin{shaded}
+The expected slope is negative, since we expect an increase in the beer tax to reduce alcohol consumption and alcohol-related fatalities. 
+\end{shaded}
+
+
+
+# Question 4. 
+
+### Linear Regression Model For Each Year
+
+To isolate potential shifts in the population regression parameters, estimate a simple linear regression model for each year in the dataset. What is the range of the estimated coefficients? Do the coefficients have the expected sign?
+
+\begin{shaded}
+One approach is to subset the data to the years of interest and estimate a linear model for each subset:
+\end{shaded}
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+df82 <- subset(df, year == "1982")
+df83 <- subset(df, year == "1983")
+df84 <- subset(df, year == "1984")
+df85 <- subset(df, year == "1985")
+df86 <- subset(df, year == "1986")
+df87 <- subset(df, year == "1987")
+df88 <- subset(df, year == "1988")
+```
+
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+m82 <- lm(fatality ~ beertax, data=df82)
+m83 <- lm(fatality ~ beertax, data=df83)
+m84 <- lm(fatality ~ beertax, data=df84)
+m85 <- lm(fatality ~ beertax, data=df85)
+m86 <- lm(fatality ~ beertax, data=df86)
+m87 <- lm(fatality ~ beertax, data=df87)
+m88 <- lm(fatality ~ beertax, data=df88)
+```
+
+```{r,  include=TRUE, eval=TRUE}
+tidy(m82)
+tidy(m83)
+tidy(m84)
+tidy(m85)
+tidy(m86)
+tidy(m87)
+tidy(m88)
+```
+
+\begin{shaded}
+More elegant and quite straightforward is to leverage the power of the $tidy()$ function from the $broom$ package and the $group$\_$by()$ function of the $dplyr$ package:
+\end{shaded}
+```{r,  include=TRUE, eval=TRUE}
+df %>%
+  group_by(year) %>%
+  do(tidy(lm(fatality ~ beertax, .)))
+```
+
+
+\begin{shaded}
+The coefficient estimates on $beertax$ range from $0.148$ in 1982 to $0.483$ in 1987. There is a positive correlation between beer tax and fatality rate. This is likely because of an omitted variable bias. Factors such as the age of the cars, the state of roads, road safety regulation, policing, laws, the local culture of drinking, traffic density, social problems, the level of local taxes, would be expected to affect fatality rate. Omitted variables cause least squares estimates to be biased. To the extent that unobserved variables are constant across time, panel data techniques can be used to reduce the bias. 
+\end{shaded}
+
+
+# Question 5. 
+
+### Scatterplot with Grouped Regression Lines
+
+Produce a scatterplot of the fatality rate and the beer tax with a regression line for each year in the sample. Do the regression lines have the expected slope?
+```{r,  include=TRUE, eval=TRUE, message=FALSE}
+ggplot(df, aes(x=beertax, y=fatality, group=year, color=year)) +
+  geom_point() +
+  geom_smooth(method="lm", se=FALSE) +
+  theme_minimal() +
+  labs(title="Beer Tax and Fatality Rate",
+       x="Beer Tax",
+       y="Fatality Rate",
+       subtitle="Scatterplot with Least Squares Regression Line")
+```
+
+
+
+\begin{shaded}
+The slopes are positive and therefore do not have the expected slope.
+\end{shaded}
+
+
+
+# Question 6. 
+
+### Threats to Internal Validity
+
+The five potential threats to the internal validity of a regression study are: omitted variables, misspecification of the functional form, imprecise measurement of the independent variables, sample selection, and simultaneous causality. Discuss how each of these potential issues may or may not be relevant to this study. Are there important omitted variables that affect traffic fatalities and that may be correlated with the other variables included in the regression? How would these issues affect least squares estimates? 
+
+\begin{shaded}
+- The most obvious candidates are the safety of roads, weather, and so forth. These variables are essentially constant over the sample period, so their effect is captured by the state fixed effects. 
+
+- Since most of the variables are binary variables, the largest functional form choice involves the Beer Tax variable.
+
+- A linear specification is used in the text. To check the reliability of the linear specification, it would be useful to consider a log specification and a quadratic specification. 
+
+- Measurement error does not appear to be a problem, because variables like traffic fatalities, taxes, driving age, laws, and unemployment are all accurately measured. 
+
+- Sample selection does not appear to be a problem, because data was collected from all contiguous states in the continental United States. 
+
+- Simultaneous causality is a potential problem. States with high fatality rates could set higher beer taxes in an effort to reduce alcohol consumption and serious traffic accidents. 
+\end{shaded}
+
+
+# Question 7.
+
+### Pooled Regression Model With Controls
+
+State laws and economic conditions are likely correlated with the prevalence of drunk-driving. Vehicle use depends on economic conditions: In recessions and/or when gas prices are high, vehicle owners will tend to drive less. States have different laws that target driving under the influence. Omitting these laws could produce omitted variable bias, even in regressions with state and time fixed effects. We therefore include control variables for driving laws and economic conditions.
+
+Estimate a least squares regression with pooled data, using the following control variables: "spirits consumption", "gross state product", "minimum drinking age", and binary variables for "preliminary breath test law", "mandatory jail sentence", "mandatory community service", "dry county" (a dry county is a county that prohibits the sale of any kind of alcoholic beverages). Comment about the sign and magnitude of the estimated coefficient on $beertax$. 
+
+\begin{shaded}
+The most straightforward approach is to use the built-in $lm()$ function.
+\end{shaded}
+```{r,  include=TRUE, eval=TRUE}
+lm(fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry,
+   data = df) %>% tidy()
+``` 
+
+\begin{shaded}
+An alternative is to set the $model="pooling"$ argument in the $plm$ function from the $plm$ library:
+\end{shaded}
+```{r,  include=TRUE, eval=TRUE}
+plm(fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry,
+    data=df, model="pooling") -> plm.pooled
+tidy(plm.pooled)
+``` 
+
+\begin{shaded}
+The coefficient on $beertax$ is positive, which is the opposite of the expected sign. This suggests that there may be omitted variables beyond those included in the list above and suggests that fixed effects panel data techniques could help circumvent the problem. 
+\end{shaded}
+
+
+
+# Question 8.
+
+### First Difference Regression Model (difference between 1988 and 1982) with No Controls
+
+If unobserved state-level characteristics are related to how the local beer tax is set, the least squares estimate will be biased and inconsistent. One way around this problem is to estimate a model in first differences, that is to consider the difference between the first and last years in the sample. If there are characteristics of a state that do not change over time, say between 1982 and 1988, any fixed effects cancel out after taking the difference. And we do not even need to know what these effects were, since they're gone!
+
+Side-by-side comparison of 1982 and 1988 cross-section regressions:
+```{r,  include=TRUE, eval=TRUE}
+stargazer(m82, m88,
+          se=list(sqrt(diag(vcovHC(m82, type="HC3"))), 
+                  sqrt(diag(vcovHC(m88, type="HC3")))),
+          title="Cross-Section Regressions for 1982 and 1988",
+          type="text",
+          column.labels=c("1982", "1988"),
+          df=FALSE,
+          digits=4)
+```
+
+Take a first difference across two time periods and estimate a regression using the differenced data:
+```{r,  include=TRUE, eval=TRUE}
+fatality.diff <- df88$fatality - df82$fatality
+beertax.diff <- df88$beertax - df82$beertax
+lm.diff <- lm(fatality.diff ~ beertax.diff)
+tidy(lm.diff)
+```
+
+Estimate robust standard errors:
+```{r,  include=TRUE, eval=TRUE}
+coeftest(lm.diff, vcov=vcovHC, type="HC3")
+```
+
+Comment about the sign and magnitude of the estimated coefficient on $beertax$. 
+
+\begin{shaded}
+Even without controls, the sign of the estimated coefficient on $beertax$ is now negative, as our initial conjecture suggests. The first-difference regression yields an estimate of about $-1.04$. With every dollar increase in the beer tax the fatality rate is reduced by $-1.04$ per one-thousand person.
+\end{shaded}
+
+
+# Question 9.
+
+### First Difference Regression Model (difference between 1988 and 1982) With Controls
+
+The $plm` library provides the convenient $model="fd"$ argument to the $plm()$ function to compute a first-difference (fd) regression. 
+
+\begin{shaded}
+Check that the $plm()$ function replicates the first-difference model estimated above:
+\end{shaded}
+```{r,  include=TRUE, eval=TRUE}
+plm(fatality ~ beertax, data=bind_rows(df82,df88), 
+    index=c("state", "year"), 
+    model="fd") %>% tidy()
+```
+
+\begin{shaded}
+Estimate the regression in first-differences using the set of control variables identified earlier. How does the presence of control variables change the estimated coefficient on $beertax$?
+\end{shaded}
+```{r,  include=TRUE, eval=TRUE}
+plm(fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry,
+    data=bind_rows(df82,df88), 
+    index=c("state", "year"), 
+    model="fd") -> plm.diff
+tidy(plm.diff)
+```
+
+\begin{shaded}
+Adding control variables to the first-difference regression reduces the size of the coefficient on $beertax$, from $-1.04$ to $-0.87$.
+\end{shaded}
+
+
+# Question 10.
+
+Review the key identifying assumptions for the first-difference estimator.
+
+### Identifying Assumptions of First Difference Model
+
+\begin{shaded}
+We review the key identifying assumptions for the first-difference estimator.
+
+1) By differencing out all the time-independent variation in the independent variables, we have also reduced the amount of variation that can be used for identification, which leads to greater standard errors. To reduce imprecision in the estimates, the best approach is to increase the sample size.
+
+2) Bias that arises from measurement error is irreducible and could be increased by the first-difference estimator if stochastic noise varies with time. Measurement error cause bias and leads to greater standard errors.
+
+3) Omitted variable bias is not eliminated by the first-difference estimator. 
+
+4) If differenced-errors are autocorrelated, the first-difference estimator can be imprecise. Autocorrelation can arise from the process of first-differencing.
+
+If the errors are autocorrelated, the conventional estimates of the standard errors are incorrect. Report clustered standard errors for the first-difference model.
+\end{shaded}
+
+```{r,  include=TRUE, eval=TRUE}
+coeftest(plm.diff, vcov=vcovHC, type="HC3")
+```
+
+
+Store the residuals and fitted values:
+```{r,  include=TRUE, eval=TRUE}
+data.frame(".rownames" = row.names(plm.diff$model), plm.diff$model) %>%
+  left_join(data.frame(".rownames" = names(resid(plm.diff)), 
+                       ".fitted" = fitted(plm.diff),
+                       ".resid" = resid(plm.diff)
+                       )) %>% na.omit() -> df.diff
+
+df.diff %>% 
+  ggplot(.,aes(x=.resid)) +
+  geom_histogram(fill="royalblue", col="white", binwidth=0.10) +
+  theme_minimal()
+```
+
+```{r,  include=TRUE, eval=TRUE}
+df.diff %>% 
+  ggplot(.,aes(x = .resid)) +
+  geom_histogram(fill="royalblue", col="white", binwidth=0.10, 
+                 aes(y=..count../sum(..count..))) +
+  labs(y="Frequency") +
+  theme_minimal()
+```
+
+Examine the residuals with a qq plot:
+```{r,  include=TRUE, eval=TRUE}
+# qqnorm(resid(plm.diff))  # base R qq-plot
+ggplot(aes(sample=.resid), data=df.diff) +
+  geom_qq() +
+  geom_qq_line(col="royalblue", size=1) +
+  labs(x="theoretical", y="sample") +
+  theme_minimal()
+```
+
+Display the results of the regression with conventional standard errors and with clustered standard errors.
+```{r,  include=TRUE, eval=TRUE}
+stargazer(plm.pooled, plm.diff, plm.diff,
+          se=list(NULL, NULL, sqrt(diag(vcovHC(plm.diff, type="HC3")))), 
+          title="Panel Regression with Fixed Effecs", type="text", 
+          column.labels=c("Pooled OLS",
+                          "FE Conventional Standard Errors", 
+                          "FE Clustered Standard Errors"), 
+          df=FALSE, 
+          digits=4)
+```
+
+
+# Question 11
+
+### Fixed Effect Regression
+
+The fixed effects model is one of the simplest and most robust specifications in panel data econometrics and often used as a benchmark against which more sophisticated techniques are compared. Estimate the fixed effects regression model:
+$$
+Y_{it} = \beta_{0} + \beta_{1}\,X_{it} + \beta_{2}\,Z_{i} + \beta_{3}\,S_{t} + u_{it}, 
+\quad
+i=1,2,\ldots,48; 
+\quad 
+t=1982,\ldots,1988
+$$
+
+where:
+
+  $Y_{it}$ is the fatality rate (per $10,000$ individuals) for state *i* at time *t*;
+  $X_{it}$ are the regressors;
+  $Z_{i}$ are state fixed effects;
+  $S_{t}$ are time fixed effect;
+  $u{it}$ is the error term. 
+
+Assume that $u_{it}$ are zero-mean normal random variables; large outliers are unlikely ($X_{it}$, $u_{it}$) have finite 4th moments); covariants are independent across states. Several state characteristics associated with traffic fatalities are used as control variables. Consider the following: "spirits consumption", "gross state product", "minimum drinking age", and binary variables for "preliminary breath test law", "mandatory jail sentence", "mandatory community service", "dry county" (as before); and "per capita personal income", and the "state unemployment rate".
+
+Which coefficients are significant at the $0.05$ significance level? Which are not? Is there evidence for entity fixed effects? Is there evidence for time fixed effects? How does the estimated coefficient on $beertax$ change by including time fixed effects?
+
+### Pooled Panel Regression No Fixed Effects:
+```{r,  include=TRUE, eval=TRUE}
+formula1 <- "fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry + income + unemp"
+plm(formula1,
+    data = df, 
+    index = c("state", "year"), 
+    model = "pooling") -> plm.pooled
+coeftest(plm.pooled, vcov=vcovHC, type="HC3")
+```
+
+
+### Entity Fixed Effects but NO Time Fixed Effects:
+```{r,  include=TRUE, eval=TRUE}
+plm(formula1,
+    data = df, 
+    index = c("state", "year"), 
+    model = "within",
+    effect = "individual"
+    ) -> plm.fe
+coeftest(plm.fe, vcov=vcovHC, type="HC3")
+```
+
+### Entity Fixed Effects and Time Fixed Effects
+```{r,  include=TRUE, eval=TRUE}
+plm(formula1, 
+    data = df, 
+    index = c("state", "year"), 
+    model = "within", 
+    effect = "twoways"
+    ) -> plm.fe.te
+coeftest(plm.fe.te, vcov=vcovHC, type="HC3")
+```
+
+Test if fixed effects, particularly fixed time effects, are significant:
+```{r,  include=TRUE, eval=TRUE}
+pFtest(fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry + income + unemp, data=df, effect="twoways")
+
+pFtest(fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry + income + unemp, data=df, effect="individual")
+
+pFtest(fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry + income + unemp, data=df, effect="time")
+```
+
+\begin{shaded}
+The evidence suggests time fixed effects are significant. The estimated coefficient on $beertax$ is similar with or without time fixed effects, $-0.463$ with both entity and time fixed effects and $-0.471$ with entity fixed effects but no time fixed effects. It is significant at the $0.10$ significance level, but not at the $0.05$ level.
+
+The coefficients on $spirits$, $gsp$, $dry$, $income$, and $unemp$  are significant at the $0.05$ level. The coefficients on $drinkage$, $breath$, and $service$ are not significant at the $0.05$ level. The coefficient on $jail$ is significant at the $0.05$ significance level when both entity and time fixed effects are included, but not with entity fixed effects only.
+\end{shaded}
+
+
+# Question 12
+
+### Fixed Effect Regression with Nonlinear Covariates
+
+Estimate the previous regression replacing the level of "per capita personal income" with its logarithm. Explore other non-linear functions. Is there any evidence of non-linear effects in the other regressors, e.g. $beertax$? Comment. 
+
+```{r,  include=TRUE, eval=TRUE, echo=TRUE}
+formula2 <- "fatality ~ beertax + spirits + gsp + drinkage + breath + jail + service + dry + log(income) + unemp"
+plm(formula2, 
+    data = df, 
+    index = c("state", "year"), 
+    model = "within", 
+    effect = "twoways"
+    ) -> plm.fe.te.2
+coeftest(plm.fe.te.2, vcov=vcovHC, type="HC3")
+```
+
+\begin{shaded}
+The estimated coefficient on $beertax$ is $0.065$.
+Estimated coefficients decrease except $jail$, which increased; $dry$ which was not significant before now has a p-value of $0.04645$ which is below the significance level of $0.05$. 
+\end{shaded}
+
+
+
+# Question 13
+
+### Multicollinearity in the First Difference Model
+
+There are many factors that influence traffic safety, and if they change over time and are correlated with the real beer tax, then their omission will produce omitted variable bias. If the fixed effect is correlated with the independent variables, the estimated coefficient will be biased.
+
+```{r,  include=TRUE, eval=TRUE}
+df.corr <- df[, c("beertax", "gsp", "drinkage", "dry", "spirits")]
+ggcorr(df.corr, method=c("everything", "pearson"),  label=TRUE)
+ggpairs(df.corr)
+```
+
+
+
+# Question 14
+Explain the benefits of fixed effect models over the first-difference model.
+
+\begin{shaded}
+The two-way fixed effect model eliminates bias from unobservables that change over time but are constant over entities and controls for factors that differ across entities but are constant over time.
+\end{shaded}
+
+
+# Question 15
+Several variables in the dataset capture policies intended to affect alcohol consumption. Because these laws can only affect motor vehicle fatalities via alcohol consumption (beer tax, minimum legal drinking age, dry county laws, preliminary breath test law, mandatory jail sentence, mandatory community service) they can used as instrumental variables (IVs) to estimate the effect of alcohol consumption ($spirits$). Estimate the effect of alcohol consumption on vehicle fatalities using alcohol laws as instrumental variables.

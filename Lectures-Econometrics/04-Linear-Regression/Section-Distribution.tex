@@ -1,0 +1,44 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sampling Distribution}
+\begin{itemize}
+\item \emph{Sampling Distribution of $\mean{Y}$:}\\
+For large $n$, the central limit theorem states that this distribution is approximately normal, with $\mean{Y} \sim \N(\mu_{Y},\sigma_{Y}^{2}/n)$. That is, $\exp[\mean{Y}]=\mu_{Y}$
+\item \emph{Sampling Distribution of $\hat{\beta}_{0}$ and $\hat{\beta}_{1}$:} 
+\begin{align*}
+\exp[\hat{\beta}_{0}] = \beta_{0}, \qquad 
+\exp[\hat{\beta}_{1}] = \beta_{1}
+\end{align*}
+For large $n$, the bivariate distribution of $(\hat{\beta}_{0}, \hat{\beta}_{1})$ is approximately normal, 
+\begin{align*}
+\hat{\beta}_{0} \sim \N(\beta_{0}, \sigma_{\hat{\beta}_{0}}^{2}), \qquad
+\hat{\beta}_{1} \sim \N(\beta_{1}, \sigma_{\hat{\beta}_{1}}^{2})
+\end{align*}
+where (formula valid for both homoskedastic and heteroskedastic errors):
+%formulas copied from textbook:
+\begin{align*}
+\sigma_{\hat{\beta}_{1}}^{2} 
+  & = \frac{1}{n} \frac{\var[(X_{i}-\mu_{X})u_{i}]}{(\var[X_{i}])^{2}}\\
+\sigma_{\hat{\beta}_{0}}^{2} 
+  & = \frac{1}{n} \frac{\var[H_{i}u_{i}]}{(\exp[H_{i}^{2}])^{2}}, \\
+H_{i} 
+  & = 1 - \frac{\mu_{X}}{\exp[X_{i}^{2}]}\, X_{i}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance of $\hat{\beta}_{1}$ and Variance of $X$}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-04-fig-05-Zoom}
+\caption{The colored dots represent a set of $X_{i}$s with a small variance. The black dots represent a set of $X_{i}$s with a large variance. The regression line can be estimated more accurately with the black dots than with the colored dots.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

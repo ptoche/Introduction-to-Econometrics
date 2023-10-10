@@ -1,0 +1,109 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Probability: Card Games}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[allowframebreaks]%<1-| handout:0>[label=fancyframe]
+\frametitle{Probability of a Hand}
+\begin{emphbox}{}
+Five cards are randomly selected from a standard deck. What is the probability of drawing the Four kings and the queen of hearts (in any order)? 
+\end{emphbox}
+\begin{itemize}
+\item<2-> A standard problem of drawing without replacement! Which of these solutions is correct?
+\item<3|only@3>\emph{Solution~1}
+\dash The probability of drawing the $4$ kings is:
+\begin{align*}
+\frac{4}{52} \times \frac{3}{51} \times \frac{2}{50} \times \frac{1}{49} 
+\end{align*}
+\dash There is only one queen of hearts and $48$ cards left after the kings have been drawn. The probability of drawing $4$ kings and the queen of hearts is therefore:
+\begin{align*}
+\frac{4}{52} \times \frac{3}{51} \times \frac{2}{50} \times \frac{1}{49} \times \frac{1}{48} 
+= \frac{24}{311875200}
+\approx 0.000000077
+\end{align*}
+
+\item<4|only@4>\emph{Solution~2}
+\dash There are $\dbinom{52}{5}$ ways of selecting $5$ cards from the deck.  
+\dash There are exactly $\dbinom{4}{4}$ ways of selecting the $4$ kings. 
+\dash Of the $48$ remaining cards, there are $\dbinom{48}{1}$ ways to select the fifth card. 
+\dash The probability is therefore:
+\begin{align*}
+\dfrac{\binom{4}{4}\binom{48}{1}}{\binom{52}{5}} 
+= \frac{1}{54145} 
+\approx  0.000018
+\end{align*}
+
+\item<5|only@5>\emph{Solution~3}
+\dash The probability of drawing $4$ kings and the queen of hearts is equal to the probability of selecting $5$ cards:
+\begin{align*}
+\frac{5}{52} \times \frac{4}{51} \times \frac{3}{50} \times \frac{2}{49} \times \frac{1}{48} 
+= \frac{1}{2598960}
+\approx 0.00000038
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\againframe<0| handout:1>{fancyframe}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Probability of a Hand}
+\begin{itemize}
+\item Recall that the number of order-free combinations is:
+\begin{align*}
+\binom{n}{k} = \comb{n}{k} = \frac{n!}{k!(n-k)!}
+\end{align*}
+\item Solution 1 gives the probability of drawing four kings first, in any order, and the queen of hearts in one given position. As there are $5$ positions the queen of hearts could be in, Solution 1 is too small by a factor of $5$. 
+\item Solution 2 gives the probability of drawing four kings and any other card (not specifically the queen of hearts). Solution 2 is too large by a factor of $48$.
+\item Solution 3 gives the correct probability.
+There are $\binom{52}{5}$ ways to choose $5$ cards from the deck, and only one of those ways is the event of interest. The probability is therefore:
+\begin{align*}
+\frac{1}{\dbinom{52}{5}} 
+= \frac{5! \times 47!}{52!}
+\approx 0.00000038
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Probability of a Hand}
+\begin{itemize}
+\item Equivalently, the correct answer can be broken down as follows: 
+\begin{align*}
+\frac{\binom{4}{4} \binom{1}{1}}{\binom{52}{5}}  = \frac{1}{\binom{52}{5}} 
+\end{align*}
+The numerator is the number of ways to choose $4$ kings from the $4$ available kings, $\binom{4}{4}$, multiplied by the number of ways to choose $1$ queen of heart from the only available queen of heart $\binom{1}{1}$. Thus, there is only $1$ such $5$-card hand.
+\item The probability of drawing the four kings and the queen of hearts is therefore equal to the probability of drawing any \textit{specific} hand, e.g. ace of heart, three of diamonds, seven of clubs, nine of diamonds, jack of spades. 
+\item The probability of drawing the four kings and any queen (whether hearts, diamonds, spades or clubs) is $4$ times as large (replace $\binom{1}{1}$ by $\binom{4}{1}$ in the formula above). 
+\item The answers are related as follows:
+\begin{align*}
+\tfrac{1}{2598960}
+& = ~ 5 ~ \times \tfrac{24}{311875200} \\
+& = \tfrac{1}{48}\times \tfrac{1}{54145} 
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% install.packages("arrangements")
+% library("arrangements")
+% ncombinations(52, 5)
+% ## 2598960
+% npermutations(52, 5)
+% ## 311875200 
+
+
+\end{document}

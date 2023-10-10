@@ -1,0 +1,246 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item \emph{Policy question:} 
+\newlineqquad
+What is the effect on test scores of reducing class size by one student per class?
+\item Variables:
+\begin{itemize}
+\item fifth grade test scores: 
+\newlinequad
+Stanford-9 achievement test, combined math and reading, district average.
+\item Student-teacher ratio: 
+\newlinequad
+No. of students in the district divided by No. of full-time equivalent teachers.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item \emph{Statistics question:} 
+\newlineqquad Do districts with low $\vn{STR}$s have higher test scores?
+\begin{enumerate}  
+\item \emph{Estimate Relation:} 
+\newlinequad
+Compare average test scores in districts with low $\vn{STR}$s to districts with high $\vn{STR}$s.
+\item \emph{Test Hypothesis:} 
+\newlinequad
+The null hypothesis that the mean test scores in the two types of districts are the same versus the alternative hypothesis that they differ.
+\item \emph{Confidence Interval:} 
+\newlinequad
+Estimate an interval for the difference in the mean test scores, high-$\vn{STR}$ vs. low-$\vn{STR}$.
+\end{enumerate}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Case Study: California Test Scores}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-04-fig-02-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-01-tbl-01-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\emph{Student-Teacher Ratios and Fifth-Grade Test Scores for 420 K-8 California Districts, 1999:}
+\begin{center}
+\newcolumntype{C}{>{$}c<{$}}
+\begin{tabular*}{\linewidth}{lCCCCCCCCC} 
+\multicolumn{10}{l}{\textbf{Distribution}}\\
+\toprule
+& & \multicolumn{7}{c}{\textbf{Percentile}} \\
+\cmidrule{4-10} 
+& \text{Average} & \text{\makecell[c]{Standard \\ Deviation}} & 
+\makecell[c]{\\ 10\%} & 
+\makecell[c]{\\ 25\%} & 
+\makecell[c]{\\ 40\%} & 
+\makecell[c]{\text{median}\\ 50\%} & 
+\makecell[c]{\\ 60\%} & 
+\makecell[c]{\\ 75\%} & 
+\makecell[c]{\\ 90\%} \\
+\cmidrule{2-10}
+  ST Ratio &  19.6 &  1.9 &  17.3 &  18.6 &  19.3 &  19.7 &  20.1 &  20.9 & 21.9\\
+Test Score & 654.2 & 19.1 & 630.4 & 640.0 & 649.1 & 654.5 & 659.4 & 666.7 & 679.1\\ 
+\bottomrule
+\end{tabular*}
+\end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item \emph{Preliminary data analysis:} 
+\medskip\newlineqquad
+Compare districts with low $\vn{STR}$ ($< 20$) and high $\vn{STR}$ ($\geq 20$):
+\begin{center}\bigskip
+\begin{tabular*}{0.7\linewidth}{lccc} 
+\toprule
+Class Size &  Average Score & Standard Deviation & Sample Size \\
+           &      $\mean{Y}$ &            $s_{Y}$ &  $n$ \\
+\midrule
+  $<20$    &          657.4 &               19.4 & 238 \\
+$\geq 20$  &          650.0 &               17.9 & 182 \\ 
+ \quad all &          654.2 &               19.1 & 420 \\
+\bottomrule
+\end{tabular*}
+\end{center}\bigskip
+\item \emph{Steps of Analysis:}
+\begin{enumerate}
+\item Estimate $\Delta =$ difference between group means.
+\item Test the null hypothesis H$_{0}\colon\Delta = 0$.
+\item Construct a confidence interval for $\Delta$.
+\end{enumerate}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item[\emph{1.}] \emph{Estimate:} 
+\begin{align*}
+\mean{Y}_{\subtextsc{low}} - \mean{Y}_{\subtextsc{high}} 
+= \frac{1}{n_{\subtextsc{low}}} \sum_{i=1}^{n_{\subtextsc{low}}} Y_{i}
+- \frac{1}{n_{\subtextsc{high}}} \sum_{i=1}^{n_{\subtextsc{high}}} Y_{i}
+\end{align*}
+\item Is there a large difference? Should parents and school committees care?
+\item Standard deviation across districts = $19.1$
+\item Difference between $60$th and $75$th percentiles of test score distribution: 
+\begin{align*}
+667.6 - 659.4 = 8.2
+\end{align*}
+\item \emph{This is a big enough difference to matter for school reform discussions.}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item[\emph{2.}] \emph{Test Hypothesis:} 
+\smallskip\newlineqquad Apply a Difference-in-Means test
+\begin{align*}
+\mathbf{H_{0}:} \qquad \mu_{Y,\subtextsc{low}}-\mu_{Y,\subtextsc{high}} = 0
+\end{align*}
+\item The $t$-statistic:
+\begin{align*}
+t = \dfrac{\mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}}}{\sqrt{\dfrac{s^2_{\subtextsc{low}}}{n_{\subtextsc{low}}}+\dfrac{s^2_{\subtextsc{high}}}{n_{\subtextsc{high}}}}}
+\end{align*}
+where $s^2$ stands for the sample standard devation,
+\begin{align*}
+s^2 = \frac{1}{n-1} \sum_{i=1}^{n} \left(\mean{Y}_{i}-\mean{Y}\right)^2
+\end{align*}
+and $n$ stands for the sample size, for each group \textsc{high}\,/\,\textsc{low}.
+\item The term in the denominator is the standard error.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item[\emph{2.}] Difference-in-Means test  
+\begin{align*}
+t = \frac{\mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}}}{\sqrt{\dfrac{s^2_{\subtextsc{low}}}{n_{\subtextsc{low}}}+\dfrac{s^2_{\subtextsc{high}}}{n_{\subtextsc{high}}}}}
+& = 
+\frac{657.4-650.0}{\sqrt{\dfrac{(19.4)^2}{238}+\dfrac{(17.9)^2}{182}}} \\
+& = \frac{7.4}{1.83} \\
+& = 4.05
+\end{align*}
+\item $|t| > 1.96$, so we reject the null hypothesis at the $0.05$ significance level (two-sided test). 
+\item \emph{We reject the hypothesis that the two means are equal.}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item[\emph{3.}] \emph{Confidence Interval:} 
+\item A $95\%$ \emph{two-sided} confidence interval for the difference between the means:
+\begin{alignat*}{3}
+& \mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}} 
+  \qquad&\pm\qquad&
+    1.96 \qquad&\times\qquad& \SE(\mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}})\\
+= \qquad& 7.4 
+  \qquad&\pm\qquad& 
+    1.96 \qquad&\times\qquad& 1.83 \\
+= \qquad& (3.8,11.0) \qquad&
+\end{alignat*}
+\item \emph{Interpretation:}
+\begin{itemize}
+\item $\Delta = \mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}}$ 
+\item The $95\%$ confidence interval for $\Delta$ does not include $0$.
+\item The hypothesis that $\Delta=0$ is rejected at significance level $0.05$. 
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Case Study: California Test Scores}
+\begin{itemize}
+\item[\emph{3.}] \emph{Confidence Interval:} 
+\item A $95\%$ \emph{one-sided} confidence interval for the difference between the means:
+% 7.4 - 1.64 * 1.83
+\begin{alignat*}{3}
+& \mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}} 
+  \qquad&-\qquad&
+    1.64 \qquad&\times\qquad& \SE(\mean{Y}_{\subtextsc{low}}-\mean{Y}_{\subtextsc{high}})\\
+= \qquad& 7.4 
+  \qquad&-\qquad& 
+    1.64 \qquad&\times\qquad& 1.83 \\
+= \qquad& (4.4, \infty) \qquad& 
+\end{alignat*}
+\item \emph{Interpretation:}
+\begin{itemize}
+\item A greater student-teacher ratio cannot reduce students' test scores.
+\item One-sided tests are more powerful.
+\item The critical value for a one-sided $95\%$ confidence interval is $1.64$ instead of $1.96$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

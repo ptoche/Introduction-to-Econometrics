@@ -1,0 +1,154 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Sample Mean} 
+\begin{itemize}
+\item \emph{Example:} In an election the Green candidate is running against the Red candidate. We randomly selection $n=100$ voters from the population and ask them who they plan on voting for. Answers are recorded as 
+\begin{align*}
+X_i = 
+  \begin{cases}
+  1 & \text{if they plan to vote Green} \\
+  0 & \text{if they plan to vote Red}
+  \end{cases}
+\end{align*} 
+\item The sample mean $\mean{X}_n$ and sample variance $s_n^2$ are:
+\begin{align*}
+\mean{X}_n 
+    & = \frac{1}{n}\sum_{i=1}^n X_i = 0.55\\
+s_n^2 
+    & = \frac{1}{n}\sum_{i=1}^n \left(X_i-\mean{X}_n\right)^2 
+      = 0.25
+\end{align*}
+\emph{Questions:}
+\begin{itemize}
+\item Will the Green candidate win the election?
+\item Would another poll confirm these results?
+\item How can we measure the uncertainty the sample mean?
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Sample Mean: As a Random Variable} 
+\begin{itemize}
+\item \emph{Random Sampling:} $\mean{X}_n$ and $s_n^2$ are random variables.
+\item Each time a random sample is drawn, different members of the population are drawn.
+\item We want to use this random sample to learn about the population.
+\begin{itemize}
+\item The sample $\{X_i\}_{i=1}^n$ is made up of $n$ different random variables.
+\item Each $X_i$ is sampled from the same population distribution, so that 
+\begin{align*}
+\exp[X_i] & = \mu_X\\
+\var(X_i) & = \sigma_X^2
+\end{align*}
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Sample Mean: As a Random Variable} 
+\begin{itemize}
+\item \emph{Random sampling:} Learn about the population from one sample. 
+\begin{table}
+\centering
+\begin{tabular}{ccc}
+\toprule
+& Population & Sample  \\
+\midrule
+Measure of location   & $\exp[X]$  & $\mean{X}_n$ \\
+Measure of dispersion & $\var(X)$  & $s_n^2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{itemize}
+\begin{enumerate}
+\item \emph{Expectation:} of $\mean{X}_n$ is given $\exp[\mean{X}_n] = \exp[X]$.
+\begin{align*}
+\exp[\mean{X}_n] 
+    = \exp\left[\frac{1}{n}\sum_{i=1}^n X_i\right] 
+    = \frac{1}{n}\sum_{i=1}^n \exp[X_i] 
+    = \exp[X]
+\end{align*} 
+\item \emph{Variance:} $\mean{X}_n$ is given $\var(\mean{X}_n) = \sigma_X^2/n$.
+\begin{align*}
+\var(\mean{X}_n) 
+    = \var\left(\frac{1}{n}\sum_{i=1}^n X_i\right) 
+    = \frac{1}{n^2}\sum_{i=1}^n \var(X) 
+    = \sigma_X^2/n
+\end{align*} 
+\end{enumerate}
+\begin{itemize}
+\item Note that $\var(\mean{X}_n)\to 0$ as $n\to\infty$. 
+This is the basis of the \emph{Law of Large Numbers} which states that $\mean{X}_n \to \mu_X$ as $n\to\infty$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Sample Mean: Central Limit Theorem} 
+\begin{itemize}
+\item \emph{Distribution of $\mean{X}_n$:}
+\item Needed to make inferences about $\exp[X]$ and compute probabilities like
+\begin{align*}
+\Pr\left(|\mean{X}_n - \exp[X]| > 0.05\right)
+\end{align*} 
+\item \emph{Central Limit Theorem:} For $n$ sufficiently large,
+\begin{align*}\mean{X}_n \sim N(\mu_x, \sigma_X^2/n)
+\end{align*}
+\item How large is ``sufficiently large''? 
+\item In practice, the central limit theorem provides a good approximation for the distribution of $\mean{X}_n$ when $n > 30$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Sample Mean: Central Limit Theorem} 
+\begin{itemize}
+\item For $n$ sufficiently large, 
+\begin{align*}
+\frac{\mean{X}_n - \exp[\mean{X}_n]}{\sqrt{\var(\mean{X}_n)}} 
+    = \frac{\mean{X}_n -\mu_X}{\sigma_X/\sqrt{n}} 
+      \sim N(0,1)
+\end{align*} 
+\item For $n$ sufficiently large, we can approximate the population standard deviation $\sigma_X$ with its sample estimate $s_n$:
+\begin{align*}
+\frac{\mean{X}_n - \mu_X}{\sigma_X/\sqrt{n}}
+    \approx  
+    \frac{\mean{X}_n - \mu_X}{s_n/\sqrt{n}}
+    \sim N(0,1)  
+\end{align*} 
+\item The distribution of the sample mean $\mean{X}_n$ can be used for inference about $\mu_X$. We can build confidence intervals and conduct hypothesis tests.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Sample Mean: Central Limit Theorem} 
+\begin{itemize}
+\item Consider the polling example with $n=100$
+\item What is the probability that the sample has mean $\mean{X}_n = 0.55$ and variance $s_n^2 = 0.25$, if the true proportion of Green voters in the population is $\exp[X]=0.5$?
+\item By the central limit theorem:
+\begin{align*}
+\Pr(\mean{X}_n \geq 0.55) 
+    & = \Pr\left(\frac{\mean{X}_n-\mu_X}{s_n/\sqrt{n}} \geq \frac{0.55-\mu_X}{s_n/\sqrt{n}}\right)\\
+    & = \Pr\left(\frac{\mean{X}_n -\mu_X}{s_n/\sqrt{n}} \geq \frac{0.55 - 0.5}{0.5/10} \right)\\
+    & = \Pr(Z \geq 1)\\ 
+    & \approx 0.159
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

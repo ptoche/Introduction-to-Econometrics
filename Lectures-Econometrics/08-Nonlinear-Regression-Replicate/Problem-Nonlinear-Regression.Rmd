@@ -1,0 +1,117 @@
+---
+title: 'Stock and Watson Chapter 8: Replication'
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+  slidy_presentation:
+    highlight: github
+  beamer_presentation:
+    latex_engine: xelatex
+    slide_level: 2
+    includes:
+      in_header: setup.tex
+    keep_tex: yes
+  ioslides_presentation:
+    highlight: github
+subtitle: Econ 440 - Introduction to Econometrics
+fontsize: 10pt
+classoption: t, svgnames, handout
+---
+
+
+```{r setup,  include=FALSE, eval=TRUE}
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  paste0("\n \\", "scriptsize","\n\n", x, "\n\n \\normalsize")
+})
+knitr::opts_chunk$set(echo=FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+## Replication
+Replicate regression results from James H. Stock and Mark W. Watson, Introduction to econometrics, Pearson, 4th Edition, Chapter 8. The data used is available in the Stata format $caschool.dta$ and in the Excel format $caschool.xlsx$.
+
+## Load dataset 
+Let's load the Stata dataset using the `haven` library.
+```{r data, include=TRUE, eval=TRUE, echo=TRUE}
+library(haven)
+df <- read_dta("caschool.dta")
+head(df)
+```
+You can also use the Excel file of course
+```{r, include=TRUE, eval=FALSE, echo=TRUE}
+library(readxl)
+df <- read_xlsx("caschool.xlsx", trim_ws=TRUE)
+```
+
+## Data cleaning
+The variable names are inconsistent with the textbook and other versions of the dataset used in other exercises, so let's rename them:
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+names(df)[names(df) == "avginc"] <- "income"
+names(df)[names(df) == "testscr"] <- "testscore"
+```
+
+## Linear Regression of Test Score on District Income
+### The simple linear regression.
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+m1 <- lm(testscore ~ income, data=df)
+summary(m1)
+```
+
+## Tidy up with broom
+Once we have estimated a model, it is convenient to use the `broom` library to tidy things up:
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+library(broom)
+tidy(m1)
+```
+
+## Nonlinear Regression of Test Score on District Income
+### The quadratic regression.
+To run a nonlinear regression on $var$, we can use the $I()$ wrapper:
+```{r, include=TRUE, eval=FALSE, echo=TRUE}
+lm(testscore ~ income + I(income^2), data=df)
+```
+or use the more versatile $poly(var)$:
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+m2 <- lm(testscore ~ poly(income,2,raw=TRUE), data=df)
+tidy(m2)
+```
+but note that we set the `raw=TRUE` option: ``if true, use raw and not orthogonal polynomials.''
+
+## Nonlinear Regression of Test Score on District Income
+### The cubic regression.
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+m3 <- lm(testscore ~ poly(income,3,raw=TRUE), data=df)
+tidy(m3)
+```
+
+## Linear-Log Regression
+### The linear-log regression.
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+m4 <- lm(testscore ~ log(income), data=df)
+tidy(m4)
+```
+
+## Log-Linear Regression
+### The linear-log regression.
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+m5 <- lm(log(testscore) ~ income, data=df)
+tidy(m5)
+```
+
+## Log-Log Regression
+### The log-log regression.
+```{r, include=TRUE, eval=TRUE, echo=TRUE}
+m6 <- lm(log(testscore) ~ log(income), data=df)
+tidy(m6)
+```

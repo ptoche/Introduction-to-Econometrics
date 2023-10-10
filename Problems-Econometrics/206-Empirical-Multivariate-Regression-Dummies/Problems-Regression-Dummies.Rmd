@@ -1,0 +1,118 @@
+---
+title: "The Dummy Variable Trap with R"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+```{r data, include=TRUE, eval=TRUE, echo=FALSE}
+library(readxl)
+df <- read_xlsx("caschool.xlsx", trim_ws=TRUE)
+# Rename variables to match textbook notation
+names(df)[names(df) == "testscr"] <- "TestScore"
+names(df)[names(df) == "str"] <- "STR"
+```
+### Create regions:
+To illustrate regression with binary variables, let's group California counties by geographical area, based on Census data. To keep the example simple, let's **arbitrarily** create 4 regions named: North, South, East, West, based on a cursory look at a map.
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+# https://census.ca.gov/regions/
+
+# Superior California: 
+Superior.California <- c("Butte", "Colusa", "El Dorado", "Glenn", "Lassen", "Modoc", "Nevada", "Placer", "Plumas", "Sacramento", "Shasta", "Sierra", "Siskiyou", "Sutter", "Tehama", "Yolo", "Yuba")
+
+# North Coast:
+North.Coast <- c("Del Norte", "Humboldt", "Lake", "Mendocino", "Napa", "Sonoma", "Trinity")
+
+# San Francisco Bay area
+San.Francisco.Bay.Area <- c("Alameda", "Contra Costa", "Marin", "San Francisco", "San Mateo", "Santa Clara", "Solano")
+
+# Northern San Joaquin Valley
+Northern.San.Joaquin.Valley <- c("Alpine", "Amador", "Calaveras", "Madera", "Mariposa", "Merced", "Mono", "San Joaquin", "Stanislaus", "Tuolumne")
+
+# Central Coast
+Central.Coast <- c("Monterey", "San Benito", "San Luis Obispo", "Santa Barbara", "Santa Cruz", "Ventura")
+
+# Southern San Joaquin Valley
+Southern.San.Joaquin.Valley <- c("Fresno", "Inyo", "Kern", "Kings", "Tulare")
+
+# Inland Empire
+Inland.Empire <- c("Riverside", "San Bernardino")
+ 
+# Los Angeles County
+Los.Angeles.County <- c("Los Angeles")
+
+# Orange County
+Orange.County <- c("Orange")
+
+# San Diego - Imperial
+San.Diego.Imperial <- c("Imperial", "San Diego")
+
+North.Counties <- c(Superior.California, North.Coast, San.Francisco.Bay.Area, Northern.San.Joaquin.Valley)
+West.Counties <- Central.Coast
+East.Counties <- Southern.San.Joaquin.Valley
+South.Counties <- c(Inland.Empire, Los.Angeles.County, Orange.County, San.Diego.Imperial)
+```
+
+For instance, here is what the list $North.Counties$ looks like. 
+```{r,  include=TRUE, eval=TRUE}
+North.Counties
+```
+To view the complete code, see the ``Rmd`` file.
+
+### Create dummy variables for each region:
+```{r,  include=TRUE, eval=TRUE}
+df$North <- df$county %in% North.Counties
+df$East <- df$county %in% East.Counties
+df$South <- df$county %in% South.Counties
+df$West <- df$county %in% West.Counties
+head(df[c("North", "East", "South", "West")], 10)
+```
+
+### Check consistency of the categories:
+```{r,  include=TRUE, eval=TRUE}
+unique(df$North + df$East + df$South + df$West) == 1
+```
+
+### Create a categorical variable for all 4 regions:
+```{r,  include=TRUE, eval=TRUE}
+df$Region <- NA
+dummies <- c("North", "East", "South", "West")
+for (col in dummies)
+  df$Region[which(df[,col] == TRUE)] <- col
+head(df$Region, 10)
+```
+
+# Regression With Categorical Variables
+If you estimate a linear regression with all categories and an intercept, R will automatically drop one of the categories:
+```{r,  include=TRUE, eval=TRUE}
+m1 <- lm(TestScore ~ STR + Region, data=df)
+summary(m1)
+```
+The categorical variable $Region$ stores the categories as strings (aka characters). When running the regression, R temporarily creates factor variables using alphabetical ordering, thus creating categories for $RegionNorth$, $RegionSouth$ and $RegionWest$, while omitting the first category in the list, $RegionEast$. 
+
+To use, say, $North$, as the reference region, create factors in the desired order, and run the regression again:
+```{r,  include=TRUE, eval=TRUE}
+df$Region2 <- factor(df$Region, levels=c("North", "East", "South", "West"))
+m2 <- lm(TestScore ~ STR + Region2, data=df)
+summary(m2)
+```
+
+If the categories are already stored as factors but do not appear in the desired order, you can reset the factor levels:
+```{r,  include=TRUE, eval=TRUE}
+df$Region3 <- relevel(df$Region2, ref="South")
+m3 <- lm(TestScore ~ STR + Region3, data=df)
+summary(m3)
+```
+
+
+

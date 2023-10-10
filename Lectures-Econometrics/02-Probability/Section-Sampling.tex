@@ -1,0 +1,65 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Random Sampling}
+\begin{itemize}
+\item \emph{Simple Random Sampling:} A fixed number of objects are selected from a population, with each member of the population equally likely to be included in the sample.
+\item Let $n$ observations in a sample of size $n$ be denoted $Y_1,\ldots,Y_n$. Because these random variables are independently drawn from the same population using the same selection procedure, they are said to be \textit{independently and identically distributed (i.i.d)}.
+\item \emph{Sampling Distribution:} The \textit{sample mean} of the $n$ observations is:
+\begin{align*}
+\mean{Y} = \frac{1}{n} \sum_{i=1}^n Y_i
+\end{align*}
+\item \emph{Law of Large Numbers:} If $Y_1,\ldots,Y_n$ are independently and identically distributed from a common population with mean $\mu_Y$, and if large outliers are unlikely (the distribution has finite variance), then the sample mean converges in probability to the population mean,
+\begin{align*}
+\mean{Y} \xrightarrow{\quad p \quad} \mu_Y 
+\end{align*}
+\item If $\mean{Y}$ converges ``in probability'' to $\mu_Y$, then $\mean{Y}$ is said to be ``consistent'' for $\mu_Y$. It means that as the sample size $n$ increases, the sample mean $\mean{Y}$ lies inside any arbitrary interval around $\mu_Y$ with probability $1$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Random Sampling}
+\begin{itemize}
+\item Because the sample is drawn at random, the sample mean $\mean{Y}$ is a random variable. Its distribution is called the ``sampling distribution'' and satisfies:
+\begin{align*}
+\exp[\mean{Y}] 
+  & = \frac{1}{n} \sum_{i=1}^n \exp[Y_i] 
+    = \mu_Y \\
+\var(\mean{Y}) 
+  & = \var\left(\frac{1}{n}\sum_{i=1}^n Y_i\right)\\
+  & = \frac{1}{n^2}\sum_{i=1}^n\var(Y_i) + 		
+      \frac{1}{n^2}\sum_{i=1}^n\sum_{j=1,j\ne{i}}^n\cov(Y_i, Y_j)\\
+  & = \frac{1}{n^2} \, n\var(Y)\\
+  & = \frac{\sigma^2_Y}{n}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sampling Distribution}
+\begin{itemize}
+\item \emph{Sampling from a Normal Distribution:} 
+\begin{align*}
+Y_1, \ldots, Y_n \sim iid ~ N\left(\mu_Y, \sigma^2_Y\right)
+\implies 
+\mean{Y} \sim \left(\mu_Y,\dfrac{\sigma^2_Y}{n}\right)
+\end{align*}
+\item \emph{Sampling from Any Distribution:}
+\begin{align*}
+Y_1, \ldots, Y_n \sim iid ~ f\left(\mu_Y, \sigma^2_Y\right)
+\implies 
+\mean{Y} \sim \left(\mu_Y,\dfrac{\sigma^2_Y}{n}\right) \quad\text{as}~n\to\infty
+\end{align*}
+\item This result is known as the ``Central Limit Theorem.''
+\item Simulations are a great way to visualize the theorem.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

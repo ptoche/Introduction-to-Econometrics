@@ -1,0 +1,71 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Regression when $X$ is a Binary Variable}
+\begin{itemize}
+\item \emph{Binary Variable:}\\
+A discrete variable that can take on only two possible values, e.g. $0$ and $1$. 
+\item Examples: Male Vs Female. Boom Vs Recession. Employed Vs Unemployed. Democrat Vs Republican. 
+\item Also called an indicator variable and/or a dummy variable.
+\item \emph{Categorical Variable:}\\
+A generization to several states. Example: African, American, Asian, European. Blood types: A, B, AB, O. Vaccination Status: Non-vaccinated, One dose, Two doses, Three doses.
+\item Also called a dichotomous variable. 
+\item In regression analysis, the presence of categorical variables changes the interpretation of the regression results, but does not change the computation of regression coefficients. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Interpreting Regression Coefficients}
+\begin{itemize}
+\item Let $\vn{STR}_{i}$ denote the student-teacher ratio in district $i$. 
+Let $D_{i} \in \{0,1\}$ according to:
+\begin{align*}
+D_{i} = 
+  \begin{cases}
+  1 ~\text{if}~  \vn{STR}_{i} & < 20 \\
+  0 ~\text{if}~  \vn{STR}_{i} & \geq 20 
+  \end{cases}
+\end{align*}
+\item The population regression with $D_{i}$ as the regressor is:
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} D_{i} + u_{i}
+\end{align*}
+and is equivalent to:
+\begin{align*}
+Y_{i} & = \beta_{0} + u_{i} ~\text{if}~ D_{i} = 0\\
+Y_{i} & = \beta_{0} + \beta_{1} + u_{i} ~\text{if}~ D_{i} = 1
+\end{align*}
+which implies $\exp[Y_{i}|D_{i}=1]=\beta_{0} + \beta_{1}$.
+\item Because $\beta_{1}$ is the difference in the population means, the OLS estimator $\hat{\beta}_{1}$ is the difference between the sample averages of $Y_{i}$ in the two groups. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Hypothesis Tests \& Confidence Intervals}
+\begin{itemize}
+\item The null hypothesis that the two population means are the same can be tested against the alternative hypothesis that they differ by testing the null hypothesis $\beta_{1}=0$ against the alternative $\beta_{1}\ne0$. 
+\item Example:In the regression of the test score against the student-teacher ratio binary variable $D_{i}$.
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = \muse{650.0}{1.3} + \muse{7.4}{1.8} \times D,
+  \quad R^2 = 0.037,
+  \quad \vn{SER} = 18.7
+\end{align*}
+\item The average test score for the sub-sample with student-teacher ratios greater than or equal to $20$ ($D=0$) is $650.0$, and the average test score for the other sub-sample ($D=1$) is $650.0 + 7.4 = 657.4$. 
+\item The difference between the sample average test scores for the two groups is $7.4$. 
+\item Is the difference in the population mean test scores in the two groups statistically significantly different from $0$ at the $5\%$ level?
+\begin{align*}
+t = 7.4/1.8 = 4.04 > 1.96
+\end{align*}
+The null can be rejected at the $5\%$ level. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

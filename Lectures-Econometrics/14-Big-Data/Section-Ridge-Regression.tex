@@ -1,0 +1,58 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Ridge Regression}
+\emph{Penalized Sum of Squared Residuals}
+\begin{itemize}
+\item \emph{Penalty:} 
+To shrink the estimated coefficients toward $0$, penalize large values of the estimate.
+\item 
+\emph{Ridge regression estimator:} 
+Minimizes the penalized sum of squares ---the sum of squared residuals plus a penalty factor that increases with the sum of the squared coefficients:
+\begin{align*}
+S^{\text{Ridge}}(b; \lambda_{\text{Ridge}})
+    = \sum_{i=1}^{n}(Y_{i}-b_{1}X_{1i} - \ldots - b_{k}X_{ki})^2
+      + \lambda_{\text{Ridge}} \sum_{j=1}^{k}b_{j}^{2}
+    \to \min
+\end{align*}
+\item \emph{Ridge shrinkage parameter:} 
+$\lambda_{\text{Ridge}} \geq 0$. 
+\item First term: Sum of squared residuals for candidate estimator $b$.
+\item Second term: Penalizes the estimator for choosing a large estimate of the coefficient.
+\item In the special case that the regressors are uncorrelated, the ridge regression estimator is:
+\begin{align*}
+\hat{\beta}_{j}^{\text{Ridge}} 
+    =  \left(\frac{1}{1 + \lambda_{\text{Ridge}} \bigg/ \sum_{i=1}^{n}X_{ji}^{2}} \right) \hat{\beta}_{j}
+\end{align*}
+where $\hat{\beta}_{j}$ is the OLS estimator of $\beta_{j}$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Ridge Regression: Penalty Function}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-01-Zoom}
+\caption{The ridge regression estimator minimizes $S^{\text{Ridge}}(b)$, which is the sum of squared residuals, $SSR(b)$, plus a penalty that increases with the square of the estimated parameter. The $SSR$ is minimized at the OLS estimator, $\hat{\beta}$. Including the penalty shrinks the ridge estimator, $\hat{\beta}^{\text{Ridge}}$, toward $0$.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Ridge Regression: Shrinkage}
+\emph{Choosing the Shrinkage Parameter}
+\begin{itemize}
+\item Choose $\lambda_{\text{Ridge}}$ to minimize the estimated MSPE, using the $m$-fold cross-validation estimator of the MSPE. 
+\item Suppose you have two candidate values $0.1$ and $0.2$. Let $\tilde{\beta}$ be the Ridge estimator for a given value of $\lambda_{\text{Ridge}}$. Compute the predictions in the test sample and corresponding $\widehat{\vn{MSPE}}$. Compare the values of MSPE obtained for $\lambda_{\text{Ridge}}=0.1$ and $\lambda_{\text{Ridge}}=0.2$. Select the smaller of the two values. 
+\item Typically the Ridge estimator that minimizes the $m$-fold cross-validation MSPE differs from the OLS estimator. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

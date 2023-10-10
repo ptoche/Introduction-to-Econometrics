@@ -1,0 +1,30 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Correlation}
+\begin{itemize}
+\item \emph{Correlation:}
+\begin{emphalign*}
+\cor(X,Y) 
+  = \dfrac{\cov(X,Y)}{\sqrt{\var(X) \cdot \var(Y)}}
+\end{emphalign*}
+\vspace{1ex}
+\item \emph{Cauchy-Schwartz Inequality:}
+\begin{align*}
+\abs{\cov(X,Y)} \leq \sqrt{\var(X) \cdot \var(Y)}
+\end{align*}
+\item \emph{Properties}
+\vspace{-1ex}
+\begin{align*}
+& \cor(X,Y) = \cor(Y,X)\\
+& -1 \leq \cor(X,Y) \leq 1\\
+& \cor(X,Y) = + 1 \quad\text{if}\quad Y = a + b X, \quad\text{with}\quad b>0\\
+& \cor(X,Y) = - 1 \quad\text{if}\quad Y = a + b X, \quad\text{with}\quad b<0\\
+& \exp[X|Y] = \exp[X] \implies \cor(X,Y) = 0\\
+& \exp[Y|X] = \exp[Y] \implies \cor(X,Y) = 0 
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

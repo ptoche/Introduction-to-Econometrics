@@ -1,0 +1,187 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Statistics: Polling}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{In a survey of $400$ likely voters, $215$ responded that they would vote for the incumbent, and $185$ responded that they would vote for the challenger.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: Polling}
+In a survey of $400$ likely voters, $215$ responded that they would vote for the incumbent, and $185$ responded that they would vote for the challenger. Let $p$ denote the fraction of all likely voters who preferred the incumbent at the time of the survey, and let $\hat{p}$ be the fraction of survey respondents who preferred the incumbent.
+\begin{enumerate}
+\item Use the survey results to estimate $p$.
+\item Use the estimator of the variance of $\hat{p}$,~  $\hat{p}(1-\hat{p})$, to calculate the standard error of your estimator. 
+\item What is the $p$-value for the test of $H_{0}{:}~ p=0.5$ ~vs.~ $H_{1}{:}~ p\neq 0.5$?
+\item What is the $p$-value for the test of $H_{0}{:}~ p=0.5$ ~vs.~ $H_{1}{:}~ p > 0.5$?
+\item Why do the results from (c) and (d) differ?
+\item Did the survey contain statistically significant evidence that the incumbent was ahead of the challenger at the time of the survey? Explain.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polling Vote Intentions}
+\ask
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Use the survey results to estimate $p$.
+
+
+\begin{answer}
+\begin{align*}
+\hat{p} 
+  = \frac{215}{400} 
+  = 0.5375 
+% 215/400
+% 0.5375
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polling Vote Intentions}
+\ask
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Use the estimator of the variance of $\hat{p}$,~  $\hat{p}(1-\hat{p})$, to calculate the standard error of your estimator. 
+
+\begin{answer}
+We have $\hat{p}=0.5375$ and $n=400$,
+\begin{align*}
+\SE(\hat{p})
+  & = \sqrt{\frac{\var(\hat{p})}{n}}, 
+  \quad\text{where}~
+  \var(\hat{p})
+    = \hat{p}(1-\hat{p})\\
+  & = \sqrt{\frac{0.5375(1-0.5375)}{400}}\\
+  & \approx 0.0250
+% sqrt(0.5375*(1-0.5375)/400)
+% 0.02492959
+\end{align*}
+\Rlang code:\ \Rinline{sqrt(0.5375*(1-0.5375)/400)}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polling Vote Intentions}
+\ask
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item What is the $p$-value for the test of $H_{0}{:}~ p=0.5$ ~vs.~ $H_{1}{:}~ p\neq 0.5$?
+
+\begin{answer}
+We have $p_0=0.5$ and $\SE(\hat{p})\approx0.0250$, 
+\begin{align*}
+p\text{-value} 
+  & = \P{-z
+    < \frac{\hat{p}-p_0}{\SE(\hat{p})} 
+    < z }\\
+  & = 2\cdot \P{ z > \frac{\hat{p}-p_0}{\SE(\hat{p})} }\\
+  & \approx 2\cdot \P{ z > \frac{0.5375-0.5}{0.0250} }\\
+  & \approx 2\cdot \left(1-\P{z < 1.5}\right)\\
+  & \approx .0133
+% z = (0.5375 - 0.5)/sqrt(0.5375*(1-0.5375)/400)
+% 1.504237
+% 2 * (1-pnorm(z))
+% 0.1325204
+\end{align*}
+\Rlang code:\ 
+  \Rinline{z = (0.5375-0.5)/sqrt(0.5375*(1-0.5375)/400)}
+\newline
+  \hspace*{30pt} \Rinline{2*(1-pnorm(z))}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polling Vote Intentions}
+\ask
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item What is the $p$-value for the test of $H_{0}{:}~ p=0.5$ ~vs.~ $H_{1}{:}~ p > 0.5$?
+
+
+\begin{answer}
+We have $p_0=0.5$ and $\SE(\hat{p})\approx0.0250$, 
+\begin{align*}
+p\text{-value} 
+  & = \P{ z > \frac{\hat{p}-p_0}{\SE(\hat{p})} }\\
+  & \approx \P{z > \frac{0.5375-0.5}{0.0250}}\\
+  & \approx 1-\P{z < 1.5}\\
+  & \approx .066
+% z = (0.5375 - 0.5)/sqrt(0.5375*(1-0.5375)/400)
+% 1.504237
+% 1-pnorm(z)
+% 0.06626022
+\end{align*}
+\Rlang code:\ 
+  \Rinline{z = (0.5375-0.5)/sqrt(0.5375*(1-0.5375)/400)}
+\newline
+  \hspace*{30pt} \Rinline{1-pnorm(z)}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polling Vote Intentions}
+\ask
+\begin{enumerate}\setcounter{enumi}{4}
+
+\item Why do the results from (c) and (d) differ?
+
+\begin{answer}
+The first test is a two-sided test, the second test is a one-sided test. The one-sided test assumes the probability of an extreme sample observation falls into the right tail of the probability distribution, ruling out entirely that it could occur in the left tail. It is a stronger test (assuming it is reasonable to make that assumption) and leads to a larger $p$-value.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polling Vote Intentions}
+\ask
+\begin{enumerate}\setcounter{enumi}{5}
+
+\item Did the survey contain statistically significant evidence that the incumbent was ahead of the challenger at the time of the survey? Explain.
+
+\begin{answer}
+This is a matter of judgment. We are not given information about the preferred significance level. The one-sided $p$-value is larger than the common benchmark of $0.05$, but the two-sided $p$-value is smaller. I see no reason to conduct a one-sided test and a $p$-value of $0.01$ feels small to me, so I would say that, yes, the survey evidence suggests that the incumbent may have been ahead of the challenger at the time of the survey. (I am aware that a Google search leads to answers that suggest the opposite \ldots)
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

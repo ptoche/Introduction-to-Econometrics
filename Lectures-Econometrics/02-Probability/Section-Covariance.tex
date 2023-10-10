@@ -1,0 +1,33 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Covariance}
+\begin{itemize}
+\item \emph{Covariance:}
+\begin{emphalign*}
+\cov(X,Y) 
+  = \exp\left[\left(X-\exp[X] \right) \left(Y-\exp[Y] \right) \right]
+\end{emphalign*}
+\item \emph{Properties:}
+\begin{align*}
+\cov(X,Y) 
+  & = \exp[X Y]-\exp[X] \exp[Y]\\
+  & = \exp[\left(X-\exp[X]\right)Y]\\
+  & = \exp[X\left(Y-\exp[Y]\right)]\\
+\cov(a + b X + c Y, \alpha + \beta X + \gamma Y) 
+  & = b \beta \var(X) + c \gamma \var(Y) + (b \gamma + c \beta ) \cov(X, Y)
+\end{align*}
+\item \emph{Bivariate Variance:}
+\begin{align*}
+\var(X) 
+  & = \cov(X,X) \\
+\var(a + bX + cY) 
+  & =  b^2 \var(X) + c^2\var(Y) + 2bc \cov(X,Y)\\
+\var\left(\sum_{i=1}^N b_i X_i \right) 
+  & = \sum_{i=1}^N \left(\sum_{j=1}^N b_i b_j \cov(X_i,X_j) \right)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

@@ -1,0 +1,36 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Law of Iterated Expectation}
+\begin{itemize}  
+\item \emph{Law of Iterated Expectation:}
+\begin{align*}
+\exp[Y] = \exp[\exp(Y|X)]
+\end{align*}
+\item The expected value of $Y$ can be calculated from the probability distribution of $Y|X$ and $X$.
+\item If $X$ has sample space $x_1, x_2, \ldots, x_n$, the law can be written explicitly as
+\begin{align*}
+\exp[Y] = \sum_{i=1}^n \exp[Y|X=x_i] \Pr(X=x_i)
+\end{align*}
+\item You choose an integer $X$ at random between $1$ and $3$. Then you choose an integer $Y$ at random between $1$ and $X=x$. Calculate the expected value of $Y$. 
+\begin{align*}
+\exp[Y] 
+  & = \exp[\exp(Y|X)]
+    = \sum_{i=1}^{3} \exp[Y|X=x_i] \Pr(X=x_i)
+    = \frac{1}{3} \sum_{i=1}^{3} \exp[Y|X=x_i]\\
+  & = \frac{1}{3} \cdot \left(\frac{1}{1} 
+  + \frac{1+2}{2} 
+  + \frac{1+2+3}{3}
+  \right)\\
+  & = 1.5
+\end{align*}
+% R code: 
+% f = function(n)sum(1:n)/n 
+% g = function(n) sapply(1:n, f)
+% g(3): 1.0 1.5 2.0
+% h = function(n) sum(g(n))
+% h(3)/3 = 1.5
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  

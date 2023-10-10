@@ -1,0 +1,80 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Estimating the Population Mean}
+\begin{itemize}
+\item \emph{Estimator:} A function of a sample of data drawn randomly from a population. An estimate is a numerical value using data from a specific sample. An estimator is a random variable, an estimate is not.
+\item The sample mean $\mean{Y}$ is a natural estimate of $\mu_{Y}$. 
+\item It is not the only possible estimator. There are many useful estimators of $\mu_{Y}$. 
+\item \only<4->{\think[-1cm]} Can you think of other natural estimators?
+\item \emph{Notation:} An estimator of $\mu_Y$ is typically denoted $\hat{\mu}_Y$. We might denote two estimators $\hat{\mu}_Y$ and $\tilde{\mu}_Y$. The sample mean $\mean{Y}$ is one such estimator. If we deal with a single random variable $Y$, we sometimes write just $\mu$ and $\hat{\mu}$. When our focus is on the sample size $n$, we often denote it for emphasis, e.g. $\mean{Y_n}$. We may denote a particular estimate with a lower-case letter, e.g. $\mean{y}$. We may denote a particular value of a parameter such as the population mean with a $0$ index, e.g. $\mu_0$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Properties of Estimators}
+\begin{itemize}
+\item What are desirable characteristics of the sampling distribution of an estimator? 
+\begin{itemize}
+\item Close to the unknown value \ldots in an ``average'' sense!
+\item Stabilizes arbitrarily closely to the true value as the sample size is increased.
+\item Uses sample data to avoid erratic fluctuations caused by small samples --- estimates do not go ``all over the place''.
+\end{itemize}
+\item Some of these properties may be traded off, in particular centrality and dispersion, e.g. bias or consistency vs efficiency. 
+\item Some estimators may perform well for very large samples, but not so well for small samples. 
+\item To fairly compare estimators, you must be clear about your objectives. For instance, an estimator that is equal to a constant, say $0$, for any sample, could have a very large bias, but it is absolutely efficient!
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Properties of Estimators}
+\begin{itemize}
+\item \emph{Desirable statistical properties of estimators:}
+\begin{enumerate}
+\item \emph{Unbiased:} The estimator $\hat{\mu}_{Y}$ is unbiased if:
+\begin{align*}
+\exp[\hat{\mu}_{Y}] = \mu_{Y}
+\end{align*}
+(The estimator is close on average)
+\item \emph{Consistent:} The estimator is consistent if the event that the estimator $\hat{\mu}_{Y}$ is arbitrarily close to the true value $\mu_{Y}$ becomes certain as the sample size $n$ increases:
+\begin{align*}
+\Pr(|\hat{\mu}_{Y}-\mu_{Y}|<\epsilon) \xrightarrow{n\to\infty}  1
+\end{align*}
+A consistent estimator ``converges in probability'' to the true mean:  $\hat{\mu}_{Y}\xrightarrow{p}\mu_{Y}$ (the uncertainty caused by random fluctuations in the sample becomes negligible).
+\item \emph{Efficient:} 
+$\hat{\mu}_{Y}$ is said to be more efficient than $\tilde{\mu}_{Y}$ if
+it has a smaller variance,
+\begin{align*}
+\var(\hat{\mu}_{Y}) < \var(\tilde{\mu}_{Y}) 
+\end{align*}
+(the more efficient estimator has the tighter sampling distribution).
+\end{enumerate}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{BLUE}
+\begin{emphbox}{Best Linear Unbiased Estimator (BLUE)}\justifying
+Let $\hat{\mu}_{Y}$ be an estimator of $\mu_{Y}$ that is a weighted average of $Y_1,\ldots,Y_n$; that is, $\hat{\mu}_{Y} = (1/n)\sum_{i=1}^{n}a_iY_i$, where $a_1,\ldots,a_n$ are nonrandom constants. If $\hat{\mu}_{Y}$ is unbiased, then $\var(\mean{Y}) \leq \var(\hat{\mu}_{Y})$. Thus $\mean{Y}$ is the Best Linear Unbiased Estimator --- the most efficient estimator of $\mu_{Y}$ among all unbiased estimators that are weigthed means of $Y_1,\ldots,Y_n$. 
+\end{emphbox}
+\begin{itemize}
+\item \emph{Least Squares Estimator:} The estimator $m$ that minimizes the sum of the squared differences $Y_i-m$, a measure of the total squared differences between the estimator and the sample points. 
+\begin{align*}
+\sum_{i=1}^n(Y_i-m)^2
+\end{align*}
+\item Non-random sampling can lead to a bias in $\mean{Y}$.
+\item \only<3->{\think[-1cm]} Think of examples of sampling procedures that produce bias.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

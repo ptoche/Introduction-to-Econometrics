@@ -1,0 +1,30 @@
+You choose an integer $X$ at random between $1$ and $10$. Then you choose an integer $Y$ at random between $1$ and $X=x$. Calculate the expected value of $Y$. 
+\begin{answer}
+\begin{align*}
+\exp[Y] 
+  & = \exp[\exp(Y|X)]
+    = \sum_{i=1}^{10} \exp[Y|X=x_i] \Pr(X=x_i)
+    = \frac{1}{10} \sum_{i=1}^{10} \exp[Y|X=x_i]\\
+  & = \frac{1}{10} \cdot \left(\frac{1}{1} 
+  + \frac{1+2}{2} 
+  + \frac{1+2+3}{3} 
+  + \ldots
+  %+ \frac{1+2+3+4}{4} 
+  %+ \frac{1+2+3+4+5}{5} 
+  %+ \frac{1+2+3+4+5+6}{6} 
+  %+ \frac{1+2+3+4+5+6+7}{7} 
+  %+ \frac{1+2+3+4+5+6+7+8}{8} 
+  %+ \frac{1+2+3+4+5+6+7+8+9}{9} 
+  %+ \frac{1+2+3+4+5+6+7+8+9+10}{10}
+  + \frac{1+2+\ldots+10}{10}
+  \right)\\
+  & = \frac{1}{10} \cdot \left(1+\frac{3}{2}+2+\ldots+\frac{55}{10}\right)
+    = 3.25
+\end{align*}
+% R code: 
+% f = function(n)sum(1:n)/n 
+% g = function(n) sapply(1:n, f)
+% g(10): 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5
+% h = function(n) sum(g(n))
+% h(10)/10 = 3.25
+\end{answer}

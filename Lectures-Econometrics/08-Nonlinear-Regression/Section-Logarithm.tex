@@ -1,0 +1,66 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Logarithm Function}
+\begin{itemize}
+\item \emph{Logarithm function:} $\ln(x)$ is the inverse of the exponential function $e^{x}$.
+\item \emph{Exponential function:} $e^{x}$, for $e\approx2.71828\ldots$
+\item \emph{Properties:}
+\newlinequad The logarithmic function is defined on $x>0$. It is strictly increasing with slope $1/x$: It is steeper for smaller values of $x$. Its limits are:
+\begin{align*}
+& \ln(x) \to -\infty ~\text{as}~ x \to 0\\
+& \ln(x) \to +\infty ~\text{as}~ x \to +\infty
+\end{align*}
+\item \emph{Other Useful properties:}
+\begin{align*}
+& \ln(1/x) = -\ln(x), \quad
+\ln(ax) = \ln(a) + \ln(x), \\
+& \ln(x/a) = \ln(x) - \ln(a), \quad
+\ln(x^{a}) = a\ln(x). 
+\end{align*}
+\item The slope of the log function gives the growth rate: For a small change $\Delta\,x$,
+\begin{emphalign*}
+\ln(x+\Delta x) - \ln(x) \approx \frac{\Delta\,x}{x}
+\end{emphalign*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Nonlinear Functions: The Logarithm}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-04-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Log Regression Models}
+\begin{itemize}
+\item \emph{Linear-Log Model:} 
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} \ln(X_{i}) + u_{i}
+\end{align*}
+A one-percent change in $X$ is associated with a $0.01\beta_{1}$ change in $Y$. 
+\item \emph{Log-Linear Model:} 
+\begin{align*}
+\ln(Y_{i}) = \beta_{0} + \beta_{1} X_{i} + u_{i}
+\end{align*}
+A one-unit change in $X$ is associated with a $100\beta_{1}\%$ change in $Y$. 
+\item \emph{Log-Log Model:} 
+\begin{align*}
+\ln(Y_{i}) = \beta_{0} + \beta_{1} \ln(X_{i}) + u_{i}
+\end{align*}
+A one-percent change in $X$ is associated with a $\beta_{1}\%$ change in $Y$.
+\item In the log-log model, $\beta_{1}$ is the elasticity of $Y$ with respect to $X$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

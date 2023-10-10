@@ -1,0 +1,65 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Fixed Effects Regression}
+\begin{itemize}
+\item Fixed effects regression is a method for controlling for omitted variables in panel data when the omitted variables vary across the $n$ entities but do not change over the $T$ time periods. 
+\item In a fixed effects regression, there are $n$ different intercepts, one for each entity, which can be represented by a set of binary variables. 
+\item These binary variables absorb the influences of all omitted variables that differ from one entity to the next but are constant over time.
+\item Unlike a simple regression in differences, a fixed effects regression can be used when there are two or more time observations for each entity.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Fixed Effects Regression}
+\emph{Entity Fixed Effects}
+\begin{itemize}
+\item Consider the regression model:
+\begin{align*}
+Y_{it} = \beta_{0} + \beta_{1} X_{it} + \beta_{2} Z_{i} + u_{it}
+\end{align*}
+\item Because $Z_{i}$ varies from one state to the next but is constant over time, the population regression model can be interpreted as a system of $n$ regressions with identical slope coefficients but different intercepts:
+\begin{align*}
+Y_{1t} & = \alpha_{1} + \beta_{1} X_{1t} + u_{1t} \\
+Y_{2t} & = \alpha_{2} + \beta_{1} X_{2t} + u_{2t} \\
+       & \vdots \\
+Y_{nt} & = \alpha_{n} + \beta_{1} X_{nt} + u_{nt} 
+\end{align*}
+where $\alpha_{1},\alpha_{2},\ldots\alpha_{n}$ are unknown intercepts to be estimated, one for each state.
+\item The $\alpha_{i}$, $i=1,\ldots,n$ are entity fixed effects.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Fixed Effects Regression}
+\emph{Entity Fixed Effects as Binary Variables}
+\begin{itemize}
+\item Let $D_{ji}$ denote a binary variable for entity $j$, with $D_{ji}=1$ if $i=j$ and $D_{ji}=0$ if $i\ne j$. 
+\item The regression model with entity fixed effects may be written in the equivalent form:
+\begin{align*}
+Y_{it} = \beta_{0} + \beta_{1} X_{it} 
+       + \crossout[red]{\gamma_{1}D_{1i}} + \gamma_{2}D_{2i} + \ldots + \gamma_{n}D_{ni} + u_{it}
+\end{align*}
+where $\gamma_{2},\ldots,\gamma_{n}$ denote the coefficients on the binary variables.
+\item The first binary variable, $D_{1i}$ is omitted to avoid the ``dummy variable trap.''
+\item With this notation, the estimated regression equation for entity $i$ may be written:
+\begin{align*}
+\hat{Y}_{it} = \hat{\beta}_{0} + \hat{\beta}_{1} X_{it} + \hat{\gamma}_{i}
+\end{align*}
+which maps to the earlier notation as $\hat{\alpha}_{i}=\hat{\beta}_{0}+\hat{\gamma}_{i}$.
+\item Fixed effects estimates:
+\begin{align*}
+\verywidehat{\vn{FatalityRate}}
+  = -\muse{0.66}{0.29} \vn{BeerTax} + \text{entity fixed effects}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

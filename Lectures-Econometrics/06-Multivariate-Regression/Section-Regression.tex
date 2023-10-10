@@ -1,0 +1,45 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Population Regression Line}
+\emph{Population Regression:}
+\begin{itemize}
+\item The population regression function in the multiple regression model is a model of the conditional expectation of $Y_{i}$:
+\begin{align*}
+\exp[Y_{i}|X_{1i}=x_{1}, X_{2i}=x_{2}] 
+    = \beta_{0} + \beta_{1} x_{1} + \beta_{2} x_{2}
+\end{align*}
+\item \emph{Example:} Effect of class size in California districts: 
+Multiple regression allows us to isolate the effect on test scores ($Y_{i}$) of the student-teacher ratio ($X_{1i}$), while holding other regressors constant, in particular the percentage of students in the district who are English learners ($X_{2i}$). 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Population Regression Line}
+\emph{Interpreting the slope coefficient:}
+\begin{itemize}
+\item The slope coefficient $\beta_{1}$ is the predicted difference in $Y$ between two observations with a unit difference in $X_{1}$, holding $X_{2}$ constant.
+\item Consider a change in $X_{1i}$ holding $X_{2i}$ constant:
+\begin{align*}
+Y_{i} + \Delta\,Y_{i}
+    & = \beta_{0} + \beta_{1} (X_{1i} + \Delta X_{1i}) + \beta_{2} X_{2i}\\
+Y_{i} - \beta_{0} - \beta_{1} X_{1i} - \beta_{2} X_{2i}
+    & = u_{i} = \beta_{1} \Delta X_{1i} - \Delta\,Y_{i}
+\end{align*}
+\item Calculate the expected value of $Y_{i}$ evaluated at $X_{1i}=x_{1}$ and $X_{2i}=x_{2}$:
+\begin{align*}
+\exp[Y_{i}|X_{1i} = x_{1}, X_{2i} = x_{2}] - \beta_{0} - \beta_{1} x_{1} - \beta_{2} x_{2} 
+                & = \exp[u_{i}|X_{1i} = x_{1}, X_{2i} = x_{2}] = 0\\
+    & = \beta_{1} \Delta X_{1} - \Delta\,Y \,\bigg|_{X_{1} = x_{1}, X_{2} = x_{2}}\\
+\implies 
+\beta_{1}
+    & = \frac{\Delta Y}{\Delta\,X_{1}}\bigg|_{X_{1} = x_{1}, X_{2} = x_{2}}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

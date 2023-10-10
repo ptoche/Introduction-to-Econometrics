@@ -1,0 +1,105 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Identification in a Supply-Demand Diagram}
+\emph{Philip Wright's Problem} 
+\begin{itemize}
+\item Philip Wright was concerned with an important economic problem of his day: how to set an import tariff --- a tax on imported goods. The key to understanding the economic effect of a tariff was having quantitative estimates of the demand and supply curves of the goods. 
+\item Consider the problem of estimating the elasticity of demand for butter from the demand equation
+\begin{align*}
+\ln(Q_{i}^{\text{butter}}) = \beta_{0} + \beta_{1} \ln(P_{i}^{\text{butter}}) + u_{i}
+\end{align*}
+where $Q_{i}^{\text{butter}}$ is the $i$th observation on the quantity of butter consumed, $P_{i}^{\text{butter}}$ is its price, and $u_{i}$ represents other factors that affect demand, such as income and consumer tastes.
+\item The coefficient $\beta_{1}$ has the interpretation of the elasticity of $Y$ with respect to $X$.
+\item Because of the interactions between supply and demand, the regressor $\ln(P_{i}^{\text{butter}})$ is likely correlated with the error term $u_{i}$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Identification in a Supply-Demand Diagram}
+\emph{$\ln(P_{i}^{\text{butter}})$ is correlated with $u_{i}$.} 
+\begin{itemize}
+\item In year $1$, the demand and supply curves for the first period are denoted $D_{1}$ and $S_{1}$.
+\item The first period's equilibrium price and quantity are determined by their intersection. 
+\item In year $2$, demand increases from $D_{1}$ to $D_{2}$ and supply decreases from $S_{1}$ to $S_{2}$.
+\item The second period's equilibrium price and quantity are determined by the new intersection. 
+\item In year $3$, demand increases again to $D_{3}$, supply increases to $S_{3}$.
+\item A new equilibrium price and quantity are determined.
+\item Because the points have been determined by changes in both demand and supply, they cannot be used to identify the demand or supply curve.
+\item Consider a scatterplot of the equilibrium price/quantity points. Fitting a line to these points will estimate neither a demand curve nor a supply curve! 
+\item To identify the demand curve, we would need to fix the supply curve. And vice versa: To identify the supply curve, we would need to fix the demand curve. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Identification in a Supply-Demand Diagram}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-12-fig-01a}
+\caption{Price and quantity are determined by the intersection of the supply and demand curves. The equilibrium in the first period is determined by the intersection of the demand curve $D_{1}$ and the supply curve $S_{1}$. Equilibrium in the second period is the intersection of $D_{2}$ and $S_{2}$, and equilibrium in the third period is the intersection of $D_{3}$ and $S_{3}$.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Identification in a Supply-Demand Diagram}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-12-fig-01b}
+\caption{This scatterplot shows equilibrium price and quantity in $11$ different time periods. The demand and supply curves are hidden. Can you determine the demand and supply curves from the points on the scatterplot?}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Identification in a Supply-Demand Diagram}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-12-fig-01c}
+\caption{When the supply curve shifts from $S_{1}$ to $S_{2}$ to $S_{3}$ but the demand curve remains at $D_{1}$, the equilibrium prices and quantities trace out the demand curve.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Identification in a Supply-Demand Diagram}
+\emph{Philip Wright's Problem} 
+\begin{itemize}
+\item Wright discovered that we need some third variable --- the instrumental variable --- that shifts supply but does not shift demand.
+\item The instrument must be correlated with the price. 
+\begin{itemize}
+\item The instrument shifts the supply curve, which leads to a change in the price. 
+\end{itemize}
+\item The instrument must be uncorrelated with the error term. 
+\begin{itemize}
+\item The instrument does not shift the demand curve.
+\end{itemize}
+\item Wright considered weather as an instrument. 
+\begin{itemize}
+\item below-average rainfall in a dairy region could impair grazing and thus reduce butter production at a given price --- it would shift the supply curve downwards (i.e. to the left) and increase the equilibrium price.
+\end{itemize}
+\item \emph{Instrument relevance:}
+\newlinequad
+dairy-region rainfall has a direct influence on the supply of butter and therefore on price. 
+\item \emph{Instrument exogeneity:} 
+\newlinequad
+dairy-region rainfall has no direct influence on the demand for butter. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

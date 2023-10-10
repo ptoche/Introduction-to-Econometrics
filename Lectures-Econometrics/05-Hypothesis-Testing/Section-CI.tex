@@ -1,0 +1,51 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Interval for Slope Coefficient}
+\begin{itemize}
+\item \emph{Confidence Interval for  $\beta_{1}$:}\\
+An interval that contains the true value of $\beta_{1}$ with a given probability. 
+\begin{emphalign*}
+\hat{\beta}_{1} \pm t_{\alpha/2} \times \SE(\beta_{1})
+\end{emphalign*}
+\item The probability is related to the significance level: $P=1-\alpha$. 
+\item Popular values are $90\%$, $95\%$, and $99\%$. 
+\item For $\alpha=0.05$, the true value of $\beta_{1}$ is contained in $95\%$ of all possible samples.
+\item Confidence Interval for $\beta_{1}$ in the regression of $\vn{TestScore}$ on $\vn{STR}$:
+\begin{align*}
+\beta_{1} \in
+(-2.28 & \pm 1.96 \times 0.52)\\
+\implies 
+  -3.30 & < \beta_{1} < -1.26
+\end{align*}
+for $t_{0.05}\approx1.96$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Interval for Predicted Change}
+\begin{itemize}
+\item \emph{Confidence Interval for predicted effect of a change in $X$:}
+\begin{align*}
+\left[\hat{\beta}_{1} \pm t_{\alpha/2} \times \SE(\beta_{1})\right] \times \Delta X
+\end{align*}
+\item Confidence Interval for $\beta_{1}\Delta X$ in the regression of $\vn{TestScore}$ on $\vn{STR}$, with $t_{0.05}\approx1.96$:
+\begin{align*}
+-2.28\Delta X  - 1.96 \times 0.52 \Delta X 
+    & < \beta_{1} \Delta X
+      < -2.28\Delta X  + 1.96 \times  0.52 \Delta X\\
+-3.30 \Delta X 
+    & < \beta_{1} \Delta X < -1.26 \Delta X
+\end{align*}
+Thus, for $\Delta X = -2$, the confidence interval for the predicted change is:
+\begin{align*}
+  6.60 < \beta_{1} \Delta X < 2.52
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

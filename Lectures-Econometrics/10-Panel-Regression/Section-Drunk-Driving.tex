@@ -1,0 +1,88 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Drunk Driving Laws, Taxes and Traffic Deaths}
+\begin{itemize}
+\item In addition to raising taxes to reduce drunk driving, states can also toughen driving laws. 
+\item Both vehicle use and taxes depend in part on economic conditions (whether drivers have jobs; whether a state budget is strained). 
+\item Omitting state laws and economic conditions could result in omitted variable bias. 
+\item OLS regression of the fatality rate on the real beer tax without state and time fixed effects: 
+\item The coefficient on the real beer tax is positive ($0.36$): 
+\newlinequad
+Increasing beer taxes increases traffic fatalities!
+\item With state fixed effects, the coefficient on the real beer tax is now negative $-0.66$. 
+\item The regression $\bar{R}^{2}$ jumps from $0.091$ to $0.889$ when fixed effects are included.
+\item Time effects have little influence on these estimates.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=1\textheight,keepaspectratio]%
+{StockWatson4e-10-tbl-01-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Drunk Driving Laws, Taxes and Traffic Deaths}
+\emph{Main regression results:}
+\begin{enumerate}
+\item Including the additional variables reduces the estimated effect of the beer tax from $-0.64$ in column (3) to $-0.45$ in column (4). The estimated effect of a $\$0.50$ increase in the beer tax is to decrease the expected fatality rate by $0.45 \times 0.50 = 0.23$ deaths per $10,000$. Since the average fatality rate is $2$ deaths per $10,000$, a reduction of $0.23$ corresponds to reducing traffic deaths by nearly one-eighth.
+However, the $95\%$ confidence interval for this effect is quite large:
+\begin{align*}
+-0.45 \times 0.50 \pm 1.96 \times 0.30 \times 0.50 = (-0.52, 0.08)
+\end{align*}
+\item The minimum legal drinking age is precisely estimated to have a small effect on traffic fatalities. The $95\%$ confidence interval for the increase in the fatality rate in a state with a minimum legal drinking age of $18$, relative to age $2$1, is $(-0.11, 0.17)$. 
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Drunk Driving Laws, Taxes and Traffic Deaths}
+\emph{Main regression results (continued):}
+\begin{enumerate}\setcounter{enumi}{2}
+\item The coefficient on the first offense punishment variable is also estimated to be small and is not significantly different from $0$ at the $10\%$ significance level.
+\item The economic variables have considerable explanatory power for traffic fatalities. 
+\begin{itemize}
+\item 
+High unemployment rates are associated with fewer fatalities: 
+\smallskip\newline\quad
+A  one-percentage-point increase in the unemployment rate is expected to reduce traffic fatalities by $0.063$ deaths per $10,000$.
+\smallskip
+\item
+High values of real per capita income are associated with high fatalities: 
+\smallskip\newline\quad
+A one-percentage increase in real per capita income is expected to decrease traffic fatalities by $0.0182$ deaths per $10,000$.
+\end{itemize}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Drunk Driving Laws, Taxes and Traffic Deaths}
+\begin{itemize}
+\item Including fixed effects reduces the risk that omitted variable could bias least-squares estimates. 
+\item Entity fixed effects eliminate the bias caused by unobserved variables that do not change over time, like cultural attitudes toward drinking and driving.  
+\item Time fixed effects eliminate the bias caused by unobserved variables that do not vary across entities, like safety innovations and federal safety regulations.
+\item Omitted variable bias: 
+\begin{itemize}
+\item Changes in the real tax on beer could be correlated with other alcohol taxes, so the estimated effect could be driven by changes in other alcohol taxes. In this case, the real tax on beer would act as a ``proxy'' for a wider range of taxes.
+\item Increases in the real beer tax could be associated with public education campaigns, so the estimated effect of the beer tax would also reflect the effect of a broader campaign to reduce drunk driving. In this case, the effect of the real tax on beer would be overestimated.
+\end{itemize}
+\item Conclusion: Punishments and increases in the minimum legal drinking age do not have important effects on fatalities, while alcohol taxes do reduce traffic deaths.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,129 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias}
+\begin{itemize}
+\item \emph{Definition:}
+Omitted variable bias occurs if (1)~the omitted variable is correlated with the included regressor and (2)~the omitted variable is a determinant of the dependent variable. 
+\item \emph{Omitted variable bias violates the first OLS assumption for causal inference:}\\ 
+$\exp[u_{i}|X_{i}=0$.
+The error term $u_{i}$ catches all factors other than $X_{i}$ that are determinants of $Y_{i}$. If an omitted variable is a determinant of $Y_{i}$, then it is captured by the error term $u_{i}$. And if the omitted variable is correlated with $X_{i}$, then the error term $u_{i}$ must be correlated with $X_{i}$ and $\exp[u_{i}|X_{i}]\ne 0$.
+\item \emph{Example:} Does listening to musing increase your IQ? One study from 1993 showed that students who take optional music or arts courses in high school have higher English and math test scores than those who don't. However, the correlation between testing well and taking art or music could be explained by an omitted variable. For instance, students who do better academically may also be more likely to take optional music classes, schools with a music curriculum could be better schools. By omitting factors such as the student's innate ability or the overall quality of the school, studying music appears to have an effect on test scores, but randomized controlled experiments have shown that it has no such effect.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias}
+\emph{A Formula for the Omitted Variable Bias:}
+\begin{align*}
+\hat{\beta}_{1} \xrightarrow{p} \beta_{1} + \rho_{Xu} \cdot \zfrac{\sigma_{u}}{\sigma_{X}}
+\end{align*}
+\begin{itemize}
+\item The notation $\xrightarrow{p}$ stands for ``convergence in probability.'' As the sample size $n$ increases, $\hat{\beta}_{1}-\beta_{1}$ approaches $\rho_{Xu} \cdot \zfrac{\sigma_{u}}{\sigma_{X}}$ with increasingly high probability. 
+\item The omitted variable bias does not disappear as the sample size is increased. 
+\item With omitted variable bias, $\hat{\beta}_{1}$ is biased and inconsistent.
+\item The size of the bias depends on the correlation between the regressor and the error term $\rho_{Xu}$. The larger $|\rho_{Xu}|$, the larger the bias. 
+\item The direction of the bias depends on the sign of the correlation. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias: Grouping Data}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-06-tbl-01-Zoom}
+\caption{Differences in Test Scores for California School Districts with Low and High Student-Teacher Ratios, by the Percentage of English Learners in the District}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias: Grouping Data}
+\emph{English learners in California school districts:}
+\begin{itemize}
+\item English learners: Students who are not native speakers and have not yet mastered English. 
+\item \emph{Districts with more English learners tend to have a higher student-teacher ratio.} The correlation between the student-teacher ratio and the percentage of English learners is $0.19$.
+\item Because the student-teacher ratio and the percentage of English learners are correlated, it is possible that the OLS coefficient in the regression of test scores on the student-teacher ratio reflects that influence!
+\item The two conditions for an omitted variable bias are satisfied: 
+\emph{(1)~The percentage of English learners is correlated with the student-teacher ratio.} 
+\emph{(2)~The percentage of English learners is a determinant of test scores.} (students who are still learning English will do worse on standardized tests than native English speakers)
+\item The OLS estimator in the regression of test scores on the student-teacher ratio will reflect the influence of the omitted variable, the percentage of English learners.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias: Grouping Data}
+\emph{Addressing Omitted Variable Bias: Analysis by Quartile}
+\begin{itemize}
+\item \emph{Hold the ``omitted variable'' constant:} (1) Select a subset of districts that have the same fraction of English learners but have different class sizes. (2) For that subset of districts, the fraction of English learners is held constant. (3) Look at the effect within each quartile. 
+\item \emph{Result:} The overall effect of test scores is twice the effect of test scores within any quartile! This is because the districts with the most English learners tend to have both the highest student-teacher ratios and the lowest test scores.
+\item The districts with few English learners tend to have lower student-teacher ratios: 
+\begin{itemize}
+\item $74\%$ of the districts in the 1st quartile have small classes ($76$ districts of $103$) 
+\item $42\%$ of the districts in the 4th quartile have small classes ($44$ districts of $105$)
+\end{itemize}
+\item \emph{Once we hold the percentage of English learners constant, the difference in test scores between districts with high and low student-teacher ratios is half --- or less than half --- of the overall estimate of $7.4$ points.}
+\item To see this, estimate the effect of class size on test scores by quartile.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias: Grouping Data}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-06-tbl-01-Annotated-1}
+\caption{Differences in Test Scores for California School Districts with Low and High Student-Teacher Ratios, by the Percentage of English Learners in the District}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias: Grouping Data}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-06-tbl-01-Annotated-2}
+\caption{Differences in Test Scores for California School Districts with Low and High Student-Teacher Ratios, by the Percentage of English Learners in the District}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Omitted Variable Bias: Grouping Data}
+\emph{Addressing Omitted Variable Bias:}
+\begin{itemize}
+\item To estimate the effect of the student-teacher ratio on test scores, we hold constant the percentage of English learners. Districts are divided into $8$ groups: by quartile of the distribution of English learners across districts and by the student-teacher ratio (high vs low). 
+\item Over the full sample of $420$ districts, the average test score is $7.4$ points higher in districts with a lower student-teacher ratio. The $t$-statistic is $4.04$, so the null hypothesis that the mean test score is the same in the two groups is rejected at the $1\%$ significance level.
+\item But different results emerge if the difference in test scores between districts with low and high ratios is broken down by the quartile of the percentage of English learners. 
+\begin{itemize}
+\item 1st Quartile: The average test score was not appreciably different in districts with high vs low student-teacher ratio --- the difference is small and in the opposite direction as the overall effect. 
+\item 2nd Quartile: The average test score was $3.3$ points higher in districts with small class sizes. 
+\item 3rd Quartile: The average test score was $5.2$ points higher.
+\item 4th Quartile: The average test score was $1.9$ points higher.
+\end{itemize}
+\item Looking within quartiles of the percentage of English learners improves on the simple difference-of-means analysis. \emph{But to estimate the effect on test scores of changing class size, holding constant the fraction of English learners, we must perform a multiple regression.}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,507 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Random Variable} 
+\emph{What is a random variable?}\pause
+\begin{itemize}
+\item \emph{Example:} Flipping a coin.
+\item While the outcome is uncertain, a random variable has a  \emph{distribution}. 
+\item For any subset of the sample space, the distribution describes the probability that the random variable takes a value in that subset. 
+\item A fair coin has a $1$ in $2$ probability of landing head. The probability that the random variable $X$ is in $\{H\}$ is $1/2$. The probability that $X$ is in $\{T\}$ is $1/2$. The probability that $X$ is in $\{H,T\}$ is $1$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Random Variable}
+\begin{itemize}
+\item Suppose we want to know about the education levels of people in California.
+\item Different people have different levels of education. The education level of a randomly selected person in the population is uncertain. 
+\item The education level is a \emph{random variable} with a distribution that describes the probability that a randomly selected person has an education level in certain range, e.g. $80\%$ have a high school diploma, $30\%$ have a college degree. 
+\item In general, we do not know the exact distribution of the random variable. Statistics is a set of methods used to extract information from fixed samples and make inferences about the underlying distribution of the random variable.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sample Space} 
+\begin{itemize}
+\item Let $X$ denote a random variable. The \emph{sample space} $\Omega$ is the set of all possible values of $X$.
+\begin{itemize}
+\item Coin flipping: The sample space is $\{H,T\}$.
+\item Rolling a die: The sample space is $\{1,2,3,4,5,6\}$.
+\item Racing the $100$m dash at a competition: The sample space may be the range $[9.5,11]$, measured in seconds.
+\end{itemize}
+\item \emph{Discrete random variable:} The sample space of $X$ is \emph{countable}. 
+\item \emph{Continuous random variable:} The sample space of $X$ is \emph{uncountable}.
+\begin{itemize}
+\item Flipping a coin and rolling a die are represented by discrete random variables.
+\item Racing the $100$m dash is represented by a continuous random variable.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Probability} 
+\begin{itemize}
+\item Let $\Omega$ denote the sample space of random variable $X$. 
+\item Let $E_{i}$ denote any subset of the sample space $\Omega$ --- an event. 
+\item We are interested in the probability $\Pr(X)$ that $X$ takes values in $E_{i} \in \Omega$.
+\item The distribution of the random variable $X$ is a map from $\cup_{i=1}^{n}E_i$ onto $[0,1]$.
+\item \emph{Axioms of probability:} The probability $\Pr(X)$ satisfies:
+\begin{itemize}
+\item $\Pr(\Omega) = 1$
+\item $\Pr(\emptyset) = 0$
+\item $0 \leq \Pr(X) \leq 1$
+\item If $E_1,E_2,\dots,E_n$ are pairwise disjoint, then $\Pr(\cup_{i=1}^{n}E_i) = \sum_i\Pr(E_i)$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Random Variables}
+\begin{itemize}
+\item Let $X$ be a \emph{discrete random variable}. The distribution of $X$ is described by the \emph{probability mass function (pmf)}, $p_{X}(X)\colon E \subseteq \Omega \to[0,1]$.
+\item For each element $x$ of the sample space, $x\in \Omega$, the probability mass function, $p_X(\cdot)$, describes the probability that $X$ takes value $x$: $p_X(x) = \Pr(X=x)$.
+\item The pmf can be used to recover the probability that $X$ takes values in any subset $E$ of the sample space $\Omega$.
+\begin{align*}
+\Pr(E) 
+    = \sum_{x\in E} \Pr(X=x) 
+    = \sum_{x\in E}p_X(x) 
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Random Variables} 
+\begin{itemize}
+\item Compute the probability of getting an value in one roll of a fair die.
+\item Let $X$ denote the outcome of the die. The distribution of $X$ has the following pmf:
+\begin{align*}
+p_X(x) = 
+  \begin{cases}
+  \dfrac{1}{6}  & \text{if}~ x \in \{1,2,3,4,5,6\}\\[1ex]
+              0 & \text{otherwise}
+  \end{cases}
+\end{align*}
+\item Use the pmf to compute $\Pr(E)$ for $E=\{2,4,6\}$:
+\begin{align*}
+\Pr(E) = 
+\Pr(x \in \{2,4,6\}) 
+  & = \sum_{x \in \{2,4,6\}} p_X(x)\\
+  & = \frac{1}{6} + \frac{1}{6} + \frac{1}{6}
+    = \frac{1}{2}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Continuous Random Variables}
+\begin{itemize}
+\item If $X$ is a \emph{continuous random variable}, the sample space $\Omega$ is uncountable, so we cannot use a probability mass function to describe its distribution. 
+\item If we attempted to assign a probability to each element in the sample space, we would be faced with one of two consequences: 
+\begin{itemize}
+\item If we assigned a finite probability to an uncountable subset of the sample space, the sum of the probabilities would tend to infinity. 
+\item The only way for the sum of probabilities to tend to $1$ would be to assign a zero probability to each element of an uncountable subset of the sample space.
+\end{itemize}
+\item Either way, it would not be useful and would lead to absurd calculations. 
+\begin{itemize}
+\item What is the probability of drawing the number $\pi$ from the subset of the real line $[3,4]$? Answer: zero.
+\item What is the probability of drawing any number from a subset of the real line? Answer: zero.
+\end{itemize}
+\item We cannot use a pmf to describe the distribution of a continuous random variable. 
+\item Instead, we reason in terms of non-overlapping dense subsets of the real line that are made arbitrarily small. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Continuous Random Variables.} 
+\begin{itemize}
+\item If $X$ is a \emph{continuous random variable}, we use the probability density function (pdf), $f_X(\cdot)$ to describe the distribution of $X$. 
+\item The pdf is related to the probability measure $\Pr$ via the following equation:
+\begin{align*}
+\Pr(a \leq X \leq b) 
+    = \int_a^b f_X(x)\,dx
+\end{align*}
+\item This identity can be used to calculate $\Pr(E)$ for any set $E\subseteq \Omega$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Continuous Random Variables} 
+\begin{itemize}
+\item \emph{Example:}
+Let $X$ be a continuous random variable with pdf $f_X$ given
+\begin{align*}
+f_X(x) = 
+  \begin{cases}
+  1 & \text{if } 0\leq x \leq 1\\[1ex]
+  0 & \text{otherwise }
+  \end{cases}	
+\end{align*}
+\item This distribution is called the \emph{uniform distribution} on $[0,1]$.
+\item Calculate $\Pr([0,0.5])$:
+\begin{align*}
+\Pr(X\in[0,0.5]) 
+   & = \int_0^{0.5} f_X(x)\, dx\\ 
+   & = \int_0^{0.5} 1\, dx \\
+   & = x \,\bigg|_0^{0.5}\\
+     = 0.5 - 0
+     = 0.5
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Review} 
+\begin{itemize}
+\item \emph{Random Variable:}
+\begin{itemize}
+\item Describes an event whose outcome is unknown.
+\item To each outcome, associate a probability.
+\end{itemize}
+\item \emph{Discrete Random Variable:}
+\begin{itemize}
+\item Its sample space is countable.
+\item The probability distribution is described by a probability mass function (pmf).
+\begin{align*}
+\Pr(X\in\{x\}) = p_X(x)
+\end{align*}
+\end{itemize}\vspace{-2ex}
+\item \emph{Continuous Random Variable:}
+\begin{itemize}
+\item Its sample space is uncountable.
+\item The probability distribution is described by probability density function (pdf).
+\begin{align*}
+\Pr(X\in[a,b]) = \int_{a}^{b} f_X(x)\,dx
+\end{align*}
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectation} 
+\begin{itemize}
+\item The expectation can be interpreted as a generalization of the arithmetic mean.
+\item The weighted average of the random variable $X$, where the weights are the probability associated with each possible value of $X$.
+\item The expectation of $X$ is denoted $\exp[X]$.
+\begin{center}
+\begin{tabular}{C{0.3\linewidth}C{0.3\linewidth}}
+\toprule
+Discrete R.V 
+    & Continuous R.V\\[2ex]
+$\sum_{x\in\Omega} x \cdot p_X(x)$ 
+    & $\int_{\Omega} x \cdot f_X(x)\,dx$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\item Note that the difference between discrete and continuous is just summation vs. integral.
+\item In a population, the expectation may be denoted $\mu_X$. In a sample, it may be denoted $\mean{X}$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectation} 
+\begin{itemize}
+\item Consider a lottery that pays:
+\begin{itemize} 
+\item $\$ 100$ with probability $1/2$
+\item $\$400$ with probability $1/4$
+\item $\$0$ with probability $1/4$
+\end{itemize}
+\item The payout of this lottery can be represented by a random variable $X$ with pmf:
+\begin{align*}
+p_X(x) = 
+  \begin{cases}
+  1/2 & \text{if}~ x = \{100\} \\
+  1/4 & \text{if}~ x \in \{0,400\} \\
+    0 & \text{otherwise} 
+  \end{cases}	
+\end{align*} 
+\item Calculate the expected value of this lottery $\exp[X]$ --- The mean value of the lottery prize.
+\begin{align*}
+\exp[X] 
+    & = \sum_{x\in \{0,100,400\}} x \cdot p_X(x)\\
+    & = 0 \cdot \frac{1}{4} + 100 \cdot \frac{1}{2} + 400 \cdot \frac{1}{4}
+      = 50 + 100 
+      = 150
+\end{align*}
+\item A gambler can expect to win $\$150$ by playing this lottery.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectation} 
+\begin{itemize}
+\item Let $X$ be continuously distributed with sample space $[0,1]$ and pdf:
+\begin{align*}
+f_X(x) = 
+  \begin{cases}
+    1 & \text{if}~ 0 \leq x \leq 1\\[1ex]
+    0 & \text{otherwise}
+  \end{cases}
+\end{align*} 
+\item Calculate the expectation:
+\begin{align*}
+\exp[X] 
+    & = \int_{\Omega} x \cdot f_X(x)\,dx\\
+    & = \int_{0}^{1} x \cdot 1\,dx\\
+    & = \frac{x^2}{2}\,\bigg|_0^1
+      = \frac{1^{2}}{2} - \frac{0^{2}}{2}
+      = \frac{1}{2}
+\end{align*}
+\item The expected value of $X$ is $0.5$. You can expect to win half a dollar from playing the lottery many, many times. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectation} 
+\begin{itemize}
+\item Consider the mean of any function $g(X)$, denoted $\exp[g(X)]$.
+\item $g(X)$ is a random variable with distribution derived from $X$.
+\item The formula for calculating $\exp[g(X)]$ is basically the same as for calculating $\exp[X]$.
+\begin{center}
+\begin{tabular}{C{0.3\linewidth}C{0.3\linewidth}}
+\toprule
+Discrete R.V 
+    & Continuous R.V\\[2ex]
+$\sum_{x\in\Omega} g(x) \cdot p_X(x)$ 
+    & $ \int_{\Omega} g(x) \cdot f_X(x)\,dx$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\item The pmf/pdf is multiplied by $g(x)$ instead of just $x$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectation} 
+\begin{itemize}
+\item \emph{Linearity of Expectations:}
+\begin{align*}
+\exp[a g(X) + b h(X)] & = a \exp[g(X)] + b \exp[h(X)]
+\end{align*}
+for any $a,b\in\Real$. 
+\item This property applies to two different random variables $X$ and $Y$:
+\begin{align*}
+\exp[aX+bY] = a\exp[X] + b\exp[Y]
+\end{align*} 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Expectation} 
+\begin{itemize}
+\item Suppose that $X$ has pdf
+\begin{align*}
+f_X(x) = 
+  \begin{cases}
+  1 & \text{if}~ 0 \leq x \leq 1\\[1ex]
+  0 & \text{otherwise}
+  \end{cases}
+\end{align*} 
+\item Calculate the \emph{second moment} of $X$, $\exp[X^2]$:
+\begin{align*}
+\exp[X^2] 
+    & = \int_{\Omega} x^2 \cdot f_X(x)\,dx \\
+    & = \int_0^1 x^2 \cdot 1\,dx \\
+    & = \frac{x^3}{3}\, \bigg|_0^1
+      = \frac{1^3}{3}-\frac{0^3}{3}
+      = \frac{1}{3}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance} 
+\begin{itemize}
+\item The variance of a random variable $X$ is a measure of the spread of the random variable $X$ --- a measure of how far on average $X$ is from its mean. 
+\begin{align*}
+\var(X) = \exp[(X-\exp[X])^2]
+\end{align*}
+\item Using linearity of the expectation the expression above can be simplified:
+\begin{align*}
+\var(X)
+  & = \exp[X^2 - 2X\exp[X] + (\exp[X])^2] \\
+  & = \exp[X^2]-2\exp[X]\exp[X] + \exp[X]^2\\
+  & = \exp[X^2]-(\exp[X])^2
+\end{align*}
+\item From the definition, the variance is always positive $\var(X)\geq0$. 
+\item The last expression is often convenient.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance} 
+\begin{itemize}
+\item The linearity of the expectation and the formula $\var(X)=\exp[X^2]-(\exp[X])^2$ imply several convenient properties of the variance. 
+\item For any constants $a,b \in \Real$ and any random variable $X$, we have:
+\begin{align*}
+\var(X+a) & = \var(X)\\
+\var(aX)  & = a^2\var(X)
+\end{align*}
+\item Combining these gives: 
+\begin{align*}
+\var(aX+b) = a^2\var(X)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance} 
+Changes in the mean $\mu$ do not affect the variance $\sigma$:
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{dist-normal-m-i-s-1-combined}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance} 
+\begin{itemize}
+\item Suppose we have a lottery that pays $\$200$ with probability $1/2$ and nothing otherwise. The payout of this lottery is a random variable $X$ with pmf:
+\begin{align*}
+p_X(x) = 
+  \begin{cases}
+  \dfrac{1}{2}  & \text{if}~ x \in \{0,200\}\\[1ex]
+              0 &\text{otherwise}
+  \end{cases}
+\end{align*} 
+\item The expected payout of this lottery is $\exp[X]=\$100$. 
+\item How much we can expect our winnings to deviate from the expected value? 
+\item This can be computed directly:
+\begin{align*}
+\var(X) = \exp[(X-\exp[X])^2]
+\end{align*} 
+or indirectly:
+\begin{align*}
+\var(X)= \exp[X^2]-(\exp[X])^2
+\end{align*} 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance} 
+\begin{itemize}
+\item The payout of this lottery is a random variable $X$ with pmf:
+\begin{align*}
+p_X(x) = 
+  \begin{cases}
+  \dfrac{1}{2}  & \text{if}~ x \in \{0,200\}\\[1ex]
+              0 & \text{otherwise}
+  \end{cases}
+\end{align*}
+\item Direct Calculation:
+\begin{align*}
+\var(X) 
+    & = \exp[(X-\exp[X])^2] \\
+    & = \exp[(X-100)^2] \\
+    & = \sum_{x\in\{0,200\}} (x - 100)^2\cdot p_X(x)\\
+    & = (0-100)^2\cdot\frac{1}{2} + (200-100)^2\cdot\frac{1}{2}\\
+    &  = 10,000 
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance} 
+\begin{itemize}
+\item The payout of this lottery is a random variable $X$ with pmf:
+\begin{align*}
+p_X(x) = 
+  \begin{cases}
+  \dfrac{1}{2}  & \text{if}~ x \in \{0,200\}\\[1ex]
+              0 & \text{otherwise}
+  \end{cases}
+\end{align*}
+\item Indirect Calculation:
+\begin{align*}
+\var(X) 
+    & = \exp[X^2]-(\exp[X])^2 \\
+    & = \sum_{x\in\{0,200\}} x^2 \cdot p_X(x) - (100)^2\\
+    & = 0^2 \cdot \frac{1}{2} + 200^2 \cdot \frac{1}{2} - 100^2 \\
+    & = 10,000
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Standard Deviation} 
+\begin{itemize}
+\item \emph{Standard deviation of $X$}:
+\begin{align*}
+\sigma_X 
+    = \sqrt{\sigma^2_X} 
+    = \sqrt{\var(X)}
+\end{align*} 
+\item The standard deviation is the square root of the variance.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

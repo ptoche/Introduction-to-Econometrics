@@ -1,0 +1,119 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Interactions Between Independent Variables}
+\begin{itemize}
+\item \emph{Interaction between two binary variables:} 
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} D_{1i} + \beta_{2} D_{2i} + \beta_{3}\, D_{1i} \cdot D_{2i} + u_{i}
+\end{align*}
+where $D_{1i} \cdot D_{2i}$ is called an interaction term.
+\item \emph{Interpretation:} 
+\begin{enumerate}
+\item Compute the expected values of $Y$ for each possible case described by the binary variables. 
+\item Compare the expected values in each case. 
+\item Each coefficient can be expressed either as an expected value or as the difference between two or more expected values.
+\end{enumerate}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<handout>
+\frametitle{Regressions with Binary and Continuous Variables}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-08-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Regressions with Binary and Continuous Variables}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-08a}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Regressions with Binary and Continuous Variables}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-08b}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Regressions with Binary and Continuous Variables}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-08c}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Interactions Between Independent Variables}
+\begin{itemize}
+\item \emph{Interaction between a continuous and a binary variable:} 
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} X_{i} + \beta_{2} D_{i} + \beta_{3}\, X_{i} \cdot D_{i} + u_{i}
+\end{align*}
+\item \emph{Interpretation:} 
+\begin{enumerate}
+\item If $D_{i}=0$, the population regression function is $\beta_{0} + \beta_{1} X_{i}$. 
+\item If $D_{i}=1$, the population regression function is $(\beta_{0}+\beta_{2}) + (\beta_{1}+\beta_{3}) X_{i}$. 
+\item The difference between the two intercepts is $\beta_{2}$. 
+\item The difference between the two slopes is $\beta_{3}$.
+\end{enumerate}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Interactions Between Independent Variables}
+\begin{itemize}
+\item \emph{Interaction between two continuous variables:} 
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} X_{1i} + \beta_{2} X_{2i} + \beta_{3}\, X_{1i} \cdot X_{2i} + u_{i}
+\end{align*}
+\item \emph{Interpretation:} The interaction term
+\begin{enumerate}
+\item allows the effect of a change in $X_{1}$ to depend on $X_{2}$.
+\item allows the effect of a change in $X_{2}$ to depend on the value of $X_{1}$.
+\end{enumerate}
+\item The coefficient on $X_{1} \cdot X_{2}$ is the effect of a one-unit increase in $X_{1}$ and $X_{2}$, beyond the sum of the individual effects of a unit increase in $X_{1}$ alone and a unit increase in $X_{2}$ alone.
+\item The effect on $Y$ of a change in $X_{1}$, holding $X_{2}$ constant, is
+\begin{align*}
+\frac{\Delta Y}{\Delta X_{1}} = \beta_{1} + \beta_{3}\, X_{2}
+\end{align*}
+and likewise for $\Delta X_{2}$.
+If $X_{1}$ changes by $\Delta X_{1}$ and $X_{2}$ changes by $\Delta X_{2}$, then the expected change in $Y$ is:
+\begin{align*}
+\Delta Y = (\beta_{1} + \beta_{3}\, X_{2}) \Delta X_{1} 
+         + (\beta_{2} + \beta_{3}\, X_{1}) \Delta X_{2} 
+         + \beta_{3} \Delta X_{1} \Delta X_{2} 
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

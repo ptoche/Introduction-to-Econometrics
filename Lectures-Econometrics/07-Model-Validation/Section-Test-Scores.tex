@@ -1,0 +1,88 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{California School Districts}
+\emph{Selecting control variables}
+\begin{itemize}
+\item Consider three variables that control for background characteristics of the students that could affect test scores: the fraction of students who are still learning English, the percentage of students who are eligible to receive a subsidized or free lunch at school, and the percentage of students in the district whose families qualify for a California income assistance program. 
+\item The last two variables are different measures of the fraction of economically disadvantaged children in the district. Eligibility for the income assistance program requires a stricter threshold than the subsidized lunch program.
+\item Theory and expert judgment do not tell us which of these two variables to use to control for determinants of test scores related to economic background. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<handout>
+\frametitle{Test Scores vs Student Characteristic}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.9\textheight,keepaspectratio]%
+{StockWatson4e-07-fig-02}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Test Scores vs Student Characteristic}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-07-fig-02a}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Test Scores vs Student Characteristic}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-07-fig-02b}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Test Scores vs Student Characteristic}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-07-fig-02c}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Regression of Test Scores on Student-Teacher Ratio: Selecting Controls}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-07-tbl-01-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{California School Districts}
+\emph{Selecting control variables}
+\begin{itemize}
+\item To mitigate a potential omitted variable bias, we augment the regression by including variables that control for various student characteristics. 
+\item These controls cut the estimated effect of the student-teacher ratio on test scores approximately in half. This estimated effect is not very sensitive to which specific control variables are included in the regression. In all cases, the hypothesis that the coefficient on the student-teacher ratio is $0$ can be rejected at the $5\%$ level.
+\item The student characteristic variables are potent predictors of test scores. The student-teacher ratio alone explains only a small fraction of the variation in test scores: The $\bar{R}^{2}$ in column (1) is $0.049$. The  $\bar{R}^{2}$ jumps, however, when the student characteristic variables are added. Districts with many English learners and districts with many poor children have lower test scores.
+\item The percentage qualifying for income assistance appears to be redundant. As reported in regression (5), adding it to regression (3) has a negligible effect on the estimated coefficient on the student-teacher ratio or its standard error.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

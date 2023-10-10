@@ -1,0 +1,154 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Probability: The Monty Hall Problem}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Monty Hall Problem}
+\begin{minipage}[t]{0.35\textwidth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]%
+{Monty-Hall-Make-A-Deal}
+\caption{Monty Hall\centering}
+\end{figure}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.60\textwidth}
+\begin{itemize}
+\item[] You are a guest on Monty Hall's T.V. show \textit{Let's Make a Deal}. You're given a choice of three doors. Behind one door is a car. Behind each of the other two doors is a goat. You pick a door. Monty, who knows what's behind the doors, opens one of the two doors you did not pick and reveals a goat. He then offers you to revise your choice. 
+\vspace{7ex}
+\item[] \only<2->{\think[-1cm]} \emph{Should you switch?}
+\end{itemize}
+\end{minipage}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{The Monty Hall Problem}
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]%
+{Image-Monty-Hall-Doors}
+\caption{You are on a game show. A car is hidden behind one of the doors. You pick Door 1. Game host Monty Hall opens Door 3 to reveal a goat. He then offers to let you pick Door 2 instead of Door 1. Is it to your advantage to switch your choice of doors?}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Monty Hall Problem}
+\begin{itemize}
+\item The \emph{Monty Hall problem} is a probability puzzle loosely based on the American television game show \textit{Let's Make a Deal} and named after its original host, Monty Hall. 
+\item The mathematical problem was originally posed and solved in a letter by Steve Selvin to \textit{American Statistician} in 1975. 
+\item The Monty Hall problem became famous as a question from a reader's letter quoted in Marilyn vos Savant's \textit{Ask Marilyn} column in \textit{Parade} magazine in 1990. 
+\item The solution is that \emph{the contestant should always switch}. 
+\item The probability of a win is increased from $1/3$ (never switch) to $2/3$ (always switch). 
+\item Thousands of readers wrote to express disagreement with Marilyn Vos Savant's answer! They argued that the odds when faced with two unopened doors were fifty-fifty, and that consequently switching could not improve the odds.
+\item But Marilyn is \underline{always} right.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{The Monty Hall Problem}
+\begin{quotation}\noindent
+You blew it, and you blew it big! Since you seem to have difficulty grasping the basic principle at work here, I'll explain. After the host reveals a goat, you now have a one-in-two chance of being correct. Whether you change your selection or not, the odds are the same. There is enough mathematical illiteracy in this country, and we don't need the world's highest IQ propagating more. Shame!
+\begin{signed}
+Scott Smith, Ph.D. University of Florida.
+\end{signed}
+\end{quotation}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{The Monty Hall Problem}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{Marilyn-vos-Savant}
+\caption{Marilyn vos Savant --- holder of the Guinness Record for Highest IQ --- posing in front of books she's probably read.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Monty Hall Problem}
+\begin{itemize}
+\item Always switching is the optimal strategy and it doubles the probability of winning.
+\begin{enumerate}
+\item Contestants who never switch win with probability $1/3$. 
+\item Contestants who always switch win with probability $2/3$.
+\end{enumerate}
+\item When first choosing the door, contestants have a $1/3$ probability of picking the winning door. After this point, contestants face a choice. And the choice makes a difference.
+\item Contestants face two outcomes:
+\begin{itemize}
+\item If they switch, they lose. 
+\item If they do not switch, they win.
+\end{itemize}
+\item A contestant who always switches --- a \textit{switcher} --- would lose, while a contestant who never switches --- a \textit{stayer} --- would win. In retrospect, switchers would feel regret! The stayers get ahead, which occurs with probability $1/3$
+\item But what if contestants select a losing door to begin with?
+\item Contestants have a $2/3$ probability of picking one of the two losing doors. And now the outcomes are reversed! The switchers are now ahead!
+\begin{itemize}
+\item If they switch, they win. 
+\item If they do not switch, they lose. $\qed$
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Monty Hall Problem}
+\begin{itemize}
+\item \emph{Fundamental Equation of the Monty Hall Problem:}
+\begin{align*}
+\text{stayers:} & \qquad
+\frac{1}{3} \quad \times \quad
+    \underbrace{(\text{Car})}_{1}
+  \quad+\quad 
+\frac{2}{3} \quad \times \quad
+    \underbrace{(\text{Goat})}_{0}
+  \quad=\quad \frac{1}{3} \\
+\text{switchers:} & \qquad
+\frac{1}{3} \quad \times \quad
+    \underbrace{(\text{Car}\to\text{Goat})}_{0}
+  \quad+\quad 
+\frac{2}{3} \quad \times \quad
+    \underbrace{(\text{Goat}\to\text{Car})}_{1}
+  \quad=\quad \frac{2}{3}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Monty Hall Problem}
+\begin{enumerate}
+\item The assumption that Monty always opens a losing door is essential. By opening the doors selectively --- rather than randomly --- Monty is revealing information. By systematically switching, the contestant is using that information. If Monty opened one of the doors at random (possibly revealing the winning door), switching would not help and the winning odds would remain $1/3$.
+\item Suppose there are one million doors (instead of three). After you make your choice, the host opens 999,998 doors, revealing no prize, and leaves one door closed plus the one you originally selected. Your original choice had a one in a million chance. The remaining door that you haven't selected has a far better chance. It's pretty obvious now.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

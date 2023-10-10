@@ -1,0 +1,230 @@
+---
+title: "Empirical Exercise 1, Stock and Watson Chapter 2"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+```{r data, include=FALSE, eval=TRUE}
+library(readxl)
+df1 <- read_xlsx("Age_HourlyEarnings.xlsx",
+                  col_names=TRUE,
+                  skip=1,
+                  trim_ws=TRUE)
+```
+
+### Remove empty rows and columns: simple and symmetric!
+```{r,  include=TRUE, eval=TRUE}
+df1 <- df1[, colMeans(is.na(df1)) != 1]
+df1 <- df1[rowMeans(is.na(df1)) != 1,]
+```
+We saw other ways to do this using the `Filter()` and `complete.cases()` functions.
+
+### Reshape data from wide to long form:
+```{r,  include=TRUE, eval=TRUE}
+library("tidyr")
+df2 <- gather(df1, Age, Probability, -AHE)
+```
+
+### Make Age a numeric or integer value:
+```{r,  include=TRUE, eval=TRUE}
+df2$Age <- as.integer(df2$Age)
+```
+This is needed after conversion from wide (horizontal) to long (vertical), since the variable `Age` in dataframe `df2` is constructed from the column names in dataframe `df1`. And `colnames` are `strings` (aka `character vectors` in `R`).
+
+### Now let's look at our data
+```{r,  include=TRUE, eval=TRUE}
+head(df2)
+```
+
+## (a) Compute the marginal distribution of Age.
+This is a situation where data in wide format is convenient! Often data is more convenient in long format.
+
+### Sum by column: The marginal distribution of Age
+```{r,  include=TRUE, eval=TRUE}
+colSums(df1[,names(df1) != "AHE"])
+```
+
+### Sum by row:
+```{r,  include=TRUE, eval=TRUE}
+rowSums(df1[,names(df1) != "AHE"])
+```
+
+
+If the data is in long format, we have to work a little harder. Below are several approaches.
+
+### With the data in long format:
+```{r,  include=TRUE, eval=TRUE}
+sum(df2[df2$Age == 25,]$Probability)
+sum(df2[df2$Age == 26,]$Probability)
+sum(df2[df2$Age == 27,]$Probability)
+```
+
+### with a split/apply routine to group by Age
+```{r,  include=TRUE, eval=TRUE}
+sapply(split(df2, df2$Age), function(x) sum(x$Probability))
+```
+
+To see how this works, try this command: `split(df2, df2$Age)`. It returns a list of dataframes. Then `sapply` applies the function we defined as `function(x) sum(x$Probability)` to each dataframe.
+
+### or we can always write a loop
+```{r,  include=TRUE, eval=TRUE}
+for (age in 25:34){
+    print(sum(df2[df2$Age == age,]$Probability))
+}
+```
+
+## (b) Compute the mean of AHE for each value of Age
+
+Two ways we could do it. There are still other ways we saw in class.
+
+### (i) with split/apply:
+```{r,  include=TRUE, eval=TRUE}
+sapply(split(df2, df2$Age), function(x) weighted.mean(x$AHE, x$Probability))
+```
+
+### (ii) with dplyr:
+It is convenient to compute the probabilities for each Age and store them together, which is easily done with `dplyr`:
+```{r,  include=TRUE, eval=TRUE}
+df2 %>%
+    group_by(Age) %>%
+    summarise(AHE = weighted.mean(AHE, Probability),
+              Probability = sum(Probability)) -> dm
+dm
+```
+
+## (c) Compute and plot the mean of AHE versus Age. Are average hourly earnings and age related? Explain.
+
+### Plot of mean hourly income by Age:
+```{r,  include=TRUE, eval=TRUE}
+library("ggplot2")
+library("scales")
+df <- dm[c("Age", "AHE")]
+ggplot(data=df, aes(x=Age, y=AHE)) +
+    geom_point(color="blue") +
+    ggtitle("Mean Earnings by Age") +
+    theme_bw()
+```
+
+The correlation between AHE and Age is visible from the scatter plot. An explanation is that wages rise with experience and experience rises with age, in most professions and at most of the range of ages and earnings (there may be exceptions at the extreme bounds of the distribution of age and earnings). 
+
+## (d) Use the law of iterated expectations to compute the mean of AHE
+
+### The mean of AHE for all ages:
+```{r,  include=TRUE, eval=TRUE}
+sum(dm$AHE)
+```
+
+### Check that sum(dm$Probability)=1:
+```{r,  include=TRUE, eval=TRUE}
+sum(dm$Probability)
+```
+
+## (e) Compute the variance of AHE.
+
+### Define a weighted variance function
+One approach is to compute a weighted variance the same way we computed the weighted mean. This is done now. Another approach, shown later, is to exploit the relation:
+$$ V[x] = E[x^2] - (E[x])^2 $$
+
+There is no way to unbias it because the information about the sample size is not available. One simple definition of the weighted variance is the following:
+```{r,  include=TRUE, eval=TRUE}
+weighted.variance <- function(x,w) sum(w*(x-weighted.mean(x,w))^2)/sum(w)
+```
+We can now use the `weighted.variance` function in the same way we used the `weighted.mean` function.
+
+### (i) with split/apply:
+```{r,  include=TRUE, eval=TRUE}
+dv <- sapply(split(df2, df2$Age), function(x) weighted.variance(x$AHE, x$Probability))
+# we could make a dataframe
+dv <- data.frame(Age = names(dv), Variance = dv)
+rownames(dv) <- NULL  # to keep things pretty
+dv
+```
+
+### (ii) with dplyr:
+```{r,  include=TRUE, eval=TRUE}
+df2 %>%
+    group_by(Age) %>%
+    summarise(Variance = weighted.variance(AHE, Probability),
+              Probability = sum(Probability)) -> dv
+dv
+```
+
+### variance for all ages:
+```{r,  include=TRUE, eval=TRUE}
+# merge data for convenience
+d1 = merge(dm, dv)
+sum(d1$Probability * d1$Variance)/sum(d1$Probability)
+```
+
+
+### expected value of squared earnings
+```{r,  include=TRUE, eval=TRUE}
+weighted.second.moment <- function(x,w) sum(w*x^2)/sum(w)
+```
+
+### compute expected value of squared earnings by Age
+$E[AHE^2|Age]$
+
+### (i) with split/apply:
+```{r,  include=TRUE, eval=TRUE}
+sapply(split(df2, df2$Age), function(x) weighted.second.moment(x$AHE, x$Probability))
+```
+
+### (ii) with dplyr:
+```{r,  include=TRUE, eval=TRUE}
+df2 %>%
+    group_by(Age) %>%
+    summarise(AHE2 = weighted.second.moment(AHE, Probability),
+              Probability = sum(Probability)) -> de
+de
+# merge data for convenience
+d1 <- merge(d1, de)
+```
+
+## (f) Compute the covariance between AHE and Age.
+The piping technique of the `dplyr` package is perhaps the most convenient approach. We could in fact do all the computations of this assignment in one series of pipes, as shown below.
+
+## (g) Compute the correlation between AHE and Age.
+
+### Now put it all together
+```{r,  include=TRUE, eval=TRUE}
+df2 %>%
+    summarise(Age1 = weighted.mean(Age, Probability),
+              Age2 = weighted.mean(Age^2, Probability),
+              AHE1 = weighted.mean(AHE, Probability),
+              AHE2 = weighted.mean(AHE^2, Probability),
+              AHEAge = weighted.mean(AHE * Age, Probability),
+              AHEV = AHE2 - AHE1^2,
+              AHES = sqrt(AHEV),
+              AgeV = Age2 - (Age1)^2,
+              AgeS = sqrt(AgeV),
+              Cov = AHEAge - Age1*AHE1,
+              Cor = Cov/AHES/AgeS) -> d2
+d2
+```
+
+## (h) Relate your answers in (f) and (g) to the plot you constructed in (c).
+
+The evidence is clear: The correlation is significant. This can be shown formally for a test of the null of no correlation at the 5% significance level. Under the null, the correlation coefficient has a t-distribution with n-2 degrees of freedom:
+```{r,  include=TRUE, eval=TRUE}
+alpha = 0.05
+r = d2$Cor
+n = ncol(d2)
+t = r/sqrt((n-2)/(1-r^2))
+tc = qt(1-alpha/2, n-2)
+t < tc
+```
+
+

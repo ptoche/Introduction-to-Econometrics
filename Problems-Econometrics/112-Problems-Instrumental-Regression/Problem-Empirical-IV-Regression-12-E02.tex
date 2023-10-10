@@ -1,0 +1,27 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\begin{enumerate}
+\item Stock \& Watson, Introduction (4th), Chapter~12, Empirical Exercise~2.
+\\[1ex]
+Does viewing a violent movie lead to violent behavior? If so, the incidence of violent crimes, such as assaults, should rise following the release of a violent movie that attracts many viewers. Alternatively, movie viewing may substitute for other activities (such as alcohol consumption) that lead to violent behavior, so that assaults should fall when more viewers are attracted to the cinema. Get the data file \textbf{Movies}, which contains data on the number of assaults and movie attendance for $516$ weekends from 1995 through 2004. A detailed description is given in \textbf{Movies\_Description}. The data set includes weekend U.S. attendance for strongly violent movies (such as Hannibal), mildly violent movies (such as Spider-Man), and nonviolent movies (such as Finding Nemo).The data set also includes a count of the number of assaults for the same weekend in a subset of counties in the United States. Finally, the data set includes indicators for year, month, whether the weekend is a holiday, and various measures of the weather.
+\begin{enumerate}
+\begin{enumerate}
+\item Regress the logarithm of the number of assaults on the year and month indicators. Is there evidence of seasonality in assaults? That is, do there tend to be more assaults in some months than others? Explain.
+\item Regress total movie attendance on the year and month indicators. Is there evidence of seasonality in movie attendance? Explain.
+\end{enumerate}
+\item Regress $ln\_assaults$ on $attend\_v$, $attend\_m$, $attend\_n$, the year and month indicators, and the weather and holiday control variables available in the data set.
+\begin{enumerate}
+\item Based on the regression, does viewing a strongly violent movie increase or decrease assaults? By how much? Is the estimated effect statistically significant?
+\item Does attendance at strongly violent movies affect assaults differently than attendance at moderately violent movies? Differently than attendance at nonviolent movies?
+\item A strongly violent blockbuster movie is released, and the weekend's attendance at strongly violent movies increases by $6$ million; meanwhile, attendance falls by $2$ million for moderately violent movies and by $1$ million for nonviolent movies. What is the predicted effect on assaults? Construct a $95\%$ confidence interval for the change in assaults. 
+\end{enumerate}
+\item It is difficult to control for all the variables that affect assaults and that might be correlated with movie attendance. For example, the effect of the weather on assaults and movie attendance is only crudely approximated by the weather variables in the data set. However, the data set does include a set of instruments --- $pr\_attend\_v$, $pr\_attend\_m$, and $pr\_attend\_n$ --- that are correlated with attendance but are (arguably) uncorrelated with weekend-specific factors (such as the weather) that affect both assaults and movie attendance. These instruments use historical attendance patterns, not information on a particular weekend, to predict a film's attendance in a given weekend. For example, if a film's attendance is high in the second week of its release, then this can be used to predict that its attendance was also high in the first week of its release. Run the regression from (b) (including $year$, $month$, $holiday$, and weather controls) but now using $pr\_attend\_v$, $pr\_attend\_m$, and $pr\_attend\_n$ as instruments for $attend\_v$, $attend\_m$, and $attend\_n$. Use this IV regression to answer (b)(i)-(b)(iii).
+\item The intuition underlying the instruments in (c) is that attendance in a given week is correlated with attendance in surrounding weeks. For each movie category, the data set includes attendance in surrounding weeks. Run the regression using the instruments $attend\_v\_f$, $attend\_m\_f$, $attend\_n\_f$, $attend\_v\_b$, $attend\_m\_b$, and $attend\_n\_b$ instead of the instruments used in (c). Use this IV regression to answer (b)(i)-(b)(iii).
+\item There are nine instruments listed in (c) and (d), but only three are needed for identification. Carry out a test for overidentification. What do you conclude about the validity of the instruments?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

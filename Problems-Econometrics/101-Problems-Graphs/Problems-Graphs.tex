@@ -1,0 +1,214 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Plots]{Plotting Time Series}
+\date{}
+
+
+\begin{document}
+
+\inputfile{../Section-Cover-R}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Time Series Plots}
+\begin{emphbox}{}
+\begin{itemize}
+\item[] Get quarterly data on the GDP for the United States, going back to 1960 and up to the latest available observation. 
+\item<1-> Make a time series plot of both nominal and real GDP for the years 1970-1979, with both series normalized to start at the same value in 1970. Use a logarithmic scale.
+\item<1-> Compute the growth rate for each quarter. Compute the annualized growth rate for each quarter. Plot the two series on the same axes.
+\end{itemize}
+\end{emphbox}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Basic Plots}
+
+
+\subsection{FRED}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plot by FRED: Linear}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-fred}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plot by FRED: Logscale}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-logscale-fred}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Base-R}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plot with Base-R: Logscale}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-logscale-basic}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{ggplot2}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plot with ggplot2: Logscale}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-logscale-ggplot}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Plot with ggplot2: Logscale \& Recessions}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-logscale-nber}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Real Vs Nominal}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Real Vs Nominal GDP}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-real-logscale-nber}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Growth Rates}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Quarterly Growth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-growth-q-nber}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Year-On-Year Growth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-growth-yoy-nber}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Year-On-Year Growth: Plot by FRED}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-growth-yoy-nber-fred}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Year-On-Year Growth: Real Vs Nominal}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-nominal-real-growth-nber}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Plot Themes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Gray Look}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-real-logscale-nber-gray}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{WSJ Look}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-real-logscale-nber-wsj}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Economist Look}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-real-logscale-nber-economist}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{FiveThirtyEight Look}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.86\textheight,keepaspectratio]%
+{plot-gdp-real-logscale-nber-538}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

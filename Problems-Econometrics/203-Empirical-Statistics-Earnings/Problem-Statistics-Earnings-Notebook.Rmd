@@ -1,0 +1,272 @@
+---
+title: "Empirical Exercise 1, Stock and Watson Chapter 3"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+```{r data, include=FALSE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("CPS96_15.xlsx", trim_ws=TRUE)
+```
+
+
+## (a) 
+
+### (i) 
+
+Compute the sample mean for average hourly earnings (AHE) in 1996 and 2015.
+
+```{r,  include=TRUE, eval=TRUE}
+mu.1996 = mean(df[df$year == 1996,]$ahe)
+mu.1996
+
+mu.2015 = mean(df[df$year == 2015,]$ahe)
+mu.2015
+```
+
+### (ii) 
+
+Compute the sample standard deviation for AHE in 1996 and 2015.
+```{r,  include=TRUE, eval=TRUE}
+sd.1996 = sd(df[df$year == 1996,]$ahe)
+sd.1996
+
+sd.2015 = sd(df[df$year == 2015,]$ahe)
+sd.2015
+```
+
+### (iii) 
+
+Construct a 95% confidence interval for the population means of AHE in 1996 and 2015.
+
+Let's make a function, so we don't have to copy-paste the same code twice: 
+```{r,  include=TRUE, eval=TRUE}
+make_ci <- function(x, alpha=0.05){
+    mu = mean(x)
+    sd = sd(x)
+    n = length(x)
+    t = qt(1-alpha/2, n-1)  # for n large, qnorm(1-alpha/2) will do
+    se = sd/sqrt(n)
+    me = t*se
+    ci = c(mu-me, mu+me)
+    ci
+}
+ci.1996 = make_ci(df[df$year == "1996",]$ahe)
+ci.1996
+
+ci.2015 = make_ci(df[df$year == "2015",]$ahe)
+ci.2015
+```
+
+### (iv) 
+
+Construct a 95% confidence interval for the change in the population means of AHE between 1996 and 2015.
+
+Sample sizes:
+```{r,  include=TRUE, eval=TRUE}
+n.1996 = length(df[df$year == 1996,]$ahe)
+n.1996
+n.2015 = length(df[df$year == 2015,]$ahe)
+n.2015
+```
+
+Sample variances:
+```{r,  include=TRUE, eval=TRUE}
+var.1996 = var(df[df$year == 1996,]$ahe)
+var.1996
+var.2015 = var(df[df$year == 2015,]$ahe)
+var.2015
+```
+
+Standard error:
+```{r,  include=TRUE, eval=TRUE}
+se = sqrt((var.1996/n.1996 + var.2015/n.2015))
+se
+```
+
+Critical z-value: Since the sample sizes are large, we can use the standard normal distribution.
+```{r,  include=TRUE, eval=TRUE}
+alpha = 0.05
+z = qnorm(1-alpha/2)
+z
+```
+
+Margin of error:
+```{r,  include=TRUE, eval=TRUE}
+me = z*se
+me
+```
+
+Confidence interval for the difference in means:
+```{r,  include=TRUE, eval=TRUE}
+ci = c(mu.2015-mu.1996-me, mu.2015-mu.1996+me)
+ci
+```
+
+## (b) 
+
+In 2015, the value of the Consumer Price Index (CPI) was 237.0. In 1996, the value of the CPI was 156.9. Repeat (a), but use AHE measured in real 2015 dollars ($2015); that is, adjust the 1996 data for the price inflation that occurred between 1996 and 2015.
+
+We create a new variable for the CPI-adjusted AHE, using 2015 prices, denoted $ahe.real$ (for the year 2015, we keep the existing data).
+```{r,  include=TRUE, eval=TRUE}
+df$ahe.real <- df$ahe
+df[df$year == 1996,]$ahe.real <- df[df$year == 1996,]$ahe.real * 237.0/156.9
+
+# 2015 values are unchanged
+mu.2015.real = mu.2015
+mu.2015.real
+
+mu.1996.real = mean(df[df$year == 1996,]$ahe.real)
+mu.1996.real
+
+sd.2015.real = sd.2015
+sd.2015.real
+
+sd.1996.real = sd(df[df$year == 1996,]$ahe.real)
+sd.1996.real
+
+make_ci(df[df$year == "1996",]$ahe.real)
+```
+
+Or simply change the units of the already computed values:
+```{r,  include=TRUE, eval=TRUE}
+sd.1996 * 237.0/156.9
+
+ci.1996 * 237.0/156.9
+```
+
+
+Confidence interval for difference in means:
+```{r,  include=TRUE, eval=TRUE}
+make_ci_diff <- function(x1, x2, alpha=0.05){
+    # means
+    m1 = mean(x1)
+    m2 = mean(x2)
+    # sample variances
+    v1 = var(x1)
+    v2 = var(x2)
+    # sample sizes:
+    n1 = length(x1)
+    n2 = length(x2)
+    # standard error:
+    se = sqrt(v1/n1+v2/n2)
+    # critical value:
+    t = qt(1-alpha/2, df=n1+n2-2)  # or just qnorm(1-alpha/2)
+    # confidence interval
+    ci = c(m2-m1-t*se, m2-m1+t*se)
+    ci
+}
+# variables
+x1 = df[df$year == "1996",]$ahe.real
+x2 = df[df$year == "2015",]$ahe.real
+make_ci_diff(x1, x2)
+```
+
+Or by leveraging R's built-in $t.test$ function:
+```{r,  include=TRUE, eval=TRUE}
+t.test(df[df$year == 2015,]$ahe.real, df[df$year == 1996,]$ahe.real)
+
+```
+
+
+## (c) 
+
+If you were interested in the change in workers' purchasing power from 1996 to 2015, would you use the results from (a) or (b)? Explain.
+
+Purchasing power is measured in real terms, so we would use the results from (b).
+
+
+## (d) 
+
+Using the data for 2015:
+
+### (i) 
+
+Construct a 95% confidence interval for the mean of AHE for high school graduates.
+```{r,  include=TRUE, eval=TRUE}
+make_ci(df[df$year == "2015" & df$bachelor == 0,]$ahe)
+```
+
+### (ii) 
+
+Construct a 95% confidence interval for the mean of AHE for workers with a college degree. 
+```{r,  include=TRUE, eval=TRUE}
+make_ci(df[df$year == "2015" & df$bachelor == 1,]$ahe)
+```
+
+### (iii) 
+
+Construct a 95% confidence interval for the difference between the two means.
+```{r,  include=TRUE, eval=TRUE}
+x1 = df[df$year == "2015" & df$bachelor == 0,]$ahe.real
+x2 = df[df$year == "2015" & df$bachelor == 1,]$ahe.real
+make_ci_diff(x1, x2)
+```
+
+## (e) 
+
+Repeat (d) using the 1996 data expressed in $2015.
+
+### (i)
+```{r,  include=TRUE, eval=TRUE}
+make_ci(df[df$year == "1996" & df$bachelor == 0,]$ahe.real)
+```
+### (ii)
+```{r,  include=TRUE, eval=TRUE}
+make_ci(df[df$year == "1996" & df$bachelor == 1,]$ahe.real)
+```
+### (iii)
+```{r,  include=TRUE, eval=TRUE}
+x1 = df[df$year == "1996" & df$bachelor == 0,]$ahe.real
+x2 = df[df$year == "1996" & df$bachelor == 1,]$ahe.real
+make_ci_diff(x1, x2)
+```
+
+## (f) 
+
+Using appropriate estimates, confidence intervals, and test statistics, answer the following questions:
+
+### (i) 
+
+Did real (inflation-adjusted) wages of high school graduates increase from 1996 to 2015?
+```{r,  include=TRUE, eval=TRUE}
+x1 = df[df$year == "1996" & df$bachelor == 0,]$ahe.real
+x2 = df[df$year == "2015" & df$bachelor == 0,]$ahe.real
+make_ci_diff(x1, x2)
+```
+The confidence interval associated with the mean difference in the real wages of high-school graduates is $(-0.27, 0.50)$. Since $0$ belongs to the interval, there is no statistical evidence of an increase.
+
+### (ii) 
+
+Did real wages of college graduates increase?
+```{r,  include=TRUE, eval=TRUE}
+x1 = df[df$year == "1996" & df$bachelor == 1,]$ahe.real
+x2 = df[df$year == "2015" & df$bachelor == 1,]$ahe.real
+make_ci_diff(x1, x2)
+```
+
+The confidence interval associated with the mean difference in the real wages of college graduates is $(1.99, 3.16)$, well above $0$ and thus clearly pointing to a statistically significant increase.
+
+### (iii) 
+
+Did the gap between earnings of college and high school graduates increase? Explain.
+```{r,  include=TRUE, eval=TRUE}
+gap1 = mean(df[df$year == "1996" & df$bachelor == 1,]$ahe.real)
+       -mean(df[df$year == "1996" & df$bachelor == 0,]$ahe.real)
+
+gap2 = mean(df[df$year == "2015" & df$bachelor == 1,]$ahe.real)
+       -mean(df[df$year == "2015" & df$bachelor == 0,]$ahe.real)
+gap2-gap1
+```
+The gap between the mean earnings of college and high school graduates has increased by about $2.46$. 

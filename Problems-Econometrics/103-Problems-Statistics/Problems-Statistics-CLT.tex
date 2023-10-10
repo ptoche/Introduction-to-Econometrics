@@ -1,0 +1,108 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Statistics: Central Limit Theorem}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{In a population, $\mu=100$ and $\sigma^2=43$. Use the central limit theorem to answer the question:}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Central Limit Theorem}
+\ask
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item In a random sample of size $n=100$,\, find $\text{Pr}(\mean{Y}<101)$.
+
+\begin{answer}
+\begin{align*}
+\P{\mean{Y} < 101}
+  & = \P{\frac{\mean{Y}-\mu}{\sigma/\sqrt{n}} < \frac{101-\mu}{\sigma/\sqrt{n}}}\\
+  & = \P{Z < \frac{101-100}{\sqrt{43}/\sqrt{100}}}\\  
+  & \approx \P{Z < 1.525}\\ 
+  & \approx 0.94
+% z = (101-100)/sqrt(43)*sqrt(100)
+% 1.524986
+% pnorm(z)
+% 0.9363687
+\end{align*}
+In \Rlang, you would compute the probability with \Rinline{pnorm(1.525)}.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Central Limit Theorem}
+\ask
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item In a random sample of size $n=165$,\, find $\text{Pr}(\mean{Y}>98)$.
+
+\begin{answer}
+\begin{align*}
+\P{\mean{Y} > 98}
+  & = 1 - \P{\mean{Y} < 98}\\
+  & = 1 - \P{\frac{\mean{Y}-\mu}{\sigma/\sqrt{n}} < \frac{98-\mu}{\sigma/\sqrt{n}}}\\
+  & = 1 - \P{Z < \frac{98-100}{\sqrt{43}/\sqrt{165}}}\\  
+  & \approx 1 - \P{Z < -3.92}\\  
+  & \approx 0.99995\\
+  & \approx 1
+% z = (98-100)/sqrt(43)*sqrt(165)
+% -3.917759
+% 1-pnorm(z)
+% 0.9999553
+\end{align*}
+\Rlang code: \Rinline{1-pnorm(-3.9178)}.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Central Limit Theorem}
+\ask
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item In a random sample of size $n=64$,\, find $\text{Pr}(101<\mean{Y}<103)$.
+
+\begin{answer}
+\begin{align*}
+\P{101 < \mean{Y} < 103}
+  & = \P{\frac{101-\mu}{\sigma/\sqrt{n}} < \frac{\mean{Y}-\mu}{\sigma/\sqrt{n}} < \frac{103-\mu}{\sigma/\sqrt{n}}} \\
+  & = \P{\frac{101-100}{\sqrt{43}/\sqrt{64}} < Z < \frac{103-100}{\sqrt{43}/\sqrt{64}}} \\  
+  & \approx \P{1.220 < Z < 3.660} \\  
+  & \approx 1 - 0.89\\
+  & \approx 0.11
+% z1 = (101-100)/sqrt(43)*sqrt(64)
+% 1.219989
+% z2 = (103-100)/sqrt(43)*sqrt(64)
+% 3.659966
+% pnorm(z1)
+% 0.8887654
+% pnorm(z2)
+% 0.9998739
+% pnorm(z2) - pnorm(z1)
+% 0.1111085
+\end{align*}
+\Rlang code: \Rinline{pnorm(3.660)-pnorm(1.220)}.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

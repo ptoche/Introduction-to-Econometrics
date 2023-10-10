@@ -1,0 +1,163 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Test Scores]{Linear Regression: California Test Scores}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{\begin{align*}
+\verywidehat{TestScore} 
+  = 520.4 - 5.82 \times CS,
+  \quad R^2 = 0.08,
+  \quad \vn{SER} = 11.5
+\end{align*}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~4, Exercise~1.}
+A researcher, using data on class size (CS) and average test scores from $100$ third-grade classes, estimates the OLS regression:
+\ask
+\begin{enumerate}
+\item A classroom has $22$ students. What is the regression's prediction for that classroom's average test score?
+\item Last year a classroom had $19$ students, and this year it has $23$ students. What is the regression's prediction for the change in the classroom average test score?
+\item The sample average class size across the $100$ classrooms is $21.4$. What is the sample average of the test scores across the $100$ classrooms?
+\item What is the sample standard deviation of test scores across the $100$ classrooms?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item A classroom has $22$ students. What is the regression's prediction for that classroom's average test score?
+
+\begin{answer}
+The regression's prediction is: 
+\begin{align*}
+\verywidehat{TestScore}_{|CS=22}
+  & = 520.4 - 5.82 \times 22\\
+  & = 392.36
+% 520.4 - 5.82 * 22
+% 392.36
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Last year a classroom had $19$ students, and this year it has $23$ students. What is the regression's prediction for the change in the classroom average test score?
+
+\begin{answer}
+The regression's prediction is:
+\begin{align*}
+\Delta\verywidehat{TestScore}_{|CS=19\to23}
+  & = (520.4 - 5.82 \times 23) - (520.4 - 5.82 \times 19)\\
+  & = - 5.82 \times (23-19)\\
+  & = -23.28
+% -5.82*(23-19)
+% -23.28
+\end{align*}
+The classroom size was increased by $4$ extra students, so we expect the average test score to fall by about $23$ points. 
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item The sample average class size across the $100$ classrooms is $21.4$. What is the sample average of the test scores across the $100$ classrooms?
+
+\begin{answer}
+The sample average across the $100$ classrooms is:
+\begin{align*}
+\overline{TestScore}
+  & = \hat{\beta}_{0} +  \hat{\beta}_{1} \times \overline{CS}\\
+  & = 520.4 - 5.82 \times 21.4\\
+  & = 395.852
+% 520.4 - 5.82 * 21.4
+% 395.852
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item What is the sample standard deviation of test scores across the $100$ classrooms?
+
+\begin{answer}
+The sample variance may be computed as the ratio of the total sum of squares to the residual sum of squares, $TSS/RSS$. 
+The residual sum of squares, $RSS$, may be computed from the standard error of the regression, $\vn{SER}$:
+\begin{align*}
+\vn{SER} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_{i}^2}{n-2}}
+    = \sqrt{\frac{RSS}{n-2}}
+\implies
+RSS = (n-2) \vn{SER}^2
+    = 98 \cdot 11.5^2
+    = 12,961
+\end{align*}
+The total sum of squares, $TSS$, may be computed from the formula for $R^{2}$:
+\begin{align*}
+R^2 = \frac{ESS}{TSS}
+    = 1 - \frac{RSS}{TSS}
+\implies
+TSS = \frac{RSS}{1-R^2}
+    = \frac{12,961}{1-0.08^2}
+    = 13,044
+\end{align*}
+And finally the variance of test scores:
+\begin{align*}
+s_{YY} 
+    = \tfrac{1}{n-1}\sum_{i=1}^{n}(Y_{i}-\mean{Y})^2
+    = \frac{TSS}{n-1}
+    = \frac{13,044}{99}
+    = 131.8
+\implies
+s_{Y} \approx 11.5 
+% 13044/99 
+% 131.7576
+% sqrt(13044/99)
+% 11.47857
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

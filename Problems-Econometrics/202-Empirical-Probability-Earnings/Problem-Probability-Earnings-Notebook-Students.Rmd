@@ -1,0 +1,125 @@
+---
+title: "Empirical Exercise 1, Stock and Watson Chapter 2"
+author: "Your Name + CWID + youremail@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document: default
+subtitle: Econ 440 - Introduction to Econometrics
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+### Tips
+Explicitly mark the question or question number in your code. Show the output, not just the code: A few months/years from now, the packages will have been updated and the code may no longer run, so it's a good habit to keep a record of the output. Don't forget to answer the questions! 
+
+### Load dataset
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df1 <- read_xlsx("Age_HourlyEarnings.xlsx",
+                  col_names=TRUE,
+                  skip=1,
+                  trim_ws=TRUE)
+```
+
+### Remove empty rows and columns: simple and symmetric!
+```{r,  include=TRUE, eval=TRUE}
+df1 <- df1[, colMeans(is.na(df1)) != 1]
+df1 <- df1[rowMeans(is.na(df1)) != 1,]
+```
+There are other ways to do this, e.g. using the `Filter()` and `complete.cases()` functions.
+
+### Reshape data from wide to long form:
+```{r,  include=TRUE, eval=TRUE}
+library("tidyr")
+df2 <- gather(df1, Age, Probability, -AHE)
+```
+
+### Make Age a numeric or integer value:
+```{r,  include=TRUE, eval=TRUE}
+df2$Age <- as.integer(df2$Age)
+```
+This is needed after conversion from wide (horizontal) to long (vertical), since the variable `Age` in dataframe `df2` is constructed from the column names in dataframe `df1`. And `colnames` are `strings` (aka `character vectors` in `R`).
+
+### Now let's look at our data
+```{r,  include=TRUE, eval=TRUE}
+head(df2)
+```
+
+## (a) Compute the marginal distribution of Age.
+This is a situation where data in wide format is convenient! Often data is more convenient in long format.
+
+### Sum by column: The marginal distribution of Age
+```{r,  include=TRUE, eval=TRUE}
+colSums(df1[,names(df1) != "AHE"])
+```
+
+### Sum by row:
+```{r,  include=TRUE, eval=TRUE}
+rowSums(df1[,names(df1) != "AHE"])
+```
+
+
+If the data is in long format, we have to work a little harder. Below are several approaches.
+
+### With the data in long format:
+```{r,  include=TRUE, eval=TRUE}
+sum(df2[df2$Age == 25,]$Probability)
+sum(df2[df2$Age == 26,]$Probability)
+sum(df2[df2$Age == 27,]$Probability)
+```
+
+### with a split/apply routine to group by Age
+```{r,  include=TRUE, eval=TRUE}
+sapply(split(df2, df2$Age), function(x) sum(x$Probability))
+```
+
+To see how this works, try this command: `split(df2, df2$Age)`. It returns a list of dataframes. Then `sapply` applies the function we defined as `function(x) sum(x$Probability)` to each dataframe.
+
+### or we can always write a loop
+```{r,  include=TRUE, eval=TRUE}
+for (age in 25:34){
+    print(sum(df2[df2$Age == age,]$Probability))
+}
+```
+
+## (b) Compute the mean of AHE for each value of Age
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (c) Compute and plot the mean of AHE versus Age. Are average hourly earnings and age related? Explain.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (d) Use the law of iterated expectations to compute the mean of AHE
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (e) Compute the variance of AHE.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (f) Compute the covariance between AHE and Age.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (g) Compute the correlation between AHE and Age.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (h) Relate your answers in (f) and (g) to the plot you constructed in (c).
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+

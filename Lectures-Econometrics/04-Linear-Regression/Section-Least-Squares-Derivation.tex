@@ -1,0 +1,88 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Deriving the OLS Estimators}
+\begin{itemize}
+\item To illustrate the principle, ignore $\beta_{0}$. Minimize the sum of squared residuals:
+\begin{align*}
+\min_{\beta_{1}}\, 
+\sum_{i=1}^{n}(Y_{i}-\beta_{1}X_{i})^{2}
+\end{align*}
+\item Calculate the derivative with respect to the parameter $\beta_{1}$ and set it equal to zero:
+\begin{align*}
+\frac{d}{d\hat{\beta}_{1}}\,
+\sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{1}X_{i})^{2}
+  & = 0\\
+  -2\sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{1}X_{i})X_{i} 
+  & = 0\\
+  \frac{1}{n}\sum_{i=1}^{n}X_{i}Y_{i}
+  -\hat{\beta}_{1}\,\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2} & = 0\\
+\implies
+  \hat{\beta}_{1}
+  & = \frac{\frac{1}{n}\sum_{i=1}^{n}X_{i}Y_{i}}{\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Deriving the OLS Estimators}
+\begin{itemize}
+\item Minimize the sum of squared residuals:
+\begin{align*}
+\min_{\beta_{0},\beta_{1}}\, 
+\sum_{i=1}^{n}(Y_{i}-\beta_{0}-\beta_{1}X_{i})^{2}
+\end{align*}
+\item Calculate the derivative with respect to the parameter $\beta_{1}$ and set it equal to zero:
+\begin{align*}
+\frac{\partial}{\partial\hat{\beta}_{1}}\,
+\sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}X_{i})^{2}
+  & = 0\\
+  -2 \sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}X_{i})X_{i} 
+  & = 0\\
+  \frac{1}{n}\sum_{i=1}^{n}X_{i}Y_{i}
+  -\hat{\beta}_{0}\,\frac{1}{n}\sum_{i=1}^{n}X_{i}
+  -\hat{\beta}_{1}\,\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2} & = 0\\
+\implies
+  \hat{\beta}_{1}
+  & = \frac{\frac{1}{n}\sum_{i=1}^{n}X_{i}Y_{i}-\hat{\beta}_{0}\,\frac{1}{n}\sum_{i=1}^{n}X_{i}}{\frac{1}{n}\sum_{i=1}^{n}X_{i}^{2}}
+\end{align*}
+\item Thus, the partial derivative with respect to $\hat{\beta}_{1}$ yields a linear relation between $\hat{\beta}_{0}$ and $\hat{\beta}_{1}$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Deriving the OLS Estimators}
+\begin{itemize}
+\item Calculate the derivative with respect to the parameter $\beta_{0}$ and set it equal to zero:
+\begin{align*}
+\frac{\partial}{\partial\hat{\beta}_{0}}\,
+\sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}X_{i})^{2}
+  & = 0\\
+  -2 \sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}X_{i})
+  & = 0\\
+  \frac{1}{n}\sum_{i=1}^{n}Y_{i}
+  -\hat{\beta}_{0}\,\frac{1}{n}\sum_{i=1}^{n}1
+  -\hat{\beta}_{1}\,\frac{1}{n}\sum_{i=1}^{n}X_{i} & = 0\\
+\implies
+  \hat{\beta}_{0}
+  & = \mean{Y} - \hat{\beta}_{1}\,\mean{X}
+\end{align*}
+\item The partial derivative with respect to $\hat{\beta}_{1}$ has an $X_{i}$ term which here is simply $1$. 
+\item Putting it together:
+\begin{align*}
+  \hat{\beta}_{1}
+  & = \frac{\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\mean{X})(Y_{i}-\mean{Y})}{\frac{1}{n}\sum_{i=1}^{n}(X_{i}-\mean{X})^{2}}\\
+  \hat{\beta}_{0}
+  & = \mean{Y} - \hat{\beta}_{1}\,\mean{X}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

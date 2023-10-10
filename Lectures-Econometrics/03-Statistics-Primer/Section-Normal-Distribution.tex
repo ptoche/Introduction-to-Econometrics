@@ -1,0 +1,101 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Normal Distribution} 
+\begin{emphbox}{Normal Distribution}\justifying
+A random variable $X$ follows a normal distribution with mean $\mu$ and variance $\sigma^2$ if it is continuously distributed with probability density function (pdf) given by:
+\begin{align*}
+f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\dfrac{(x-\mu)^2}{2\sigma^2}}
+\end{align*} 
+It is denoted $X\sim N(\mu,\sigma^2)$. 
+\end{emphbox}
+\begin{itemize}
+\item \emph{Standard normal distribution:} 
+$Z\sim N(0,1)$. That is, $\mu=0$ and $\sigma^2=1$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Normal Distribution} 
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{distribution-normal}	
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Properties of Normal Distribution} 
+\emph{Property 1:}
+\begin{itemize}
+\item If $X\sim N(\mu,\sigma^2)$ then $(X-\mu)/\sigma\sim N(0,1)$.
+\item Thus, we can express probabilities for any normal random variable in terms of $Z\sim N(0,1)$.
+\item Exercise: Show that if $X\sim N(2,100)$ then $\Pr(X\geq 22) = \Pr(Z\geq 2)$.
+\begin{align*}
+\Pr(X\geq 22) 
+    & = \Pr\left(\frac{X-2}{10} \geq \frac{22 -2}{10} \right)\\ 
+    & = \Pr\left(Z \geq 2\right) 
+\end{align*} 
+Here we use the fact that $\mu=2$ and $\sigma = \sqrt{100} = 10$.
+\item We calculate $\Pr(Z\geq 2)$ by looking up a table or using dedicated software.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Properties of Normal Distribution} 
+\emph{Property 2:}
+\begin{itemize}
+\item If $X\sim N(\mu_X,\sigma_X^2)$ and $Y\sim N(\mu_Y,\sigma_Y^2)$ are jointly normal, then $W=aX+bY$ is also normally distributed for any $a,b\in\Real$.
+\item Calculate $\exp[W]$:
+\begin{itemize}
+\item By linearity of expectation we have that $\exp[aX+bY] = a\exp[X]+ b\exp[Y]$
+\item So, $\mu_W = \exp[W] = a\mu_X + b\mu_Y$.
+\end{itemize}
+\item Calculate $\var(W)$:
+\begin{align*}
+\var(aX+bY) = a^2\var(X) + b^2\var(Y) + 2ab\cov(X,Y)\\
+\implies 
+\var(W) = \var(aX+bY) = a^2\sigma_X^2 + b^2\sigma_Y^2 + 2ab\sigma_{XY}
+\end{align*}
+
+\item Putting it together:
+\begin{align*}
+W\sim N\left(a\mu_X + b\mu_Y, a^2\sigma_X^2 + b^2\sigma_Y^2 + 2ab\sigma_{XY}\right)
+\end{align*} 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Properties of Normal Distribution} 
+\emph{Property 3:} 
+\begin{itemize}
+\item The distribution of $X \sim N(0,\sigma^2)$ is symmetric around zero: 
+\begin{align*}
+\Pr(X \geq x) = \Pr(X \leq -x)
+\end{align*} 
+\item Thus, we can compute:
+\begin{align*}
+\Pr(|X|\geq c) = \Pr(X\geq c) + \Pr(X \leq -c) = 2\Pr(X\geq c)
+\end{align*} 
+\begin{figure}
+\centering
+\includegraphics<2->[width=\linewidth,height=0.45\textheight,keepaspectratio]%
+{dist-normal-m-0-s-i-combined}
+\end{figure}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

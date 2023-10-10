@@ -1,0 +1,115 @@
+---
+title: "Empirical Exercise 2, Stock and Watson Chapter 8"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+## Empirical Exercise: Earnings
+The data file **CPS2015** contains data for full-time, full-year workers, ages 25–34, with a high school diploma or B.A./B.S. as their highest degree. A detailed description is given in **CPS2015_Description**. In this exercise, you will investigate the relationship between a worker's age and earnings.
+
+
+### Dataset:
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("CPS2015.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+## (a) 
+
+Run a regression of average hourly earnings ($ahe$) on age ($age$), sex ($female$), and education ($bachelor$). If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (b) 
+
+Run a regression of the logarithm of average hourly earnings, $ln(ahe)$, on $age$, $female$, and $bachelor$. If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (c) 
+
+Run a regression of the logarithm of average hourly earnings, $ln(ahe)$, on $ln(age)$, $female$, and $bachelor$. If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+## (d)
+
+Run a regression of the logarithm of average hourly earnings, $ln(ahe)$, on $age$, $age2$, $female$, and $bachelor$. If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (e) 
+
+Do you prefer the regression in (c) to the regression in (b)? Explain.
+
+
+## (f)
+
+Do you prefer the regression in (d) to the regression in (b)? Explain.
+
+## (g) 
+
+Do you prefer the regression in (d) to the regression in (c)? Explain.
+
+
+## (h)
+
+Plot the regression relation between $age$ and $ln(ahe)$ from (b), (c), and (d) for males with a high school diploma. Describe the similarities and differences between the estimated regression functions. Would your answer change if you plotted the regression function for females with college degrees?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+## (i)
+
+Run a regression of $ln(ahe)$ on $age$, $age2$, $female$, $bachelor$, and the interaction term $female * bachelor$. What does the coefficient on the interaction term measure? Alexis is a 30-year-old female with a bachelor's degree. What does the regression predict for her value of $ln(ahe)$? Jane is a 30-year-old female with a high school diploma. What does the regression predict for her value of $ln(ahe)$? What is the predicted difference between Alexis's and Jane's earnings? Bob is a 30-year-old male with a bachelor's degree. What does the regression predict for his value of $ln(ahe)$? Jim is a 30-year-old male with a high school diploma. What does the regression predict for his value of $ln(ahe)$? What is the predicted difference between Bob's and Jim's earnings?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (j)
+Is the effect of Age on earnings different for men than for women? Specify and estimate a regression that you can use to answer this question.
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (k)
+Is the effect of Age on earnings different for high school graduates than for college graduates? Specify and estimate a regression that you can use to answer this question.
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (l)
+After running all these regressions (and any others that you want to run), summarize the effect of age on earnings for young workers.
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+

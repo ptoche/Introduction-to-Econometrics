@@ -1,0 +1,69 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Multiple Regression]{Multiple Regression: Omitted Variable Bias}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~6, Exercise~6.}
+A researcher plans to study the causal effect of police on crime, using data from a random sample of U.S. counties. He plans to regress the county's crime rate on the (per capita) size of the county's police force.
+\begin{enumerate}
+\item Explain why this regression is likely to suffer from omitted variable bias. Which variables would you add to the regression to control for important omitted variables?
+\item Use the previous answer to determine whether the regression will likely over- or underestimate the effect of police on the crime rate. That is, do you think that $\hat{\beta}_{1}>\beta_{1}$ or $\hat{\beta}_{1}<\beta_{1}$?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Explain why this regression is likely to suffer from omitted variable bias. Which variables would you add to the regression to control for important omitted variables?
+
+\begin{answer}
+A county's crime rate depends on a host of factors other than the size of the police force. For instance, the average level of income, the distribution of income, the unemployment rate, and the level of education, among others. Furthermore, the size of the police force may be a poor proxy for police effectiveness: the level of education in the police force, the quality of police training (much below international standards in the United States), racial diversity (to reduce wrongful arrests), police force salaries (higher salaries would attract better people to join the police force), police resources (better cars, better computers, better labs, better sniffer dogs, etc.).  Leaving these out essentially ``forces'' the size variable to explain the crime rate even in situations where other factors would be more important, thus producing biased estimates.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Use the previous answer to determine whether the regression will likely over- or underestimate the effect of police on the crime rate. That is, do you think that $\hat{\beta}_{1}>\beta_{1}$ or $\hat{\beta}_{1}<\beta_{1}$?
+
+\begin{answer}
+The regression is likely to overestimate $\beta_{1}$, that is $\hat{\beta}_{1}>\beta_{1}$. Consider the formula for the omitted variable bias:
+\begin{align*}
+\hat{\beta}_{1} \xrightarrow{p} \beta_{1} + \rho_{Xu} \cdot \zfrac{\sigma_{u}}{\sigma_{X}}
+\end{align*}
+Since we expect crime rates to vary across counties irrespective of policing, we can expect that counties with higher crime rates would tend to respond by having a larger police force. Since many of the potentially omitted variables would be positively associated with the crime rate, we can expect that the size of the police force would be positively correlated with the error term, $\rho_{Xu}>0$s, implying a potential overestimate of $\hat{\beta}_{1}$. Since the true coefficient is likely to be negative $\beta_{1}<0$ (greater police force causes a smaller crime rate), it follows that an over-estimate of $\hat{\beta}_{1}$ would result in an under-estimate of the effect of police on crime. In practice, this intuition would need to be verified with the data by computing $\rho_{X\hat{u}}$. To sum up, we expect:
+\vspace*{-2ex}\emph{\begin{align*}
+\hat{\beta}_{1}>\beta_{1}
+\implies 
+|\hat{\beta}_{1}| < |\beta_{1}|
+\end{align*}}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+

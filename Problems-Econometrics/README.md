@@ -1,0 +1,1 @@
+Problems to accompany the textbook by James H. Stock and Mark W. Watson, Introduction to Econometrics

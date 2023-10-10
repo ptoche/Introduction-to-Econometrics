@@ -1,0 +1,69 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Basic Definitions}
+\begin{itemize}
+\item \emph{Random Experiment}: 
+A repeatable procedure that has a well-defined set of outcomes.
+\item \emph{Outcomes}: The mutually exclusive potential results of a random process.
+\item \emph{Sample Space}: The set $\mathcal{S}$ of the possible outcomes of an experiment.
+\item \emph{Event}: A subset of the sample space, $\mathcal{E} \subseteq \mathcal{S}$.
+\item \emph{Random variable}: function from set $\mathcal{S}$ to a real number.
+\item \emph{Probability}: A mapping from all subsets of the sample space $S$ to $[0,1]$ with these properties:%
+\begin{itemize}
+\item \label{P1} $\Pr(\mathcal{S}) = 1$
+\item \label{P2} $0 \leq \Pr(\mathcal{E}) \leq 1$ for all $\mathcal{E} \subseteq \mathcal{S}$
+\item \label{P3} If $\mathcal{E}_1, \mathcal{E}_2,\ldots$ are disjoint events, then 
+$\Pr(\mathcal{E}_1 \cup \mathcal{E}_2 \cup ...) = \Pr (\mathcal{E}_1) + \Pr (\mathcal{E}_2) + \ldots$
+\end{itemize}
+\item The probability of an outcome is the long-run frequency that the outcome occurs. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Examples}
+\begin{itemize}
+\item Example of a random experiment: Flipping a coin.
+\item Sample space: $\mathcal{S}=\{H,T\}$. 
+\item Equivalent representation: 
+\begin{align*}
+X = 
+\begin{cases} 
+1 & \text{if} \quad H\\
+0 & \text{if} \quad T
+\end{cases}
+\end{align*}
+\item The assignment is arbitrary, so another equivalent representation:
+\begin{align*}
+X = 
+\begin{cases} 
+1 & \text{if} \quad T\\
+0 & \text{if} \quad H
+\end{cases}
+\end{align*}
+\item Other examples of random experiments: rolling a die and observing the face; rolling two dice and observing the sums; drawing colored balls from an urn; car registration numbers from passing cars. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Set Notation}
+\begin{itemize}
+\item \emph{Set:} A collection of objects. These objects are called \emph{elements} of the set. 
+\item A sample space is a set whose elements are the possible outcomes of an experiment. 
+\item The \emph{union} of set $A$ and set $B$, written $A \cup B$, is the set of every element in either $A$ or $B$. 
+\item The \emph{intersection} of set $A$ and $B$, written $A \cap B$, is the set of every element that belongs to both $A$ and $B$.  
+\item The set with no elements, denoted $\emptyset$, is called the \emph{empty set}.
+\item Two sets are \emph{disjoint} if their intersection is empty.
+\item $A$ is a \emph{subset} of $B$, denoted $A \subseteq B$, if every element of $A$ is also an element of $B$. 
+\item If $A$ is a \emph{strict subset} of $B$, it is denoted $A \subset B$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

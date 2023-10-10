@@ -1,0 +1,48 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Instrumental Variables Regression}
+\begin{itemize}
+\item \emph{IV regression:} A method to obtain a consistent estimator of the unknown causal coefficients when a regressor $X$ is correlated with the error term $u$.
+\item \emph{Understand IV regression:} Separate the variation in $X$ into two parts: one part that is correlated with $u$ and another part that is not. If you could isolate the uncorrelated part, you could disregard the variations in $X$ that bias the OLS estimates. Information about the movements in $X$ that are uncorrelated with $u$ is obtained from ``instrumental variables.'' 
+\item Let $\beta_{1}$ be the causal effect of $X$ on $Y$.
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} X_{i} + u_{i}
+\end{align*}
+where $u_{i}$ is the error term representing omitted factors that determine $Y_{i}$.
+\item If $X_{i}$ and $u_{i}$ are correlated, the OLS estimator is inconsistent. 
+\item Instrumental variables estimation uses a variable $Z$ to isolate that part of $X$ that is uncorrelated with $u$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Instrumental Variables Regression}
+\emph{Dealing with $\cor(X_{i}, u_{i})$}
+\begin{itemize}
+\item \emph{Valid Instruments}
+\begin{enumerate}
+\item Instrument Relevance:
+\quad
+$\cor(Z_{i}, X_{i}) \ne 0$.
+\item Instrument Exogeneity:
+\quad
+$\cor(Z_{i}, u_{i}) = 0$.
+\end{enumerate}
+\item \emph{Relevance:} ~
+The instrument's variation is related to the variation in the explanatory variable.
+\item \emph{Exogeneity:} ~
+The part of the variation of the explanatory variable captured by the instrumental variable is exogenous.
+\item \emph{Definitions:}
+\begin{itemize}
+\item Endogenous variable:
+Variables correlated with the error term.
+\item Exogenous variable:
+Variables uncorrelated with the error term.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

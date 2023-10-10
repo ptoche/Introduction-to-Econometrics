@@ -1,0 +1,174 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Panel Data]{Panel Data Studies: Traffic Fatalities}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=1\textheight,keepaspectratio]%
+{StockWatson4e-10-tbl-01}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~10, Exercise~1.}
+This exercise refers to the drunk driving panel data regressions summarized in Table 10.1.
+\begin{enumerate}
+\item New Jersey has a population of $8.1$ million people. Suppose New Jersey increased the tax on a case of beer by $\$1$ (in 1988 dollars). Use the results in column (4) to predict the number of lives that would be saved over the next year. Construct a $95\%$ confidence interval for your answer.
+\item The drinking age in New Jersey is $21$. Suppose New Jersey lowered its drinking age to $18$. Use the results in column (4) to predict the change in the number of traffic fatalities in the next year. Construct a $95\%$ confidence interval for your answer.
+\item Should time effects be included in the regression? Why or why not?
+\item A researcher conjectures that the unemployment rate has a different effect on traffic fatalities in the western states than in the other states. How would you test this hypothesis? (Be specific about the specification of the regression and the statistical test you would use.)
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item New Jersey has a population of $8.1$ million people. Suppose New Jersey increased the tax on a case of beer by $\$1$ (in 1988 dollars). Use the results in column (4) to predict the number of lives that would be saved over the next year. Construct a $95\%$ confidence interval for your answer.
+
+\begin{answer}
+With a $\$1$ increase in the beer tax, the expected number of lives that would be saved is $0.45$ per $10,000$ people. Since New Jersey has a population of $8.1$ million, the expected number of lives saved is about
+\begin{align*}
+0.45 \cdot 8.1 \cdot 10^{6}/10^{4} 
+    = 0.45 \cdot 810 \approx 365
+% 0.45 * 8.1 * 10^6/10^4
+\end{align*}
+The coefficient on $\vn{BeerTax}$ is measured with imprecision, since the standard error is large ($0.30$ is not much smaller than $0.45$), so we expect a relatively wide confidence interval. The $95\%$ confidence interval is:
+\begin{align*}
+(0.45 \pm 1.96 \cdot 0.30) \cdot 810 
+\approx [-112, 841]
+%(0.45 + 1.96 * 0.30) * 810
+% 840.78
+%(0.45 - 1.96 * 0.30) * 810
+% -111.78
+\end{align*}
+This confidence interval is quite wide and does not exclude the possibility that an increase in the beer tax would increase fatalities! 
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item The drinking age in New Jersey is $21$. Suppose New Jersey lowered its drinking age to $18$. Use the results in column (4) to predict the change in the number of traffic fatalities in the next year. Construct a $95\%$ confidence interval for your answer.
+
+\begin{answer}
+If New Jersey lowered the drinking age from $21$ to $18$, the expected fatality rate would increase by $0.03$ deaths per $10,000$. 
+
+The standard error is large, so we expect a relatively wide confidence interval. The $95\%$ confidence interval for the change in death rate is:
+\begin{align*}
+(0.03 \pm 1.96 \cdot 0.07) \cdot 810 
+\approx [-87, 136]
+%(0.03 + 1.96 * 0.07) * 810
+% 135.432
+%(0.03 - 1.96 * 0.07) * 810
+% -86.832
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Should time effects be included in the regression? Why or why not?
+
+\begin{answer}
+The $F$-statistic associated with time fixed effects is $10.12$, with associated $p$-value smaller than $0.001$, suggesting that the time effects should be included in the regression.
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item A researcher conjectures that the unemployment rate has a different effect on traffic fatalities in the western states than in the other states. How would you test this hypothesis?
+
+\begin{answer}
+The hypothesis singles out the western states, so define a binary variable $\vn{West}=1$ for the western states and $\vn{West}=0$ for all other states. The hypothesis singles out the unemployment rate in the western states, so we include the interaction term $\vn{West}\times\vn{Unemp}$, where $\vn{Unemp}$ is the unemployment rate variable. Our baseline regression is in column (4), so we include the control variables listed in that column, which we denote $\vn{Z}$. 
+\begin{align*}
+\vn{FatalityRate}
+  = \beta_{0} 
+& + \beta_{1} \vn{BeerTax} 
+  + \beta_{Z} \vn{Z} \\
+& + \beta_{\vn{W}} \vn{West} 
+  + \beta_{\vn{U}} \vn{Unemp} 
+  + \beta_{\vn{WU}} \vn{West}\times\vn{Unemp}
+  + u
+\end{align*}
+The coefficient $\beta_{\vn{W}}$ captures the fixed effect associated with the western states, that is the effect that is orthogonal to the effect of the unemployment rate $\vn{Unemp}$.
+The coefficient $\beta_{\vn{U}}$ captures the average effect in the unemployment rate in the other states, while $\beta_{\vn{U}}+\beta_{\vn{WU}}$ captures the effect of the unemployment rate in the western states. The difference in the effect of the unemployment rate in the western and eastern states is therefore $\beta_{\vn{WU}}$.
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item How would you test this hypothesis?
+
+\begin{answer}
+The conjecture can be tested with a test of the significance of the coefficient $\beta_{\vn{WU}}$. 
+
+After estimating the regression, the $t$-statistic would be computed from the estimated coefficients and standard errors. 
+\begin{align*}
+& H_{0}\colon \beta_{\vn{WU}} = 0\\
+& H_{1}\colon \beta_{\vn{WU}} \neq 0\\
+& t = \frac{\hat{\beta}_{\vn{WU}}}{\SE(\hat{\beta}_{\vn{WU}})}\\
+& t > t_{\text{crit}} \implies ~\text{Reject}~ H_{0}
+\end{align*}
+where the critical value $t_{\text{crit}}$ for significance level $0.05$ is $t_{\text{crit}}=1.96$.
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

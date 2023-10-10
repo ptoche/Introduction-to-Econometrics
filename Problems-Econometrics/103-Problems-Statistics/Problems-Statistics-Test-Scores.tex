@@ -1,0 +1,122 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Statistics: California Test Scores}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: California Test Scores}
+Data on fifth-grade test scores (reading and mathematics) for $420$ school districts in California yield average score $\mean{Y}=654.2$ and standard deviation $s_{Y}=19.1$.
+\pause
+\begin{enumerate}
+\item Construct a $95\%$ confidence interval for the mean test score in the population.
+\item When the districts were divided into those with small classes ($< 20$ students per teacher) and those with large classes ($\geq 20$ students per teacher), the following results were found:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Class Size & Average Score ($\mean{Y}$)      
+                     & Standard Deviation ($s_{Y}$)
+                               &   $n$\\
+\midrule
+Small      & $657.4$ &  $19.4$ & $238$\\
+Large      & $650.0$ &  $17.9$ & $182$\\
+\bottomrule
+\end{tabular}
+\end{center}
+Is there statistically significant evidence that the districts with smaller classes have higher average test scores? Explain.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: California Test Scores}
+
+$n=420$, $\mean{Y}=654.2$, $s_{Y}=19.1$.
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Construct a $95\%$ confidence interval for the mean test score in the population.
+
+\begin{answer}
+As the population standard deviation is unknown, the asymptotic distribution of the test statistic follows a Student-$t$ distribution. 
+The significance level is $1-0.95=0.05$.
+The corresponding critical $t$-statistic for $420-1=419$ degrees of freedom is about $1.965642$. This compares with about $1.959964$ for the standard normal distribution. 
+% alpha = 1-0.95
+% qt(1-alpha/2,df=419)
+% 1.965642
+% qnorm(1-alpha/2)
+% 1.959964
+
+The standard error is:
+\begin{align*}
+\SE = \frac{s_{Y}}{\sqrt{n}}
+    = \frac{19.1}{\sqrt{420}}
+    \approx 0.93
+% 19.1/sqrt(420)
+% 0.9319846
+\end{align*}
+
+A two-sided confidence interval for mean test score in the population is:
+\begin{align*}
+\mean{Y} \pm t_{1-\alpha/2} \times \SE
+   & = 654.2 \pm 1.96 \times 0.93\\
+   & = (652.37, 656.03)
+% alpha = 1-0.95
+% 654.2 + qt(1-alpha/2,df=419) * 19.1/sqrt(420)
+% 656.0319
+% 654.2 - qt(1-alpha/2,df=419) * 19.1/sqrt(420)
+% 652.3681
+% qt(1-alpha/2,df=419) * 19.1/sqrt(420)
+% 1.831948
+\end{align*}
+The margin of error is about $1.83$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: California Test Scores}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Is there statistically significant evidence that the districts with smaller classes have higher average test scores? Explain.
+
+\begin{answer}
+A two-sided test:
+\begin{align*}
+H_{0} \colon & \mu_{\text{large}} - \mu_{\text{small}} = 0\\
+H_{1} \colon & \mu_{\text{large}} - \mu_{\text{small}} \ne 0
+\end{align*}
+The Student-$t$ statistic for this test:
+\begin{align*}
+t   = \frac{(657.4-650.0)-0}{\sqrt{\dfrac{(19.4)^{2}}{238}+\dfrac{(17.9)^{2}}{182}}}
+    \approx \frac{7.4}{1.828}
+    \approx 4.05
+% den = sqrt((19.4)^(2)/238+(17.9)^(2)/182)
+% 1.82807
+% 657.4-650.0
+% 7.4
+% (657.4-650.0)/den
+% 4.047986
+\end{align*}
+There are enough degrees of freedom that we can refer to the standard normal distribution for an accurate critical value.
+Since $|4.05| > 1.96$, we reject the null hypothesis of no effect of class sizes.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

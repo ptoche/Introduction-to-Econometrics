@@ -1,0 +1,88 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Demand for Cigarettes}
+\begin{itemize}
+\item The IV regression suffers from omitted variable bias: Include income as a control variable.
+\item One instrument, $\vn{SalesTax}$:
+\begin{align*}
+\verywidehat{\ln(Q^{\text{cigarettes}})} 
+  = \muse{9.43}{1.26} 
+   -\muse{1.14}{0.37}\,\ln(P^{\text{cigarettes}})
+   +\muse{0.21}{0.31}\,\ln(\vn{Inc})
+\end{align*}
+\item Two instruments, $\vn{SalesTax}$ and $\vn{CigTax}$:
+\begin{align*}
+\verywidehat{\ln(Q^{\text{cigarettes}})} 
+  = \muse{9.89}{0.96} 
+   -\muse{1.28}{0.25}\,\ln(P^{\text{cigarettes}})
+   +\muse{0.28}{0.25}\,\ln(\vn{Inc})
+\end{align*}
+\item The standard errors on the estimated demand elasticity is smaller with two instruments:
+\newlinequad
+The regression explains more of the variation in cigarette prices.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Demand for Cigarettes: Long-Run Elasticity}
+\begin{itemize}
+\item To estimate the long-run price elasticity, consider quantity and price changes that occur over $10$-year periods and two instruments, $\vn{SalesTax}$ and $\vn{CigTax}$. Three models are estimated and compared. The first model uses a single instrument, $\vn{SalesTax}$. 
+\item The first stage regression is:
+\begin{align*}
+\verywidehat{\ln(P^{\text{cigarettes}}_{1995})-\ln(P^{\text{cigarettes}}_{1985})} 
+  & = \muse{0.53}{0.03} 
+   -\muse{0.22}{0.22}\,\left[\ln(\vn{Inc}_{1995})-\ln(\vn{Inc}_{1985})\right]\\[1ex]
+  & \quad +\muse{0.0255}{0.0044}\,\left[\ln(\vn{SalesTax}_{1995})-\ln(\vn{SalesTax}_{1985})\right]
+\end{align*}
+\item The first-stage $F$-statistic for the null hypothesis
+\begin{align*}
+& H_{0}\colon \vn{SalesTax}_{1995} - \vn{SalesTax}_{1985} = 0 \\
+& F = t^{2} = (0.0255/0.0044)^2 = 33.7.
+\end{align*}
+\item Since $F>10$, the instrument $\vn{SalesTax}$ is not weak.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Demand for Cigarettes: Long-Run Elasticity}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-12-tbl-01-Zoom}
+\caption{Two-Stage Least Squares Estimates of the Demand for Cigarettes Using Panel Data for $48$ U.S. States.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Demand for Cigarettes: Long-Run Elasticity}
+\begin{itemize}
+\item \emph{The instruments are not weak:}
+\begin{itemize}
+\item The first-stage $F$-statistics are $33.7$, $107.2$, and $88.6$.
+\item In all three cases the first-stage $F$-statistics exceed $10$.
+\end{itemize}
+\item The regressions in columns (1) and (2) are exactly identified --- We cannot use the $J$-test. 
+\newlinequad
+(each have a single instrument and a single endogenous regressor)
+\item The regression in column (3) is overidentified 
+\newlinequad
+(there is one overidentifying restriction, $m-k=2-1=1$). 
+\item \emph{The null hypothesis that both the instruments are exogenous is rejected:}
+\begin{itemize}
+\item The $J$-statistic for column (3) is $4.93$. 
+\item The critical value from the $\chi^{2}_{1}$ distribution with significance level $5\%$ is $3.84$.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

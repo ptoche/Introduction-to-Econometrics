@@ -1,0 +1,73 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Homoskedasticity and Heteroskedasticity}
+\begin{itemize}
+\item The error term $u_{i}$ is homoskedastic if the variance of the conditional distribution of $u_{i}$ given $X_{i}$ is constant for $i=1,\ldots,n$ and in particular does not depend on $X_{i}$. Otherwise, the error term is heteroskedastic.
+\item Whether the errors are homoskedastic or heteroskedastic, the OLS estimator is unbiased, consistent, and asymptotically normal.
+\item Economic theory rarely gives any reason to believe that the errors are homoskedastic --- It is prudent to assume that the errors might be heteroskedastic. Many software programs report homoskedasticity- only standard errors as their default setting.
+\item If the error term is homoskedastic, the formulas for the variances of $\hat{\beta}_{0}$ and $\hat{\beta}_{1}$ simplify:
+\begin{align*}
+\sigma_{\hat{\beta}_{0}}^{2}
+  & = \frac{\tfrac{1}{n}\cdot\sigma_{u}^{2} \cdot \tfrac{1}{n}\sum_{i=1}^{n}X_{i}^{2}}{\tfrac{1}{n}\sum_{i=1}^{n}(X_{i}-\mean{X})^{2}}\\
+\sigma_{\hat{\beta}_{1}}^{2}
+  & = \frac{\tfrac{1}{n}\sigma_{u}^{2}}{\tfrac{1}{n}\sum_{i=1}^{n}(X_{i}-\mean{X})^{2}}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Homoskedasticity and Heteroskedasticity}
+\begin{minipage}[t]{0.48\linewidth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]%
+{StockWatson4e-05-fig-02a-Zoom}
+\only<1->{\caption{\textbf{The spread of these distributions does not depend on $x$.}}}
+\end{figure}
+\end{minipage}%
+\begin{minipage}[t]{0.48\linewidth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.4\textheight,keepaspectratio]%
+{StockWatson4e-05-fig-02b-Zoom}
+\only<1->{\caption{\textbf{These become more spread out for larger class sizes.}}}
+\end{figure}
+\end{minipage}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Heteroskedasticity: Application}
+\begin{itemize}
+\item Workers with more education have higher earnings than workers with less education. On average, hourly earnings increase by $\$2.37$ for each additional year of education.
+\item The spread of the distribution of earnings increases with the years of education. While some workers with many years of education have low-paying jobs, very few workers with low levels of education have high-paying jobs. For workers with $10$ years of education, the standard deviation of the residuals is $\$6.31$; for workers with a high school diploma, it is $\$8.54$; and for workers with a college degree, $\$13.55$.
+\item Not all college graduates will be earning $\$75$ per hour by age $29$, but some will, but workers with only $10$ years of education have no shot at those jobs.
+\begin{align*}
+\verywidehat{\vn{Earnings}} 
+  = -\muse{12.12}{1.36} + \muse{2.37}{0.10} \times Education,
+  \quad R^2 = 0.185,
+  \quad \vn{SER} = 11.24
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Heteroskedasticity: Application}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-05-fig-03-Zoom}
+\only<1->{\caption{\textbf{Hourly Earnings and Years of Education for $2731$ full-time $29$- to $30$-year-old workers in the United States, 2015.}}}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

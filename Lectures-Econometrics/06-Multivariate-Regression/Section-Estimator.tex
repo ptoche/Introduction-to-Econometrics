@@ -1,0 +1,25 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Least Squares Estimator}
+\emph{OLS Estimator:}
+\begin{itemize}
+\item The method of Ordinary Least Squares (OLS) selects $k+1$ estimators $\hat{\beta}_{0}, \hat{\beta}_{1},\ldots, \hat{\beta}_{k}$, to minimize the sum of the squared residuals from the regression function:
+\begin{align*}
+\min_{\hat{\beta}_{0}, \hat{\beta}_{1},\ldots, \hat{\beta}_{k}}\;
+\sum_{i=1}^{n} \hat{u}_{i}^{2}
+\end{align*}
+\item The OLS estimates are computed from a sample of $n$ observations for each of the $k$ regressors $X_{1i},\ldots,X_{ki}$ and the regressand $Y_{i}$.
+\item The $n$ residuals $\hat{u}_{i}$ are:
+\begin{align*}
+\hat{u}_{i} = Y_{i} - \hat{Y}_{i}, i=1,\ldots,n
+\end{align*}
+\item Equivalently:
+\begin{align*}
+\sum_{i=1}^{n}\left(Y_{i} - \beta_{0} - \beta_{1} X_{1i} - \beta_{k} X_{ki}\right)^{2}
+\to \min
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,31 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Polynomial Regression Model}
+\emph{Polynomial regression:}
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} X_{i} + \beta_{2} X_{i}^{2} + \beta_{3} X_{i}^{3} + \ldots + \beta_{r} X_{i}^{r} + u_{i}
+\end{align*}
+\quad
+$r=2$: \quad quadratic regression model.
+\newlinequad
+$r=3$: \quad cubic regression model.
+\begin{itemize} 
+\item \emph{Test the null hypothesis that the population regression function is linear:}
+\begin{align*}
+H_{0}\colon & 
+\beta_{2} = \beta_{3} = \ldots = \beta_{r} = 0\\
+H_{1}\colon & 
+\text{not}~H_{0}
+\end{align*}
+\item \emph{Strategy to determine the degree of the polynomial regression:}
+\end{itemize}
+\begin{enumerate}
+\item Pick a large value of $r$ and estimate the polynomial regression.
+\item Use the $t$-statistic to test the hypothesis $\beta_{r}=0$.
+\item If you cannot reject $\beta_{r}=0$, estimate a polynomial regression of degree $r-1$. 
+\item Continue until the coefficient on the highest power is statistically significant.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

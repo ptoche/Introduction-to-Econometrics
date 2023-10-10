@@ -1,0 +1,27 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~12, Exercise~5.}
+Consider the IV regression model
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} X_{i} + \beta_{2} W_{i} + u_{i}
+\end{align*}
+where $X_{i}$ is correlated with $u_{i}$ and $Z_{i}$ is an instrument. Suppose that the first three assumptions are satisfied. 
+\begin{enumerate}
+\setbeamertemplate{enumerate item}{\arabic{enumi}.}
+\item<1-> $\exp[u_{i}|W_{1i},\ldots,W_{ri}]=0$;
+\item<1-> $(X_{1i},\ldots,X_{ki},W_{1i},\ldots,W_{ri},Z_{1i},\ldots,Z_{mi},Y_{i})$ are i.i.d. draws from their joint distribution;
+\item $X$, $W$, $Z$, and $Y$ have non-zero finite fourth moments (outliers unlikely);
+\end{enumerate}
+Which IV assumption is not satisfied when:
+\begin{enumerate}
+\item<1-> $Z_{i}$ is independent of $(Y_{i}, X_{i}, W_{i})$?
+\item<1-> $Z_{i}=W_{i}$?
+\item<1-> $W_{i}=1$ for all $i$?
+\item<1-> $Z_{i}=X_{i}$?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

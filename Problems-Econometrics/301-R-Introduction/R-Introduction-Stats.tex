@@ -1,0 +1,176 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+  ignorenonframetext,
+  svgnames, handout]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Introduction to R},
+  pdfauthor={Patrick Toche },
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\newif\ifbibliography
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{lmodern}% bug: converts \pounds to dollar sign
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}% font encoding, load before inputenc
+\usepackage{fontspec}% font encoding
+\frenchspacing
+\defaultfontfeatures{
+   Mapping=tex-text,
+   Scale=MatchLowercase,
+}
+%   \setsansfont{Montserrat}
+\setsansfont{Lato}
+\setmonofont{Droid Sans Mono}
+\newfontfamily\fontbold{Lato Bold}
+\newfontfamily\fontitalic{Lato Italic}
+\newfontfamily\fontbolditalic{Lato Bold Italic}
+\newfontfamily\quotefont{Minotaur}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+
+\colorlet{themetext}{black}
+\colorlet{themefill}{RoyalBlue!50}
+\colorlet{themecolor}{NavyBlue}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamertemplate{title page}[empty]
+\usecolortheme{seahorse}
+\setbeamercovered{transparent=4}
+\setbeamercolor{palette primary}{use=structure,fg=black,bg=themefill}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{itemize item}{fg=themecolor}
+\setbeamercolor{enumerate item}{fg=themecolor}
+\setbeamercolor{itemize subitem}{fg=themecolor}
+\setbeamercolor{enumerate subitem}{fg=themecolor}
+\setbeamertemplate{itemize item}[triangle] 
+\setbeamertemplate{itemize subitem}{\raisebox{-0.7ex}{\scalebox{1}[2.5]{\bfseries\textendash}}} 
+\setbeamertemplate{enumerate subitem}{\alph{enumii}.}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Introduction to R}
+\subtitle{Econ 440 - Introduction to Econometrics}
+\author{Patrick Toche}
+\date{03 March 2022}
+
+\begin{document}
+\frame{\titlepage}
+
+\hypertarget{probability}{%
+\section{Probability}\label{probability}}
+
+\begin{frame}[fragile]{Probability}
+\begin{itemize}
+\item
+  This chapter reviews some basic concepts of probability theory and
+  demonstrates how they can be applied in \texttt{R}.
+\item
+  The \texttt{stats} package gathers simple functions to compute
+  descriptive statistics and compute a variety of probability
+  distributions. It is part of the base distribution of \texttt{R},
+  meaning that it is available by default and does not need to be
+  installed or loaded.
+\item
+  \texttt{install.packages("stats")} or \texttt{library("stats")}.
+  Simply execute \texttt{library(help\ =\ "stats")} in the console to
+  view the documentation and a complete list of all functions gathered
+  in \texttt{stats}. For most packages a documentation that can be
+  viewed within \emph{RStudio} is available. Documentations can be
+  invoked using the \texttt{?} operator, e.g., upon execution of
+  \texttt{?stats} the documentation of the \texttt{stats} package is
+  shown in the help tab of the bottom-right pane.
+\item
+  In what follows, our focus is on (some of) the probability
+  distributions that are handled by \texttt{R} and show how to use the
+  relevant functions to solve simple problems. Thereby, we refresh some
+  core concepts of probability theory. Among other things, you will
+  learn how to draw random numbers, how to compute densities,
+  probabilities, quantiles and alike. As we shall see, it is very
+  convenient to rely on these routines.
+\end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,77 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Least Squares Estimators}
+\begin{itemize}
+\item \emph{OLS estimators of $\beta_0$ and $\beta_1$:} 
+\begin{align*}
+\hat{\beta}_1 
+    & = \frac{\sum_{i=1}^{n}(X_i-\mean{X})(Y_i-\mean{Y})}{\sum_{i=1}^{n}(X_i-\mean{X})^2}
+      = \frac{s_{XY}}{s_{X}^2}\\
+\hat{\beta}_0
+    & = \mean{Y} - \hat{\beta}_1\,\mean{X}
+\end{align*}
+\item \emph{OLS predicted values $\hat{Y}_i$ and residuals $\hat{u}_i$}:
+\begin{align*}
+\hat{Y}_i 
+    & = \hat{\beta}_0 + \hat{\beta}_1\,X_i, \quad i=1,\ldots, n\\
+\hat{u}_i     
+    & = Y_i - \hat{Y}_i, \quad i=1,\ldots, n
+\end{align*}
+\item The estimated intercept $\hat{\beta}_0$, slope $\hat{\beta}_1$, and residual $\hat{u}_i$ are computed from a sample of $n$ observations of $X_i$ and $Y_i$, $i=1,\ldots,n$. These are estimates of the unknown true population intercept $\beta_0$, slope $\beta_1$, and error term $u_i$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Scatter Plot of California School District Data}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-04-fig-02-Zoom}
+\caption{\textbf{Scatterplot of Student-Teacher Ratio and Test Scores.} Data from $420$ California School Districts. Sample correlation: $-0.23$.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Ordinary Least Squares Estimator}
+\begin{itemize}
+\item The sample average, $\mean{Y}$, is the least squares estimator of the population mean, $\exp(Y)$. That is, $\mean{Y}$ minimizes the total squared estimation errors $\sum_{i=1}^{n}(Y_i-m)^2$ among all possible estimators $m$. The OLS estimator extends this idea to the linear regression model.
+\item \emph{Ordinary least squares estimators of $\beta_0$ and $\beta_1$:} 
+Estimators of the intercept and slope that minimize the sum of squared errors:
+\begin{align*}
+\sum_{i=1}^{n}(Y_i - b_0 - b_1 X_i)^2 \to \min_{\beta_0,\beta_1}
+\end{align*}
+\item \emph{Estimation:} On the California School District Data, where $\vn{TestScore}$ is the average test score in the $420$ districts and $\vn{STR}$ is the student-teacher ratio, the estimated slope is $-2.28$ and intercept $698.9$:
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = 698.9 - 2.28 \times \vn{STR}
+\end{align*}
+\item \emph{Prediction:} For a district with $20$ students per teacher,
+\begin{align*}
+\text{Predict}(\vn{TestScore}|\vn{STR}=20) = 
+698.9 - 2.28 \times 20 = 653.3.
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Estimated Regression Line for the California School Districts Dataset}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-04-fig-03-Zoom}
+\caption{X}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

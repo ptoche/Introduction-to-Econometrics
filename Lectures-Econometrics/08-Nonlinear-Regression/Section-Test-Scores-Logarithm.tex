@@ -1,0 +1,78 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Linear-Log regression model:}
+\begin{itemize}
+\item Estimate of linear-log regression model relating test scores and income:
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = \muse{557.8}{3.8} & + \muse{36.42}{1.40}\,\ln(Income), \quad \bar{R}^2 = 0.561
+\end{align*}
+\item A $1\%$ increase in income causes an increase in test scores of $0.01\times36.42=0.36$ points.
+\item Predicted difference in test scores for districts with average incomes of $\$10,000$ vs $\$11,000$:
+\begin{align*}
+\Delta\hat{Y} 
+  & = [557.8 + 36.42 \ln(11)] - [557.8 + 36.42 \ln(10)]\\
+  & = 36.42[\ln(11)-\ln(10)]
+    \approx 3.47
+\end{align*}
+\item Predicted difference in test scores for districts with average incomes of $\$40,000$ vs $\$41,000$:
+\begin{align*}
+\Delta\hat{Y} 
+  & = 36.42[\ln(41)-\ln(40)]
+    \approx 0.90
+\end{align*}
+\item A $\$1000$ increase in income has a larger effect on test scores in poor districts than it does in affluent districts.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Linear-Log Regression}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-05-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Log-Linear vs. Log-Log regression model:}
+\begin{itemize}
+\item Estimate of log-linear regression model relating test scores and income:
+\begin{align*}
+\verywidehat{\ln(\vn{TestScore})} 
+  = \muse{6.439}{0.003} & + \muse{0.00284}{0.00018}\,Income, \quad \bar{R}^2 = 0.497
+\end{align*}
+\item A $1$ dollar increase in income is associated with an increase in test scores of $100\times0.00284=0.284$ percent.
+\item Estimate of log-log regression model relating test scores and income:
+\begin{align*}
+\verywidehat{\ln(\vn{TestScore})} 
+  = \muse{6.336}{0.006} & + \muse{0.0554}{0.0021}\,\ln(Income), \quad \bar{R}^2 = 0.557
+\end{align*}
+\item A $1\%$ increase in income is associated with an increase in test scores of $0.0554$ percent.
+\item The log-log model appears to be a better fit than the log-linear model. But unfortunately the $\bar{R}^{2}$ cannot be used to compare the models, because they use different dependent variables. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Log-Linear and Log-Log Regressions}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-06-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

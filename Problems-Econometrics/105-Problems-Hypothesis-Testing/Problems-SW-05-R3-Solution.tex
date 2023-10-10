@@ -1,0 +1,30 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Weight]{Linear Regression: Heteroskedasticity}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~5, Review Question~3.}
+
+Define homoskedasticity and heteroskedasticity. Provide a hypothetical empirical example in which you think the errors would be heteroskedastic, and explain your reasoning.
+
+\begin{answer}
+The error term $u_{i}$ is homoskedastic if $\var(u_{i}|X_{i})$ is (approximately) constant for all $i$; otherwise, it is heteroskedastic. A well-known example is the regression of wages on education:
+\begin{align*}
+\text{wage}_{i} = \beta_{0} + \beta_{1} \text{education}_{i} + u_{i}
+\end{align*}
+It is well documented that there is greater variability of wage rates at higher levels of education. The more highly educated have access to professions with more wage growth potential, where the effects of education, experience, and workplace innovation compound, whereas the uneducated face fewer such opportunities. To a large extent, this is because the best paid jobs involve ongoing deepening of skills and knowledge and education is precisely ``learning how to learn.''
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

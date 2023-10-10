@@ -1,0 +1,34 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Least Squares Assumptions for Causal Inference}
+\begin{itemize}
+\item \emph{Assumption 1: The conditional distribution of $u_{i}|X_{i}$
+has zero mean:} $X$ must be randomly assigned or as-if randomly assigned. 
+\item In a randomized controlled experiment with binary treatment, subjects are randomly assigned to the treatment group $X=1$ or to the control group $X=0$. It means that other factors contained in $u_{i}$ are unrelated to $X_{i}$.
+\item If $\exp[u_{i}|X_{i}]=0$, then $X_{i}$ and $u_{i}$ are uncorrelated. 
+\item \emph{Assumption 2: $X$ and $Y$ are independently and identically distributed across observations}.
+\item This assumption is a statement about how the sample is drawn. Not all samples are randomly selected. Biases can be introduced inadvertently. See the ``hot hand fallacy'' fallacy. 
+\item \emph{Assumption 3: $X$ and $Y$ have non-zero finite fourth moments}.
+\begin{align*}
+0 < \exp[X_{i}^{4}] < \infty, \quad 0 < \exp[Y_{i}^{4}] < \infty
+\end{align*}
+\item Finite kurtosis implies that outliers are very unlikely. OLS estimates are very sensitive to outliers. Commonly used distributions such as the normal distribution have four moments.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sensitivity of OLS to Large Outliers}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-04-fig-04-Zoom}
+\caption{The OLS regression line estimated with the outlier shows a strong positive relationship between X and Y, but the OLS regression line estimated without the outlier shows no relationship.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

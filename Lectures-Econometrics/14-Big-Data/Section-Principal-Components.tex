@@ -1,0 +1,117 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Principal Components}
+\begin{itemize}
+\item If two regressors are perfectly collinear, one of them must be dropped --- to avoid falling into the dummy variable trap.
+\item This suggests dropping a variable if it is highly correlated (even imperfectly) with the other regressors
+\item Principal components analysis implements this strategy  --- to avoid falling into the ``too many variables trap''. Linear combinations of variables selected so that the principal components are mutually uncorrelated and keep as much information as possible. 
+\item \emph{Principal Components with 2 Variables:}
+\begin{itemize}
+\item The linear combination weights for the first principal component are chosen to maximize its variance --- to capture as much of the variation as possible. 
+\item The linear combination weights for the second principal component are chosen to be uncorrelated with the first principal component and to capture as much of the variance as possible after controlling for the first principal component. 
+\item The linear combination weights for the third principal component are chosen to be uncorrelated with the first two components and, again, to capture as much of the variance as possible, after controlling for the first two components.
+\item And again for the fourth, fifth, \ldots, $n$th components.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Principal Components: Two Variables}
+\begin{itemize}
+\item Let $X_{1}$, $X_{2}$ be standard normal random variables with population correlation $\rho=0.7$. 
+\item The first principal component is the weighted average, $PC_{1} = w_{1}X_{1} + w_{2}X_{2}$, with the maximum variance, where $w_{1}$ and $w_{2}$ are the principal component weights. 
+\item The second principal component is chosen to be uncorrelated with the first. This minimizes the spread of the variables. 
+\item When there are only two variables, the first principal component maximizes the variance of the linear combination, while the second principal component minimizes the variance of the linear combination. 
+\item Together the two principal components explain all of the variance of $X$. The fraction of the total variance explained by the principal components are:
+\begin{align*}
+\frac{\var(PC_{1})}{\var(X_{1})+\var(X_{2})} \quad \text{and} \quad \frac{\var(PC_{2})}{\var(X_{1})+\var(X_{2})}
+\end{align*}
+\item The variances are $\var(PC_{1})=1+|\rho|$ and $\var(PC_{2})=1-|\rho|$, where $\cov(X_{1},X_{2})=\rho$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{First and Second Principal Components}
+\begin{minipage}[t]{0.5\linewidth}
+\raggedright
+\begin{figure}
+\includegraphics[width=\linewidth]%
+{StockWatson4e-14-fig-05-Zoom}
+\end{figure}
+\end{minipage}\hfill%
+\begin{minipage}[t]{0.5\linewidth}\justifying
+Two standard normal random variables, $X_{1}$ and $X_{2}$, with population correlation $0.7$. The first principal component ($PC_{1}$) maximizes the variance of the linear combination of these variables, which is done by adding $X_{1}$ and $X_{2}$. The second principal component ($PC_{2}$) is uncorrelated with the first and is obtained by subtracting the two variables. The principal component weights are normalized so that the sum of squared weights adds to $1$. The spread of the variables is greatest in the direction of the $45^{\circ}$ line. Along the $45^{\circ}$ line, the weights are equal, so $w_{1}=w_{2}=1/\sqrt{2}$ and $PC_{1}=(X_{1}+X_{2})/\sqrt{2}$. The first component explains $(1+\rho)/2=85\%$ --- The second component explains $15\%$.
+\end{minipage}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Principal Components}
+The Principal Components of the $k$ variables $X_{1},\ldots,X_{k}$ are the linear combinations of $X$ that have the following properties:
+\begin{enumerate}
+\item The squared weights of the linear combinations sum to $1$.
+\item The first principal component maximizes the variance of its linear combination.
+\item The second principal component maximizes the variance of its linear combination, subject to its being uncorrelated with the first principal component.
+\item The $j$th principal component maximizes the variance of its linear combination, subject to its being uncorrelated with the first $j-1$ principal components.
+\end{enumerate}
+\begin{itemize}
+\item The number of principal components is the minimum of $n$ and $k$.
+\item The sum of the sample variances of the principal components equals the sum of the sample variances of the $X$s:
+\begin{align*}
+\sum_{j=1}^{\min(n,k)}\,\var(PC_{j}) = \sum_{j=1}^{k}\,\var(X_{j})
+\end{align*}
+\item The ratio $\var(PC_{j})/\sum_{j=1}^{k}\var(X_{j})$ is the fraction of the total variance of the $X$s explained by the $j$th principal component. This measure is like an $R^{2}$ for the total variance of the $X$s.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Scree Plot of the First 50 Principal Components}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-06-Zoom}
+\caption{Plotted values are the fraction of the total variance of the $817$ regressors explained by the indicated principal component. The first principal component explains $18\%$ of the total variance; the first $10$ principal components together explain $63\%$ of the total variance; and the first $40$ principal components explain $92\%$ of the total variance. A typical scree looks like a cliff, with boulders, or scree, cascading into a valley.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Square Root of the MSPE for the Principal Components Prediction}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-07-Zoom}
+\caption{The MSPE is estimated using $10$-fold cross validation for the school test score data set with $k=817$ predictors and $n=1966$ observations.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Principal Components}
+\emph{Application to School Test Scores:}
+\begin{itemize}
+\item Initially, increasing the number of principal components used as predictors results in a sharp decline in the MSPE. 
+\item After $p=5$ principal components, the improvement slows down; and after $p=23$ principal components, the MSPE is essentially flat in the number of predictors. 
+\item The MSPE is minimized at $46$ predictors. The cross-validation estimate is $\hat{p}=46$, with $\text{MSPE}=39.7$, similar to Lasso and Ridge.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ 

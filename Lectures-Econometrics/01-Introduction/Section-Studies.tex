@@ -1,0 +1,46 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Famous Empirical Studies}
+\begin{itemize}
+\item \emph{Return to education:} 
+\begin{align*}
+\log(\text{Wage}) 
+  = \alpha + \beta \cdot \text{Years of Schooling} + U
+\end{align*}
+The main challenge with this class of regression model is the ``\emph{omitted variable bias}'': Ignoring the effect of systematic factors such as ability can cause the regression model to overestimate the effect of education on wages. This model is often called a ``Mincer regression'', named after Jacob Mincer. 
+\item \emph{Effect of minimum wage and unemployment:} 
+\begin{align*}
+\text{Unemployment} 
+  = \alpha + \beta \cdot \text{Minium Wage} + U 
+\end{align*}
+The main challenge with this class of regression model is ``\emph{reverse causality}``: High employment may lead to political pressure to raise the minimum wage. In other words, there is a two-way causality. This model is associated with the work of David Card and Alan Krueger. 
+\item In these regression models, $U$ is a random catch-all term. The more $U$ is distributed like a mean-zero normal variate, the easier it is to make inferences.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Famous Empirical Studies}
+\begin{itemize}
+\item \emph{Effect of policing on crime:} 
+\begin{align*}
+\text{Number of Crimes} 
+  = \alpha + \beta \cdot \text{Size of Police Force} + U
+\end{align*}
+The challenge with this class of regression model is ``\emph{spurious correlation}'':
+Cities with a lot of criminal activity have a bigger police force. The correlation can spuriously indicate that the size of the police force has a positive effect on the crime rate. 
+\item \emph{Impact of MTV show ``16 and Pregnant'' on teen pregnancy:}
+\begin{align*}
+\log(\text{Teen Pregnancy})
+  = \alpha + \beta \cdot \text{Show's Rating Among Teens} + U
+\end{align*}
+The challenge with this class of regression model is ``\emph{self selection}'': 
+Teens who would be adverse to getting pregnant could be more likely to watch the show. See the 2015 article ``Media Influences on Social Outcomes: The Impact of MTV's 16 and Pregnant on Teen Childbearing'' by Melissa S. Kearney and Phillip B. Levine.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,82 @@
+---
+title: "Empirical Exercise 1, Stock and Watson Chapter 4"
+author: "Your Name + CWID + youremail@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+subtitle: Econ 440 - Introduction to Econometrics
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+### Tips
+Explicitly mark the question or question number in your code. Show the output, not just the code: A few months/years from now, the packages will have been updated and the code may no longer run, so it's a good habit to keep a record of the output. Don't forget to answer the questions! 
+
+### Load dataset
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("Growth.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+In this exercise, you will investigate the relationship between growth and trade.
+
+### (a) 
+Construct a scatterplot of average annual growth rate (Growth) on the average trade share (TradeShare). Does there appear to be a relationship between the variables?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+### (b) 
+One country, Malta, has a trade share much larger than the other countries. Find Malta on the scatterplot. Does Malta look like an outlier?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+
+### (c) 
+Using all observations, run a regression of Growth on TradeShare. What is the estimated slope? What is the estimated intercept? Use the regression to predict the growth rate for a country with a trade share of 0.5 and for another with a trade share equal to 1.0.
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+
+### (d) 
+Estimate the same regression, excluding the data from Malta. Answer the same questions in (c).
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+
+### (e) 
+Plot the estimated regression functions from (c) and (d). Using the scatterplot in (a), explain why the regression function that includes Malta is steeper than the regression function that excludes Malta.
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+
+
+### (f) 
+Where is Malta? Why is the Malta trade share so large? Should Malta be included or excluded from the analysis?
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+

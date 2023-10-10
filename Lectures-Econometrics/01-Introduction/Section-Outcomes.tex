@@ -1,0 +1,138 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Example: Effect of Health Insurance On Health}
+\begin{itemize}
+\item Question: what is the effect of health insurance coverage on health?
+\item Ideal experiment: randomly assign people so that some have health insurance and some don't --- no matter their current health status and income. Monitor the situation, gather data, and compare their health status a few years later. 
+\item Real world: Economists must rely on observational data.
+\item Observed data obtained from 2009 NHIS survey:
+\begin{center}
+\begin{tabular}{lccc} 
+\toprule
+Group & Sample Size & Mean Health & Std.Dev. \\
+Some insurance & 8114 & 4.01 & 0.93 \\
+No insurance & 1281 & 3.70 & 1.01 \\ 
+\bottomrule
+\end{tabular}
+\end{center}
+\item Mean difference in health outcomes: $4.01 - 3.70 = 0.31$
+\item Is $0.31$ the causal effect of health insurance on health?
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Example: Effect of Health Insurance On Health}
+\begin{itemize}
+\item Is the observed difference in mean health outcomes a measure of the causal effect of health insurance on health?
+\item No! People with insurance are very different from people without insurance, in ways that often will affect their health.
+\item They may differ in more than one way and, admittedly, in complicated and contradictory ways. For instance, people with health problems are more likely to want to be insured. But people with low incomes are more likely to have health problems, but also less likely to decide to pay for insurance.
+\item For instance, there are important differences in levels of income and education:
+\begin{center}\medskip
+\begin{tabular}{lccc} 
+\toprule
+Group &  Mean Education & Mean income \\
+Some insurance & 14.31 & 106,467  \\
+No insurance & 11.56 &  45,656 \\ 
+\bottomrule
+\end{tabular}
+\end{center}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Potential Outcomes}
+\begin{itemize}
+\item \emph{Potential outcomes:} Powerful way of thinking about causality --- \textit{aka} the Rubin causal model --- named after Donald Rubin.
+\item Imagine two alternative worlds, each exhibiting a particular outcome, one where the ``treatment'' is applied and one where it isn't. 
+\item In a controlled experiment, the treatment would be applied at random, in order to control for factors that would influence the choice of treatment. In the real world, the treatment is almost never, strictly speaking, applied at random. But sometimes the manner of the treatment is ``quasi-random'' --- not completely random, but partly random, with the randomness identifiable in the data. 
+\item To estimate the effect of the treatment on the treated, the scientist would compare the outcome for one individual in alternative futures. But because we can observe only one potential outcome, for a given individual, the other potential outcomes of interest are missing. 
+\item \emph{Fundamental problem of causal inference:} Potential outcomes of interest are not observed. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Potential Outcomes}
+\begin{itemize}
+\item Let $D_i = 1$ if person $i$ has health insurance, $0$ otherwise
+\item Let $Y_{i0}$ and $Y_{i1}$ be the \textbf{potential outcomes}
+\begin{itemize}
+\item $Y_{i0} =$ health if person $i$ does not have health insurance
+\item $Y_{i1} =$ health if person $i$ has health insurance
+\end{itemize}
+\item We observe one of two potential outcomes:
+\begin{align*}
+Y_i    & =  
+\begin{cases} 
+Y_{i0} & \text{if}~ D_i = 0 \\
+Y_{i1} & \text{if}~ D_i = 1 
+\end{cases} 
+\end{align*}
+\item We can write
+\begin{align*}
+Y_i & = (1 - D_i) Y_{i0} + D_i Y_{i1} \\
+    & =  Y_{i0} + D_i \times (Y_{i1} - Y_{i0})
+\end{align*}
+where $(Y_{i1} - Y_{i0})$ is the treatment effect of health insurance on individual $i$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Potential Outcomes}
+\begin{itemize}
+\item We do not observe individual $i$'s treatment effect. But, we do observe the average taken over a group of individuals --- The expected difference:
+\item \emph{Observed difference in average outcomes:}
+\begin{align*}
+& \exp[Y_{i1} | D_i = 1] - \exp[Y_{i0} | D_i = 0] \\ 
+= & \exp[Y_{i1} - Y_{i0} | D_i = 1] 
+  + \exp[Y_{i0}|D_i = 1] - \exp[Y_{i0} | D_i = 0]
+\end{align*}
+\item \emph{Average treatment effect on the treated:}
+\begin{align*}
+\exp[Y_{i1} - Y_{i0} | D_i = 1]
+\end{align*}
+\item \emph{Selection bias:}
+\begin{align*}
+\exp[Y_{i0}|D_i = 1] - \exp[Y_{i0} | D_i = 0]
+\end{align*}
+\item Under random assignment of the treatment, $D_i$ (the treatment) and $Y_{i}$ (the outcome) are independent, implying
+\begin{align*}
+\exp[Y_{i0}|D_i = 1] = \exp[Y_{i0} | D_i = 0]
+\end{align*}
+\item \emph{Random assignment eliminates selection bias!}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Potential Outcomes}
+\begin{itemize}
+\item In practice, selection bias is a real problem. Higher income individuals are more likely to be healthier and are also more likely to buy health insurance. On the other hand, unhealthy individuals would be more willing to purchase health insurance, if they could afford it. 
+\item The ``treatment'' is clearly not random. 
+\item Empirical economists seek to identify situations where observation data can be interpreted as experimental data --- a situation called a ``quasi-experiment''.
+\item Sometimes economic theory can be used for inference. Since hospitalization is costly --- both in terms of time and money --- individuals who choose hospitalization do so because the expected improvement in their health outcome is greater than the cost. 
+\item Since the benefit of the treatment decreases in $Y_{i0}$, it follows that: 
+\begin{align*}
+\exp[Y_{i0}|D_i=0] \geq \exp[Y_{i0} | D_i = 1]
+\end{align*}
+\item The observed difference in average health outcomes is a lower bound for the average treatment on the treated (ATT). And that is a valuable lower bound to estimate!
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

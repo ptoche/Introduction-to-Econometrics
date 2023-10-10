@@ -1,0 +1,205 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Hypothesis Testing}
+\begin{itemize}
+\item \emph{Null Hypothesis:} 
+\begin{align*}
+H_0{:}~\exp[Y] = \mu_{Y,0} 
+\end{align*}
+where $\mu_{Y,0}$ is a specific value. 
+\item Example of null: On average in the population, college graduates earn \$20 per hour.
+\item The alternative hypothesis specifies what is true if the null hypothesis is not.
+\item \emph{Two-Sided Alternative:}
+\begin{align*}
+H_1{:}~\exp[Y] \ne \mu_{Y,0} 
+\end{align*}
+\item \emph{One-Sided Alternative:}
+\begin{align*}
+H_A{:}~\exp[Y] > \mu_{Y,0} 
+\end{align*}
+(or in the other direction $\exp[Y]<\mu_{Y,0}$)
+\item Statistical hypothesis testing: \textit{either reject the null hypothesis or fail to reject it.}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The $p$-Value}
+\begin{itemize}
+\item Differences between $\mean{Y}$ and $\mu_{Y,0}$ could arise \ldots
+\begin{itemize}
+\item because the null hypothesis is false; or
+\item because of random sampling. 
+\end{itemize}
+\item \emph{It is impossible to distinguish between these two possibilities with certainty.}
+\item But it may be possible to distinguish between them with high confidence.
+\item \emph{$p$-Value:} is the probability of drawing a statistic at least as adverse to the null hypothesis as the one computed from the sample, assuming the null hypothesis is correct. In other words, the probability of drawing $\mean{Y}$ at least \textit{that} far in the tails of the $H_0$-distribution. 
+\item The $p$-value is the area in the tails of the distribution of $\mean{Y}$ when the null is true.
+\item The $p$-value \textit{aka} ``significance probability.'' 
+\item To compute the $p$-value, we must know the sampling distribution of $\mean{Y}$ under the null. 
+\item We distinguish two cases: 
+\begin{itemize}
+\item $\sigma^2_{Y}$ known
+\item $\sigma^2_{Y}$ unknown
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{$p$-Value for Known $\sigma_Y^2$}
+\begin{itemize}
+\item \emph{$p$-Value for Known $\sigma_Y^2$:} 
+Under the null hypothesis, the sampling distribution of $\mean{Y}$ if $\sigma_Y^2$ is (for some reason) known with certainty is
+\begin{align*}
+\mean{Y} \sim N(\mu_{Y,0}, \sigma_Y^2/n) ~\text{for large}~n
+\end{align*}
+\item Equivalently,
+\begin{align*}
+\frac{\mean{Y}-\mu_{Y,0}}{\sigma_Y}  \sim N(0,1) ~\text{as}~ n \to\infty
+\end{align*}
+\item The standard normal distribution $N(0,1)$ is symmetric around the mean, bell-shaped, and has relatively thin tails. We can take any interval of the real line and compute the corresponding probability that the population mean lies within this interval, e.g. compute the probability that the population mean lies within $[-1,1]$. The probability is given by the area under the curve. We can similarly compute probabilities for half-intervals, e.g. $[0, \infty)$.
+\item The normal distribution is, mathematically speaking, defined all the way from $-\infty$ to $+\infty$, but the probability of drawing a value ``far'' from the mean quickly gets very small. 
+\item \only<5->{\think[-1cm]} Calculate the probability of drawing a value outside of $[-5,5]$ from $N(0,1)$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{$p$-Value}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-03-fig-01-Zoom}
+\caption{The $p$-value is the probability of drawing a value of $\mean{Y}$ that differs from $\mu_{Y,0}$ by at least as much as the actual sample mean $\mean{Y}^{\text{act}}$. In large samples, $\mean{Y}$ is distributed $N(\mu_{Y,0}, \sigma_Y^2/n)$ under the null hypothesis. The $p$-value is the shaded standard normal tail probability.}
+%outside $\frac{\mean{Y}^{\text{act}}-\mu_{Y,0}}{\sigma_{\mean{Y}}}$
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sample Variance and Standard Deviation}
+\begin{itemize}
+\item \emph{Sample Variance:} 
+An estimator of the population variance $\sigma_Y^2$, denoted $s_Y^2$ or $\hat{\sigma}_Y^2$. 
+\item \emph{Sample Standard Deviation:} 
+An estimator of the population stdev $\sigma_Y$, denoted $s_Y$ or $\hat{\sigma}_Y$.
+\item The sample standard deviation is the square root of the sample variance.
+\item \emph{Population Variance:}
+\begin{align*}
+\sigma_Y^2 = \frac{1}{n} \sum_{i=1}^n (Y_i-\mu_Y)^2
+\end{align*}
+\item \emph{Sample Variance:}
+\begin{align*}
+s_Y^2 = \frac{1}{n-1} \sum_{i=1}^n (Y_i-\mean{Y})^2
+\end{align*}
+\item \emph{Degrees of freedom adjustment:} Division by $n-1$ instead of $n$.
+\item \emph{Consistency:} The sample variance is a consistent estimator
+of the population variance:
+\begin{align*}
+s_Y^2 \xrightarrow{p} \sigma_Y^2
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Standard Error}
+\begin{itemize}
+\item \emph{Standard Error:} 
+An estimator of the standard deviation of the sampling distribution of $\mean{Y}$, denoted $\SE(\mean{Y})$. 
+\item The standard deviation of the sampling distribution of $\mean{Y}$ is $\sigma_Y/\sqrt{n}$, so it is natural to use $s_Y/\sqrt{n}$ as an estimator of $\sigma_{\mean{Y}}$. Indeed, $s_Y/\sqrt{n}$ is a particular estimator $\hat{\sigma}_{\mean{Y}}$, and the most common estimator used in practice.
+\item If $Y_1,\ldots,Y_n$ are i.i.d., the standard error is an unbiased and consistent estimator of $\sigma_Y$. 
+\begin{align*}
+\SE(\mean{Y}) = s_Y/\sqrt{n}
+\end{align*}
+\item If $Y_1,\ldots,Y_n$ are i.i.d. draws from a Bernoulli distribution with success probability $p$, the formula for the variance $\mean{Y}$ simplifies to $p(1-p)/n$; and the standard error is
+\begin{align*}
+\SE(\mean{Y})=\sqrt{\mean{Y}(1-\mean{Y})/n}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{$p$-Value for Unknown $\sigma_Y^2$}
+\begin{itemize}
+\item \emph{$p$-Value for Unknown $\sigma_Y^2$:}
+Because $s_Y^2$ is a consistent estimator of $\sigma_Y^2$, the $p$-value can be computed by replacing $\sigma_{\mean{Y}}$ by the standard error $\hat{\sigma}_{\mean{Y}}$. 
+\item If $Y_1,\ldots,Y_n$ are i.i.d., the $p$-value is calculated from
+\begin{align*}
+p\text{-value} 
+  = 2\Phi \left( -\left| \frac{\mean{Y}^{\text{act}} - \mu_{Y,0}}{\SE(\mean{Y})} \right| \right)
+\end{align*}
+\item \emph{$t$-statistic:} 
+For large sample size $n$, the estimator $s_Y^2$ is close to $\sigma_Y^2$ with high probability. The distribution of the $t$-statistic is approximately the same as the distribution of $(\mean{Y}-\mu_{Y,0})/\sigma_{\mean{Y}}$, which is well approximated by the standard normal distribution. 
+\begin{align*}
+t \sim N(0,1) ~\text{for large}~n
+\end{align*}
+\item The $p$-value can be written in terms of the $t$-statistic:
+\begin{align*}
+p\text{-value} 
+  = 2\Phi \left(-|t^{\text{act}}|\right)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{$t$-Statistic}
+\begin{itemize}
+\item \emph{Example:} A sample of size $n=200$ recent college graduates is used to test the null hypothesis that the mean wage $\exp[Y]$ is $\$20$ per hour. The sample average is $\mean{Y}^{\text{act}}=\$22.64$ and the sample standard deviation is $s_Y=\$18.14$. 
+\item The standard error of $\mean{Y}$ is 
+\begin{align*}
+\frac{s_Y}{\sqrt{n}} 
+  = \frac{18.14}{\sqrt{200}}
+  = 1.28
+\end{align*}
+\item The $t$-statistic is:
+\begin{align*}
+t^{\text{act}} = \frac{22.64-20}{1.28} = 2.06
+\end{align*}
+\item The corresponding $p$-value is:
+\begin{align*}
+p\text{-value} 
+  = 2\Phi(-2.06) = 0.039
+\end{align*}
+\item Under the null hypothesis, the probability of drawing a sample mean no less different from the null as the one actually computed is $3.9\%$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{One-Sided Alternative}
+\begin{itemize}
+\item \emph{One-Sided Alternative:}
+\begin{align*}
+H_A{:}~ \exp[Y] & > \mu_{Y,0} \\
+\implies 
+ p\text{-value} & = \Pr(Z > t^{\text{act}} | H_0) = 1 - \Phi(t^{\text{act}})
+\end{align*}
+\item Because the distribution is symmetric, one-sided alternatives can be found with the same critical value in absolute value --- only the sign of the critical value differs between left-sided and right-sided alternatives. 
+\item The critical value for the rejection region in a test against a one-sided alternative is $t_{\text{crit}}=1.64$ --- smaller than the critical value in the case of a two-sided alternative $t_{\text{crit}}=1.96$. This is because the tail probability is located exclusively on one-side, rather than divided evenly. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

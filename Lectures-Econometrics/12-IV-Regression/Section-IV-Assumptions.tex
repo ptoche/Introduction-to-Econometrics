@@ -1,0 +1,31 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{IV Regression Assumptions}
+\begin{itemize}
+\item \emph{The variables satisfy:}
+\begin{enumerate}
+\item $\exp[u_{i}|W_{1i},\ldots,W_{ri}]=0$
+\item $(X_{1i},\ldots,X_{ki},W_{1i},\ldots,W_{ri},Z_{1i},\ldots,Z_{mi},Y_{i})$ are i.i.d. draws from their joint distribution
+\item $X$, $W$, $Z$, and $Y$ have non-zero finite fourth moments (outliers unlikely)
+\item The instruments are valid, in that they satisfy:
+\begin{itemize}
+\item[--] Instrument relevance.
+\item[--] Instrument exogeneity.
+\end{itemize}
+\end{enumerate}
+\item \emph{Estimator:} 
+\newlinequad
+The TSLS estimator is consistent and normally distributed in large samples. 
+\item \emph{Inference:} 
+\newlinequad
+Valid, including hypothesis tests and confidence intervals. 
+\item \emph{Standard errors:}
+\newlinequad
+Second-stage regression standard errors are incorrect! Correct standard errors are provided by specialized packages ---
+always use heteroskedasticity-robust standard errors.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,40 @@
+---
+title: "Introduction to R"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    slide_level: 2
+    includes:
+        in_header: setup.tex
+    keep_tex: yes
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+classoption: svgnames, handout
+---
+
+
+```{r, child="setup.Rmd"}
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+library(tidyverse)
+```
+
+
+# Probability
+
+- This chapter reviews some basic concepts of probability theory and demonstrates how they can be applied in `r ttcode("R")`.
+
+- The `r ttcode("stats")` package gathers simple functions to compute descriptive statistics and compute a variety of probability distributions. It is part of the base distribution of `r ttcode("R")`, meaning that it is available by default and does not need to be installed or loaded. 
+
+- `install.packages("stats")` or `library("stats")`. Simply execute `library(help = "stats")` in the console to view the documentation and a complete list of all functions gathered in `r ttcode("stats")`. For most packages a documentation that can be viewed within *RStudio* is available. Documentations can be invoked using the `r ttcode("?")` operator, e.g., upon execution of `?stats` the documentation of the `r ttcode("stats")` package is shown in the help tab of the bottom-right pane.
+
+- In what follows, our focus is on (some of) the probability distributions that are handled by `r ttcode("R")` and show how to use the relevant functions to solve simple problems. Thereby, we refresh some core concepts of probability theory. Among other things, you will learn how to draw random numbers, how to compute densities, probabilities, quantiles and alike. As we shall see, it is very convenient to rely on these routines.

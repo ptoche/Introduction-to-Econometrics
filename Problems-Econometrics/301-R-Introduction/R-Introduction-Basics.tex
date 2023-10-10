@@ -1,0 +1,981 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  11pt,
+  ignorenonframetext,
+  svgnames, handout, t]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usefonttheme{professionalfonts}
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Getting Started with R},
+  pdfauthor={Patrick Toche },
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\geometry{paperwidth=160mm,paperheight=106mm}
+\usepackage{lmodern}% bug: converts \pounds to dollar sign
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}% font encoding, load before inputenc
+\usepackage{fontspec}% font encoding
+\frenchspacing
+\defaultfontfeatures{
+   Mapping=tex-text,
+   Scale=MatchLowercase,
+}
+%   \setsansfont{Montserrat}
+\setsansfont{Lato}
+\setmonofont{Droid Sans Mono}
+\newfontfamily\fontbold{Lato Bold}
+\newfontfamily\fontitalic{Lato Italic}
+\newfontfamily\fontbolditalic{Lato Bold Italic}
+\newfontfamily\quotefont{Minotaur}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+
+\colorlet{themetext}{black}
+\colorlet{themefill}{RoyalBlue!50}
+\colorlet{themecolor}{NavyBlue}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamertemplate{title page}[empty]
+\usecolortheme{seahorse}
+\setbeamercovered{transparent=4}
+\setbeamercolor{palette primary}{use=structure,fg=black,bg=themefill}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{itemize item}{fg=themecolor}
+\setbeamercolor{enumerate item}{fg=themecolor}
+\setbeamercolor{itemize subitem}{fg=themecolor}
+\setbeamercolor{enumerate subitem}{fg=themecolor}
+%\setbeamertemplate{itemize item}[triangle]% default, triangle, circle, square, ball
+\setbeamertemplate{itemize item}{\raisebox{-0.7ex}{\scalebox{1}[2.5]{\bfseries\textendash}}} 
+\setbeamertemplate{itemize subitem}{\raisebox{-0.7ex}{\scalebox{1}[2.5]{\bfseries\textendash}}} 
+\setbeamertemplate{enumerate subitem}{\alph{enumii}.}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Getting Started with R}
+\subtitle{Econ 440 - Introduction to Econometrics}
+\author{Patrick Toche}
+\date{01 March 2022}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Contents}
+\protect\hypertarget{contents}{}
+\begin{enumerate}
+\tightlist
+\item
+  Know your data types and data containers
+\item
+  Convert strings and factors to numeric values
+\item
+  Select/Create data inside a dataframe
+\item
+  Import/Export data
+\item
+  Quick sums
+\item
+  Split/Apply
+\item
+  Create functions
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Introduction}
+\protect\hypertarget{introduction}{}
+This document is work in progress. It will be updated as we proceed
+through the course, in response to questions that arise for particular
+tasks. It is designed to be permanently incomplete and permanently
+revised. Also, please use with care: Always back up your data!
+\end{frame}
+
+\begin{frame}[fragile]{Know your data types}
+\protect\hypertarget{know-your-data-types}{}
+We are going to be dealing with the following data types: numbers,
+strings, booleans, factors, and containers filled with these, including:
+vectors/lists, named lists, matrices, dataframes, tibbles.
+
+Start a new session, type the letter a into the console: you get an
+error!
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+Now type the letter c into the console: you get something!
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{c}
+\CommentTok{\#\textgreater{} function (...)  .Primitive("c")}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+That's because in \texttt{R} the letter \texttt{c} is the name of a
+function \texttt{c()}. That's unfortunate, but \texttt{R} was designed
+in the 1970s when very few people had a need of symbols beyond
+\texttt{a} and \texttt{b}. Lol.
+\end{frame}
+
+\begin{frame}[fragile]{Know your data types}
+\protect\hypertarget{know-your-data-types-1}{}
+Other than \texttt{c()}, other names that are used by \texttt{R}, and
+are therefore best avoided as names for other objects, include
+\texttt{df} and \texttt{data}. But because they are names of functions,
+these names are actually still available for other objects. For
+instance,
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# define c}
+\NormalTok{c }\OtherTok{=} \DecValTok{0}
+
+\CommentTok{\# check the value of c}
+\NormalTok{c}
+\CommentTok{\#\textgreater{} [1] 0}
+
+\CommentTok{\# but c() is still available}
+\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 0 1}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize It's not too smart, but we do it all the time. Better people
+use \texttt{C} or \texttt{DF}, because \texttt{R} is case sensitive and
+the upper-case symbols are available.
+\end{frame}
+
+\begin{frame}[fragile]{Know your data types}
+\protect\hypertarget{know-your-data-types-2}{}
+The following is definitely stupid:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# define c}
+\NormalTok{c }\OtherTok{=} \ControlFlowTok{function}\NormalTok{(x) }\ConstantTok{NULL}
+
+\CommentTok{\# check c(0,1)}
+\FunctionTok{c}\NormalTok{()}
+\CommentTok{\#\textgreater{} NULL}
+
+\CommentTok{\# remove this before it ruins our life}
+\FunctionTok{rm}\NormalTok{(c)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Know your data types}
+\protect\hypertarget{know-your-data-types-3}{}
+So let's investigate some data types:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# floating{-}point number aka num}
+\NormalTok{a1 }\OtherTok{=} \DecValTok{0}
+\FunctionTok{str}\NormalTok{(a1)}
+\CommentTok{\#\textgreater{}  num 0}
+
+\CommentTok{\# string aka character chr}
+\NormalTok{a2 }\OtherTok{=} \StringTok{"0"}
+\FunctionTok{str}\NormalTok{(a2)}
+\CommentTok{\#\textgreater{}  chr "0"}
+
+\CommentTok{\# boolean aka logical}
+\NormalTok{a3 }\OtherTok{=} \ConstantTok{TRUE}
+\FunctionTok{str}\NormalTok{(a3)}
+\CommentTok{\#\textgreater{}  logi TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize In \texttt{R} booleans are called \texttt{logical} vectors.
+\end{frame}
+
+\begin{frame}[fragile]{Know your data types}
+\protect\hypertarget{know-your-data-types-4}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# integer aka int}
+\NormalTok{a4 }\OtherTok{=}\NormalTok{ 0L}
+\FunctionTok{str}\NormalTok{(a4)}
+\CommentTok{\#\textgreater{}  int 0}
+
+\CommentTok{\# factor}
+\NormalTok{a5 }\OtherTok{=} \FunctionTok{factor}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{level=}\DecValTok{1}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(a5)}
+\CommentTok{\#\textgreater{}  Factor w/ 1 level "1": NA}
+
+\CommentTok{\# vector of factors}
+\NormalTok{a6 }\OtherTok{=} \FunctionTok{factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{str}\NormalTok{(a6)}
+\CommentTok{\#\textgreater{}  Factor w/ 2 levels "1","2": NA 1}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Know your data containers}
+\protect\hypertarget{know-your-data-containers}{}
+We will be dealing mostly with `vectors' and `dataframes' In \texttt{R}
+lists are vectors. A vector is the most fundamental data container in
+\texttt{R}. Even a single object is under the hood a vector with a
+single value.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# a vector/list of numbers:}
+\NormalTok{l1 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(l1)}
+\CommentTok{\#\textgreater{}  num [1:2] 0 1}
+
+\CommentTok{\# a vector/list of integers:}
+\NormalTok{l2 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, 1L)}
+\FunctionTok{str}\NormalTok{(l2)}
+\CommentTok{\#\textgreater{}  num [1:2] 0 1}
+
+\CommentTok{\# a vector/list of booleans:}
+\NormalTok{l3 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(l3)}
+\CommentTok{\#\textgreater{}  logi [1:2] FALSE TRUE}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Know your data containers}
+\protect\hypertarget{know-your-data-containers-1}{}
+In \texttt{R} named lists have a purpose similar to `dictionaries' in
+\texttt{Python}.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# a named list:}
+\NormalTok{l4 }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\StringTok{"name1"} \OtherTok{=} \DecValTok{1}\NormalTok{, }\StringTok{"name2"} \OtherTok{=} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{str}\NormalTok{(l4)}
+\CommentTok{\#\textgreater{}  Named num [1:2] 1 1}
+\CommentTok{\#\textgreater{}  {-} attr(*, "names")= chr [1:2] "name1" "name2"}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+Every object stored in a named list has a name and a value:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# get the name and value with []}
+\NormalTok{l4[}\StringTok{"name1"}\NormalTok{]}
+\CommentTok{\#\textgreater{} name1 }
+\CommentTok{\#\textgreater{}     1}
+
+\CommentTok{\# get the value with [[]]}
+\NormalTok{l4[[}\StringTok{"name1"}\NormalTok{]]}
+\CommentTok{\#\textgreater{} [1] 1}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Know your data containers}
+\protect\hypertarget{know-your-data-containers-2}{}
+The easiest way to create a dataframe is from several vectors.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# define band member, the date they joined/quit the band, and their net worth}
+\CommentTok{\# data from a quick web search {-} not meant to be accurate!}
+\NormalTok{member }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Brian\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Mick\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Keith\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Stewart\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Bill\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Charlie\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Ronnie\textquotesingle{}}\NormalTok{)}
+\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}1962{-}07{-}12\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}1962{-}07{-}12\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1962{-}07{-}12\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1962{-}07{-}12\textquotesingle{}}\NormalTok{,}
+                   \StringTok{\textquotesingle{}1962{-}12{-}07\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1963{-}02{-}02\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}1976{-}04{-}23\textquotesingle{}}\NormalTok{))}
+\NormalTok{today }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\FunctionTok{Sys.Date}\NormalTok{())}
+\NormalTok{end }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}1969{-}06{-}09\textquotesingle{}}\NormalTok{, today, today, }
+                 \StringTok{\textquotesingle{}1963{-}05{-}01\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}1992{-}12{-}01\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}2021{-}08{-}24\textquotesingle{}}\NormalTok{, today))}
+\NormalTok{worth }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{80}\NormalTok{, }\DecValTok{250}\NormalTok{, }\DecValTok{200}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ rolling.stones }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(member, start, end, worth)}
+\FunctionTok{str}\NormalTok{(rolling.stones)}
+\CommentTok{\#\textgreater{} \textquotesingle{}data.frame\textquotesingle{}:    7 obs. of  4 variables:}
+\CommentTok{\#\textgreater{}  $ member: chr  "Brian" "Mick" "Keith" "Stewart" ...}
+\CommentTok{\#\textgreater{}  $ start : Date, format: "1962{-}07{-}12" "1962{-}07{-}12" ...}
+\CommentTok{\#\textgreater{}  $ end   : Date, format: "1969{-}06{-}09" "2022{-}02{-}20" ...}
+\CommentTok{\#\textgreater{}  $ worth : num  10 500 500 1 80 250 200}
+
+\CommentTok{\# add information about the units:}
+\NormalTok{rolling.stones}\SpecialCharTok{$}\NormalTok{currency }\OtherTok{\textless{}{-}} \StringTok{"$"}  \CommentTok{\# R is clever that way}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Know your data containers}
+\protect\hypertarget{know-your-data-containers-3}{}
+We can output the core structure of a dataframe with the \texttt{dput()}
+function.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dput}\NormalTok{(df)}
+\CommentTok{\#\textgreater{} structure(list(member = c("Brian", "Mick", "Keith", "Stewart", }
+\CommentTok{\#\textgreater{} "Bill", "Charlie", "Ronnie"), start = structure(c({-}2730, {-}2730, }
+\CommentTok{\#\textgreater{} {-}2730, {-}2730, {-}2582, {-}2525, 2304), class = "Date"), end = structure(c({-}206, }
+\CommentTok{\#\textgreater{} 19043, 19043, {-}2437, 8370, 18863, 19043), class = "Date"), worth = c(10, }
+\CommentTok{\#\textgreater{} 500, 500, 1, 80, 250, 200)), class = "data.frame", row.names = c(NA, }
+\CommentTok{\#\textgreater{} {-}7L))}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize This is useful to share the dataframe without creating a
+\texttt{csv} file or similar. It is the best way to share toy data on
+websites like \href{https://stackoverflow.com/}{stackoverflow}.
+
+You can convert the dataframe to a \texttt{tibble} using the
+\texttt{as\_tibble()} function:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dput}\NormalTok{(}\FunctionTok{as\_tibble}\NormalTok{(df))}
+\CommentTok{\#\textgreater{} structure(list(member = c("Brian", "Mick", "Keith", "Stewart", }
+\CommentTok{\#\textgreater{} "Bill", "Charlie", "Ronnie"), start = structure(c({-}2730, {-}2730, }
+\CommentTok{\#\textgreater{} {-}2730, {-}2730, {-}2582, {-}2525, 2304), class = "Date"), end = structure(c({-}206, }
+\CommentTok{\#\textgreater{} 19043, 19043, {-}2437, 8370, 18863, 19043), class = "Date"), worth = c(10, }
+\CommentTok{\#\textgreater{} 500, 500, 1, 80, 250, 200)), class = c("tbl\_df", "tbl", "data.frame"}
+\CommentTok{\#\textgreater{} ), row.names = c(NA, {-}7L))}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize which shows that the \texttt{tibble} does not contain more
+information than the \texttt{dataframe}.
+\end{frame}
+
+\begin{frame}[fragile]{Convert strings and factors to numeric values}
+\protect\hypertarget{convert-strings-and-factors-to-numeric-values}{}
+Conversion across types must be done with care, obviously.
+
+Functions such as \texttt{as.numeric()}, \texttt{as.character()} are
+`vectorized', which means they can be applied to a vector/list and also
+to a single column in a dataframe.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# convert a number ot a string:}
+\FunctionTok{as.character}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] "0"}
+
+\CommentTok{\# convert a string to a number:}
+\FunctionTok{as.numeric}\NormalTok{(}\StringTok{"0"}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 0}
+
+\CommentTok{\# convert a string to an integer:}
+\FunctionTok{as.integer}\NormalTok{(}\StringTok{"0"}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 0}
+\FunctionTok{as.integer}\NormalTok{(}\StringTok{"0.5"}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 0}
+
+\CommentTok{\# convert a vector of booleans:}
+\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{))}
+\CommentTok{\#\textgreater{} [1] 1 0}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Convert strings and factors to numeric values}
+\protect\hypertarget{convert-strings-and-factors-to-numeric-values-1}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# convert a factor to number:}
+\NormalTok{f }\OtherTok{=} \FunctionTok{factor}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{levels=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{as.character}\NormalTok{(f)}
+\CommentTok{\#\textgreater{} [1] NA  "1"}
+\FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(f))}
+\CommentTok{\#\textgreater{} [1] NA  1}
+
+\CommentTok{\# convert a column of a dataframe and reassign back to dataframe}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{worth }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{worth)}
+\FunctionTok{str}\NormalTok{(df)}
+\CommentTok{\#\textgreater{} \textquotesingle{}data.frame\textquotesingle{}:    7 obs. of  4 variables:}
+\CommentTok{\#\textgreater{}  $ member: chr  "Brian" "Mick" "Keith" "Stewart" ...}
+\CommentTok{\#\textgreater{}  $ start : Date, format: "1962{-}07{-}12" "1962{-}07{-}12" ...}
+\CommentTok{\#\textgreater{}  $ end   : Date, format: "1969{-}06{-}09" "2022{-}02{-}20" ...}
+\CommentTok{\#\textgreater{}  $ worth : int  10 500 500 1 80 250 200}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Select data inside a dataframe}
+\protect\hypertarget{select-data-inside-a-dataframe}{}
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# get a column}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{member}
+\CommentTok{\#\textgreater{} [1] "Brian"   "Mick"    "Keith"   "Stewart" "Bill"    "Charlie" "Ronnie"}
+
+\CommentTok{\# get one row}
+\NormalTok{df[}\DecValTok{2}\NormalTok{,]}
+\CommentTok{\#\textgreater{}   member      start        end worth}
+\CommentTok{\#\textgreater{} 2   Mick 1962{-}07{-}12 2022{-}02{-}20   500}
+
+\CommentTok{\# get several rows}
+\NormalTok{df[}\DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{,]}
+\CommentTok{\#\textgreater{}   member      start        end worth}
+\CommentTok{\#\textgreater{} 2   Mick 1962{-}07{-}12 2022{-}02{-}20   500}
+\CommentTok{\#\textgreater{} 3  Keith 1962{-}07{-}12 2022{-}02{-}20   500}
+
+\CommentTok{\# get a row by criterion}
+\NormalTok{df[df}\SpecialCharTok{$}\NormalTok{worth }\SpecialCharTok{\textgreater{}=} \DecValTok{300}\NormalTok{,]}
+\CommentTok{\#\textgreater{}   member      start        end worth}
+\CommentTok{\#\textgreater{} 2   Mick 1962{-}07{-}12 2022{-}02{-}20   500}
+\CommentTok{\#\textgreater{} 3  Keith 1962{-}07{-}12 2022{-}02{-}20   500}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Add data to a dataframe}
+\protect\hypertarget{add-data-to-a-dataframe}{}
+We can create categorical variables as follows:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{poor }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{worth }\SpecialCharTok{\textless{}} \DecValTok{100}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{middle }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{worth }\SpecialCharTok{\textgreater{}=} \DecValTok{100} \SpecialCharTok{\&}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{worth }\SpecialCharTok{\textless{}} \DecValTok{300}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{rich }\OtherTok{\textless{}{-}}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{worth }\SpecialCharTok{\textgreater{}=} \DecValTok{300}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+We can create a duration variable as follows:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{duration }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\DecValTok{100}\SpecialCharTok{*}\FunctionTok{as.integer}\NormalTok{((df}\SpecialCharTok{$}\NormalTok{end}\SpecialCharTok{{-}}\NormalTok{df}\SpecialCharTok{$}\NormalTok{start))}\SpecialCharTok{/}\FunctionTok{as.integer}\NormalTok{(}\FunctionTok{max}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{end}\SpecialCharTok{{-}}\NormalTok{df}\SpecialCharTok{$}\NormalTok{start)))}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize This calculates the interval between the start and end
+dates, calculates the maximum time interval in the datasets, and for
+each interval calculates the percentage it represents.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df}
+\CommentTok{\#\textgreater{}    member      start        end worth  poor middle  rich duration}
+\CommentTok{\#\textgreater{} 1   Brian 1962{-}07{-}12 1969{-}06{-}09    10  TRUE  FALSE FALSE       12}
+\CommentTok{\#\textgreater{} 2    Mick 1962{-}07{-}12 2022{-}02{-}20   500 FALSE  FALSE  TRUE      100}
+\CommentTok{\#\textgreater{} 3   Keith 1962{-}07{-}12 2022{-}02{-}20   500 FALSE  FALSE  TRUE      100}
+\CommentTok{\#\textgreater{} 4 Stewart 1962{-}07{-}12 1963{-}05{-}01     1  TRUE  FALSE FALSE        1}
+\CommentTok{\#\textgreater{} 5    Bill 1962{-}12{-}07 1992{-}12{-}01    80  TRUE  FALSE FALSE       50}
+\CommentTok{\#\textgreater{} 6 Charlie 1963{-}02{-}02 2021{-}08{-}24   250 FALSE   TRUE FALSE       98}
+\CommentTok{\#\textgreater{} 7  Ronnie 1976{-}04{-}23 2022{-}02{-}20   200 FALSE   TRUE FALSE       77}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Use data in a dataframe}
+\protect\hypertarget{use-data-in-a-dataframe}{}
+The correlation between net worth and the duration variable is positive,
+as expected:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{duration, df}\SpecialCharTok{$}\NormalTok{worth)}
+\CommentTok{\#\textgreater{} [1] 0.883}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+And significant:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cor.test}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{duration, df}\SpecialCharTok{$}\NormalTok{worth)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}  Pearson\textquotesingle{}s product{-}moment correlation}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} data:  df$duration and df$worth}
+\CommentTok{\#\textgreater{} t = 4, df = 5, p{-}value = 0.008}
+\CommentTok{\#\textgreater{} alternative hypothesis: true correlation is not equal to 0}
+\CommentTok{\#\textgreater{} 95 percent confidence interval:}
+\CommentTok{\#\textgreater{}  0.388 0.983}
+\CommentTok{\#\textgreater{} sample estimates:}
+\CommentTok{\#\textgreater{}   cor }
+\CommentTok{\#\textgreater{} 0.883}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Import data}
+\protect\hypertarget{import-data}{}
+The most common data format is \texttt{csv} --- comma separated values.
+
+The most commonly needed options are \texttt{stringsAsFactors=FALSE} to
+prevent \texttt{R} from converting strings to factors and the option to
+use or discard header information, with \texttt{header=FALSE} or
+\texttt{header=TRUE}:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# basic import:}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Age\_HourlyEarnings.csv"}\NormalTok{, }\AttributeTok{stringsAsFactors=}\ConstantTok{FALSE}\NormalTok{)}
+
+\CommentTok{\# import with more control:}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"Age\_HourlyEarnings.csv"}\NormalTok{, }\AttributeTok{stringsAsFactors=}\ConstantTok{FALSE}\NormalTok{, }
+              \AttributeTok{skip=}\DecValTok{1}\NormalTok{, }\AttributeTok{na.strings=}\StringTok{"NA"}\NormalTok{, }\AttributeTok{header=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{strip.white=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+There are many ways to import excel data. One option is to use the
+\texttt{read\_xlsx()} function from the \texttt{readxl} package.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{read\_xlsx}\NormalTok{(}\StringTok{"Age\_HourlyEarnings.xlsx"}\NormalTok{, }\AttributeTok{col\_names=}\ConstantTok{TRUE}\NormalTok{, }\AttributeTok{skip=}\DecValTok{1}\NormalTok{, }\AttributeTok{trim\_ws=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Export data}
+\protect\hypertarget{export-data}{}
+To save a dataframe as a \texttt{csv} file:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write.csv}\NormalTok{(df, }\AttributeTok{file =} \StringTok{"filename.csv"}\NormalTok{, }\AttributeTok{row.names=}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize where you typically do not want to save the row names.
+
+To save a dataframe as a \texttt{xlsx} file, among many options, you can
+use the \texttt{write\_xlsx()} function from the \texttt{writexl}
+package:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(writexl)}
+\FunctionTok{write\_xlsx}\NormalTok{(df, }\AttributeTok{file =} \StringTok{"filename.csv"}\NormalTok{, }\AttributeTok{row.names=}\ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+You can also save the data in the native \texttt{RData} format. This
+format will preserve information about data types, information that will
+otherwise be lost with the \texttt{csv} and \texttt{xlsx} formats. The
+only downside of the \texttt{RData} format is that it cannot be imported
+by spreadsheets and may not be easily read by other software, whereas
+the \texttt{csv} format is universal and the \texttt{xlsx} format nearly
+universal.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{save}\NormalTok{(df, }\AttributeTok{file =} \StringTok{"filename.RData"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Export data}
+\protect\hypertarget{export-data-1}{}
+It is possible to import data from other formats, including
+\texttt{Stata}, \texttt{SPSS}, \texttt{SAS}. One option, among several,
+comes from the \texttt{Hmisc} and \texttt{foreign} packages. Examples:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(foreign)}
+\NormalTok{df.stata }\OtherTok{\textless{}{-}} \FunctionTok{read.dta}\NormalTok{(}\StringTok{"stata{-}format.dta"}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(Hmisc)}
+\NormalTok{df.spss }\OtherTok{\textless{}{-}} \FunctionTok{spss.get}\NormalTok{(}\StringTok{"spss{-}format.por"}\NormalTok{, }\AttributeTok{use.value.labels=}\ConstantTok{TRUE}\NormalTok{)}
+
+\FunctionTok{library}\NormalTok{(Hmisc)}
+\NormalTok{df.sas }\OtherTok{\textless{}{-}} \FunctionTok{sasxport.get}\NormalTok{(}\StringTok{"sas{-}format.xpt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Quick sums}
+\protect\hypertarget{quick-sums}{}
+\texttt{R} knows how to sum the elements of a vector:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\FunctionTok{sum}\NormalTok{(x)}
+\CommentTok{\#\textgreater{} [1] 15}
+
+\NormalTok{x }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{sum}\NormalTok{(x)}
+\CommentTok{\#\textgreater{} [1] 2}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+Other operations are possible in the same way:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{=} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{mean}\NormalTok{(x)}
+\CommentTok{\#\textgreater{} [1] 0.5}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+
+To sum across the columns or rows of a dataframe or matrix, the
+\texttt{colSums()} and \texttt{rowSums()} are optimized for speed.
+Similar are \texttt{colMeans()} and \texttt{rowMeans()}.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m }\OtherTok{=} \FunctionTok{matrix}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{)}
+\FunctionTok{colSums}\NormalTok{(m)}
+\CommentTok{\#\textgreater{} [1]  6 15 24}
+\FunctionTok{rowMeans}\NormalTok{(m)}
+\CommentTok{\#\textgreater{} [1] 4 5 6}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Split/Apply}
+\protect\hypertarget{splitapply}{}
+To apply a particular calculation to a subset of the data, the
+\texttt{split()} function is convenient.
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# split the data: poor vs the rest}
+\FunctionTok{split}\NormalTok{(df, df}\SpecialCharTok{$}\NormalTok{poor)}
+\CommentTok{\#\textgreater{} $\textasciigrave{}FALSE\textasciigrave{}}
+\CommentTok{\#\textgreater{}    member      start        end worth  poor middle  rich duration}
+\CommentTok{\#\textgreater{} 2    Mick 1962{-}07{-}12 2022{-}02{-}20   500 FALSE  FALSE  TRUE      100}
+\CommentTok{\#\textgreater{} 3   Keith 1962{-}07{-}12 2022{-}02{-}20   500 FALSE  FALSE  TRUE      100}
+\CommentTok{\#\textgreater{} 6 Charlie 1963{-}02{-}02 2021{-}08{-}24   250 FALSE   TRUE FALSE       98}
+\CommentTok{\#\textgreater{} 7  Ronnie 1976{-}04{-}23 2022{-}02{-}20   200 FALSE   TRUE FALSE       77}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} $\textasciigrave{}TRUE\textasciigrave{}}
+\CommentTok{\#\textgreater{}    member      start        end worth poor middle  rich duration}
+\CommentTok{\#\textgreater{} 1   Brian 1962{-}07{-}12 1969{-}06{-}09    10 TRUE  FALSE FALSE       12}
+\CommentTok{\#\textgreater{} 4 Stewart 1962{-}07{-}12 1963{-}05{-}01     1 TRUE  FALSE FALSE        1}
+\CommentTok{\#\textgreater{} 5    Bill 1962{-}12{-}07 1992{-}12{-}01    80 TRUE  FALSE FALSE       50}
+
+\CommentTok{\# apply a calculation: compute the mean for each group}
+\FunctionTok{sapply}\NormalTok{(}\FunctionTok{split}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{worth, df}\SpecialCharTok{$}\NormalTok{poor), mean)}
+\CommentTok{\#\textgreater{} FALSE  TRUE }
+\CommentTok{\#\textgreater{} 362.5  30.3}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Functions}
+\protect\hypertarget{functions}{}
+It is often convenient to create convenience functions. Ah yes.
+
+A population standard deviation does not exist in base \texttt{R}. For
+quick check, \texttt{?sd}: The Help page for \texttt{sd} states ``Like
+\texttt{var} this uses denominator n-1.''
+
+Let's roll our own:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{std }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{sqrt}\NormalTok{(}\FunctionTok{sum}\NormalTok{((x}\SpecialCharTok{{-}}\FunctionTok{mean}\NormalTok{(x))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{length}\NormalTok{(x))}
+\FunctionTok{std}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{worth)}
+\CommentTok{\#\textgreater{} [1] 196}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize Note that we divide by \texttt{length(x)} and not
+\texttt{length(x)-1}
+
+Functions that stretch over several lines use an opening and closing
+curly brace:
+
+\footnotesize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{weighted.std }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x,w) \{}
+    \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{sum}\NormalTok{(w}\SpecialCharTok{*}\NormalTok{(x}\SpecialCharTok{{-}}\FunctionTok{weighted.mean}\NormalTok{(x,w))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(w))}
+\NormalTok{\}}
+\FunctionTok{std}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{worth)}
+\CommentTok{\#\textgreater{} [1] 196}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Dataframe V. List}
+\protect\hypertarget{dataframe-v.-list}{}
+There is a subtle difference between the two lines of code below.
+
+\footnotesize
+
+\begin{verbatim}
+#> # A tibble: 3 x 1
+#>   member 
+#>   <chr>  
+#> 1 Brian  
+#> 2 Stewart
+#> 3 Bill
+#> [1] "Brian"   "Stewart" "Bill"
+\end{verbatim}
+
+\normalsize
+
+They yield the same result here. Execute code snippets to see how
+\texttt{R} works: So what is the difference? Try \texttt{str()} on the
+resulting object to see.
+
+\footnotesize
+
+\begin{verbatim}
+#> tibble [3 x 1] (S3: tbl_df/tbl/data.frame)
+#>  $ member: chr [1:3] "Brian" "Stewart" "Bill"
+#>  chr [1:3] "Brian" "Stewart" "Bill"
+#>  chr [1:3] "Brian" "Stewart" "Bill"
+#>  chr [1:3] "Brian" "Stewart" "Bill"
+\end{verbatim}
+
+\normalsize
+
+Beware of tibbles, sometimes. See the difference?
+
+\footnotesize
+
+\begin{verbatim}
+#> [1] 91
+#> [1] 91
+#> [1] NA
+#> [1] 30.3
+\end{verbatim}
+
+\normalsize
+\end{frame}
+
+\begin{frame}{END OF DOCUMENT}
+\protect\hypertarget{end-of-document}{}
+This document ends here. Please check back later for updates.
+\end{frame}
+
+\end{document}

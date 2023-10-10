@@ -1,0 +1,54 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The General IV Regression Model}
+\begin{itemize}
+\item The general IV regression model is
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} X_{1i} + \ldots + \beta_{k} X_{ki} + \beta_{k+1} W_{1i} + \ldots + \beta_{k+r} W_{ri} + u_{i}
+\end{align*}
+\item $Y_{i}$:\quad The dependent variable.
+\item $X_{1i},\ldots,X_{ki}$:\quad $k$ endogenous regressors potentially correlated with $u_{i}$.
+\item $W_{1i},\ldots,W_{ri}$:\quad $r$ exogenous regressors, uncorrelated with $u_{i}$.
+\item $u_{i}$:\quad The error term, which captures measurement errors and/or omitted factors. 
+\item $Z_{1i},\ldots,Z_{mi}$:\quad $m$ instrumental variables.
+\item The coefficients are 
+\begin{itemize}
+\item \emph{overidentified} if there are more instruments than endogenous regressors ($m>k$).
+\item \emph{exactly identified} if $m=k$. 
+\item \emph{underidentified} if $m<k$.
+\end{itemize}
+\item \emph{Estimating the IV regression model requires exact identification or overidentification.}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The General IV Regression Model}
+\begin{itemize}
+\item \emph{First Stage:} 
+\medskip\newline
+Regress each of the $k$ (endogenous) regressors $X_{1i},\ldots,X_{ki}$ on:
+\medskip\newlinequad
+the $m$ instrumental variables $Z_{1i},\ldots,Z_{mi}$,
+\newlinequad
+on the $r$ (exogenous) control variables $W_{1i},\ldots,W_{ri}$. 
+\medskip\newlinequad
+Obtain the $k$ estimated values $\hat{X}_{1i},\ldots,\hat{X}_{ki}$.
+\item \emph{Second Stage:} 
+\medskip\newline
+Regress the explained variable $Y_{i}$ on: 
+\medskip\newlinequad
+the $k$ estimated values $\hat{X}_{1i},\ldots,\hat{X}_{ki}$, and
+\newlinequad
+on the $r$ (exogenous) control variables $W_{1i},\ldots,W_{ri}$. 
+\medskip\newlinequad
+Obtain the $k+r+1$ estimated coefficients $\hat{\beta}^{\text{TSLS}}_{0},\ldots,\hat{\beta}^{\text{TSLS}}_{k+r}$.
+\item Each endogenous regressor requires its own first-stage regression. 
+\item Both regressions are typically estimated by OLS, including an intercept.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,41 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=7]
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~2, Exercise~6.}
+The following table gives the joint probability distribution between employment status and college graduation among those either employed or looking for work (unemployed) in the working-age U.S. population for September 2017.
+\smallskip
+\begin{footnotesize}
+% {StockWatson4e-02-tbl-A1}
+\begin{center}
+%\newcolumntype{C}{>{$}c<{$}}% @{\extracolsep{\fill}}
+\newcolumntype{C}{>{\centering\arraybackslash}wc{0.16\linewidth}}% 
+\begin{tabular*}{\linewidth}{p{0.4\linewidth}@{\extracolsep{\fill}}CCC} 
+\multicolumn{4}{l}{\textbf{Employment \& College Graduation} (Population aged 25 and above, September 2017)}\\
+\toprule 
+    & \text{\makecell[c]{Unemployed \\ $Y=0$}} 
+             & \text{\makecell[c]{Employed \\ $Y=1$}} 
+                     & \text{\makecell[c]{\\ Total}} \\
+\cmidrule{2-4}
+\text{Non-College Graduates ($X=0$)}
+    &  0.026 & 0.576 & 0.602 \\
+\text{College Graduates ($X=1$)}
+    &  0.009 & 0.389 & 0.398 \\
+\text{Total}
+    &  0.035 & 0.965 & 1.000 \\
+\bottomrule
+\end{tabular*}
+\end{center}\medskip
+\end{footnotesize}
+\begin{enumerate}
+\item Compute $E(Y)$.
+\item The unemployment rate is the fraction of the labor force that is unemployed. Show that the unemployment rate is given by $1-E(Y)$.
+\item Calculate $E(Y|X=1)$ and $E(Y|X=0)$.
+\item Calculate the unemployment rate for (i) college graduates and (ii) non-college graduates.
+\item A randomly selected member of this population reports being unemployed. What is the probability that this worker is a college graduate? A non-college graduate?
+\item Are educational achievement and employment status independent? Explain.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

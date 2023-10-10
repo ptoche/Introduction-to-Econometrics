@@ -1,0 +1,48 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Time Fixed Effects Regression}
+\emph{Time Fixed Effects as Binary Variables}
+\begin{itemize}
+\item Just as fixed effects for each entity can control for variables that are constant over time but differ across entities, so time fixed effects can control for variables that are constant across entities but change over time.
+\item Consider the population regression equation:
+\begin{align*}
+Y_{it} = \beta_{0} + \beta_{1} X_{it} + \beta_{2} Z_{i} + \beta_{3} S_{t} + u_{it}
+\end{align*}\vspace*{-2ex}
+\begin{itemize}
+\item \emph{$Z_{i}$ varies across entities but is constant over time.}
+\item \emph{$S_{t}$ varies over time but is constant across entities.}
+\end{itemize}
+\item The time fixed effects regression model be represented using $T-1$ binary indicators:
+\begin{align*}
+Y_{it} = \beta_{0} + \beta_{1} X_{it} 
+       & + \crossout[red]{\gamma_{1}D_{1i}} + \gamma_{2}D_{2i} + \ldots + \gamma_{n}D_{ni}\\
+       & + \crossout[red]{\delta_{1}B_{1t}} + \delta_{2}B_{2t} + \ldots + \delta_{T}B_{Tt} + u_{it}
+\end{align*}
+where $B_{i,t}=1$ if $t=i$ and $B_{i,t}=0$ if $t\ne i$;\\ 
+where $\delta_{2},\ldots,\delta_{T}$ are coefficients to be estimated;\\
+where $B_{1,t}$ is excluded to avoid the ``dummy variable trap.'' 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Time Fixed Effects Regression}
+\emph{Combined Entity and Time Fixed Effects}
+\begin{itemize}
+\item Included regressors: The beer tax; $47$ binary variables for entity fixed effects; $6$ binary variables for time fixed effects; an intercept --- or $1 + 47 + 6 + 1 = 55$ right-hand variables.
+\begin{align*}
+\verywidehat{\vn{FatalityRate}}
+  = -\muse{0.64}{0.36} \vn{BeerTax} + \text{entity fixed effects} + \text{time fixed effects}
+\end{align*}
+\item Time effects are significant at the $10\%$ level but not at the $5\%$ level.
+\item Time effects have little effect on the coefficient on the real beer tax.
+\item Omitted variables issues: 
+\newlinequad
+Only if there are effects that are neither fixed across entities nor fixed across time!
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,135 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Multiple Regression]{Multiple Regression: Home Sales}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=5]
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~6, Exercise~5.}
+Data were collected from a random sample of $220$ home sales from a community in 2013. Let $\vn{Price}$ denote the selling price (in $\$1000$s), $\vn{BDR}$ denote the number of bedrooms, $\vn{Bath}$ denote the number of bathrooms, $\vn{Hsize}$ denote the size of the house (in square feet), $\vn{Lsize}$ denote the lot size (in square feet), $\vn{Age}$ denote the age of the house (in years), and $\vn{Poor}$ denote a binary variable that is equal to $1$ if the condition of the house is reported as ``poor.'' An estimated regression yields:
+\begin{align*}
+\verywidehat{\vn{Price}} 
+  = & 119.2 + 0.485\,\vn{BDR} + 23.4\,\vn{Bath} + 0.156\,\vn{Hsize} \\
+    & \quad + 0.002\,\vn{Lsize} + 0.090\,\vn{Age} - 48.8\,\vn{Poor}
+  \quad \bar{R}^2 = 0.72,
+  \quad \vn{SER} = 41.5
+\end{align*}
+\vspace*{-3ex}
+\begin{enumerate}
+\item Suppose a homeowner converts part of an existing family room in her house into a new bathroom. What is the expected increase in the value of the house?
+\item Suppose a homeowner adds a new bathroom to her house, which increases the size of the house by $100$ square feet. What is the expected increase in the value of the house?
+\item What is the loss in value if a homeowner lets his house run down, so that its condition becomes ``poor''?
+\item Compute the $R^{2}$ for the regression.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Suppose a homeowner converts part of an existing family room in her house into a new bathroom. What is the expected increase in the value of the house?
+
+\begin{answer}
+The number of bathrooms $Bath$ increases by $1$. Since the other regressors are unchanged, only the slope coefficient on $Bath$ affects the expected increase in the house value:
+\begin{align*}
+\Delta\verywidehat{Price} 
+  & = 23.4\,\Delta BATH\\
+  & = 23.4 \cdot 1\\
+  & = 23.4
+\end{align*}
+The expected increase in house value is $\$23,400$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Suppose a homeowner adds a new bathroom to her house, which increases the size of the house by $100$ square feet. What is the expected increase in the value of the house?
+
+\begin{answer}
+The number of bathrooms $Bath$ increases by $1$ and the size of the house $Hsize$ increases by $100$ square feet. The slope coefficients on $Bath$ and $Hsize$ both matter:
+\begin{align*}
+\Delta\verywidehat{Price} 
+  & = 23.4\,\Delta BATH + 0.156\,\Delta Hsize\\
+  & = 23.4 \cdot 1 + 0.156 \cdot 100\\
+  & = 39.0
+\end{align*}
+The expected increase in house value is $\$39,000$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item What is the loss in value if a homeowner lets his house run down, so that its condition becomes ``poor''?
+
+\begin{answer}
+The categorical variable $Poor$ changes from $0$ to $1$. Other regressors are unchanged. 
+\begin{align*}
+\Delta\verywidehat{Price} 
+  & = - 48.8\,\Delta Poor\\
+  & = - 48.8 \cdot 1\\
+  & = - 48.8
+\end{align*}
+The expected loss in house value is $\$48,800$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item Compute the $R^{2}$ for the regression.
+
+\begin{answer}
+The adjusted $\bar{R}^{2}$ is given, $\bar{R}^{2}=0.72$. The formula for the adjusted $\bar{R}^{2}$ in terms of the raw $R^{2}$ may be inverted to solve for $R^{2}$. The sample size is $n=220$ and the number of regressors is $p=6$.
+\begin{align*}
+\bar{R}^2 & = 1 - \frac{n-1}{n-1-p}\,(1-R^{2})\\
+\implies 
+R^2 & = 1 - \frac{n-1-p}{n-1}\,(1-\bar{R}^{2})\\
+    & = 1 - \frac{220-1-6}{220-1}\,(1-0.72)\\
+    & \approx 0.72767 
+% 1-(220-1-6)/(220-1)*(1-0.72)
+% 0.7276712
+\end{align*}
+The raw $R^{2}$ is about $0.73$, not very different from the adjusted $\bar{R}^{2}$. 
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+

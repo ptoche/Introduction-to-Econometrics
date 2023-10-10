@@ -1,0 +1,37 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Normal Distribution}
+\begin{itemize}
+\item \emph{Normal Distribution:} A continuous distribution with a symmetric bell-shaped probability density function. The normal density with mean $\mu$ and variance $\sigma^2$ is symmetric around $\mu$ and has $95\%$ of its probability between $\mu-1.96\sigma$ and $\mu+1.96\sigma$. A normally distributed random variable is uniquely defined by its mean and variance and is denoted
+\begin{align*}
+Y \sim N(\mu, \sigma^2)
+\end{align*}
+The two parameters $\mu$ and $\sigma^2$ are sufficient to completely describe any normal distribution.
+\item \emph{Standard Normal Distribution:} The special case with mean zero and unit variance, $N(0,1)$. The standard normal cumulative distribution is often denoted $\Phi$, that is for a fixed value $z$,
+\begin{align*}
+\Pr(Z \leq z) = \Phi(z)
+\end{align*}
+\item All normal distributions can be converted to the standard normal by standardization,
+\begin{align*}
+Y \sim N(\mu,\sigma^2)
+\implies 
+Z = \frac{Y-\mu}{\sigma} \sim N(0,1)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Normal Distribution: Thin Tails}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-02-fig-05-Zoom}
+\caption{The Normal distribution has ``thin tails'': very little probability lies in the tails, and so few outliers are expected to occur.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

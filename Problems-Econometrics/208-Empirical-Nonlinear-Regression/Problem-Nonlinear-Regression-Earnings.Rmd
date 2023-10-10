@@ -1,0 +1,444 @@
+---
+title: "Empirical Exercise 2, Stock and Watson Chapter 8"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+## Empirical Exercise: Earnings
+The data file **CPS2015** contains data for full-time, full-year workers, ages 25–34, with a high school diploma or B.A./B.S. as their highest degree. A detailed description is given in **CPS2015_Description**. In this exercise, you will investigate the relationship between a worker's age and earnings.
+
+
+### Dataset:
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("CPS2015.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+## (a)
+
+Run a regression of average hourly earnings ($ahe$) on age ($age$), sex ($female$), and education ($bachelor$). If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+m1 <- lm(ahe ~ age + female + bachelor, data=df)
+summary(m1)
+```
+
+If $age$ increases by 1 year, $ahe$ is expected to increase by
+$\$0.5313$, that is about $53$ cents per hour. Thus, the answer is the same for an increase from 25 to 26 and from 33 to 34. We can make a prediction for the values, rather than the increase. For convenience, we use R's built-in \texttt{predict} function.
+
+```{r,  include=TRUE, eval=TRUE}
+newdata <- data.frame(age=c(25,26), female=rep(0,2), bachelor=rep(0,2))
+predict(m1, newdata)
+```
+
+As $age$ increases from 25 to 26, earnings increase from $15.327$ to $15.858$
+
+```{r,  include=TRUE, eval=TRUE}
+newdata <- data.frame(age=c(33,34), female=rep(0,2), bachelor=rep(0,2))
+predict(m1, newdata)
+```
+As $age$ increases from 33 to 34, earnings increase from $19.577$ to $20.108$
+
+As this is a repeat question, let's build a convenience function:
+
+```{r,  include=TRUE, eval=TRUE}
+lm_predict <- function(model, data){
+  n <- length(data)
+  newdata <- data.frame(age=data, 
+                        female=rep(0,n), 
+                        bachelor=rep(0,n), 
+                        predicted=rep(1,n))
+  newdata$ahe <- predict(model, newdata)
+  newdata
+}
+lm_predict(m1, data=c(33,34))
+```
+
+
+## (b) 
+
+Run a regression of the logarithm of average hourly earnings, $ln(ahe)$, on $age$, $female$, and $bachelor$. If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+m2 <- lm(log(ahe) ~ age + female + bachelor, data=df)
+summary(m2)
+```
+Because the regression involves non-linear transformations of the original variables, interpreting the coefficients requires great care. 
+
+If $age$ increases by 1 year, $ln(ahe)$ is expected to increase by
+$0.2419$ log-dollars, that is earnings $ahe$ is expected to increase by about $2.5\%$. This predicted effect is the same for an increase in $age$ from 25 to 26 and for an increase from 33 to 34. 
+
+The predicted percentage change is computed as follows:
+$$
+\Delta\widehat{ln(ahe)} = 0.2419
+\implies
+\Delta\widehat{ahe} 
+    \approx e^{0.2419}-1
+    \approx 0.025
+$$
+A simple rule of thumb is $0.2419\to2.4\%$
+
+This calculation may be done in R by extracting the coefficient from the linear model object. 
+```{r,  include=TRUE, eval=TRUE}
+exp(m2$coefficients[["age"]])-1
+```
+To preview the $m2$ object's structure, type \texttt{str(m2)} and then \texttt{str(m2\$coefficients)}.
+```{r,  include=TRUE, eval=TRUE}
+m2$coefficients[["age"]] * (log(34)-log(33))
+```
+
+Specifically, the predicted values of $ahe$ are:
+```{r,  include=TRUE, eval=TRUE}
+lm_predict(m2, data=c(25,26,33,34))
+```
+
+
+
+
+## (c) 
+
+Run a regression of the logarithm of average hourly earnings, $ln(ahe)$, on $ln(age)$, $female$, and $bachelor$. If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+m3 <- lm(log(ahe) ~ log(age) + female + bachelor, data=df)
+summary(m3)
+```
+Both $ahe$ and $age$ appear in log form. As a result, it is no longer true that an increase in $age$ by 1 year increases $ahe$ uniformly: instead the effect on $ahe$ depends on $age$ and must be computed separately for each case.
+
+If $age$ increases by 1 year, from 25 to 26, $ahe$ is expected to increase by about $2.8\%$:
+$$
+\Delta\widehat{ln(ahe)} = 0.7154 \cdot (\ln(26)-\ln(25))
+    \approx 0.028
+$$
+This calculation follows from: 
+```{r,  include=TRUE, eval=TRUE}
+m3$coefficients[["log(age)"]] * (log(26)-log(25))
+```
+If $age$ increases by 1 year from 33 to 34, the increase in $ahe$ is smaller, at about $2.1\%$.
+$$
+\Delta\widehat{ln(ahe)} = 0.7154 \cdot (\ln(34)-\ln(33))
+    \approx 0.021
+$$
+
+```{r,  include=TRUE, eval=TRUE}
+m3$coefficients[["log(age)"]] * (log(34)-log(33))
+```
+
+Specifically, the predicted values of $ahe$ are:
+```{r,  include=TRUE, eval=TRUE}
+lm_predict(m3, data=c(25,26,33,34))
+```
+
+
+
+## (d)
+
+Run a regression of the logarithm of average hourly earnings, $ln(ahe)$, on $age$, $age2$, $female$, and $bachelor$. If $age$ increases from 25 to 26, how are earnings expected to change? If $age$ increases from 33 to 34, how are earnings expected to change?
+
+```{r,  include=TRUE, eval=TRUE}
+m4 <- lm(log(ahe) ~ age + I(age^2) + female + bachelor, data=df)
+summary(m4)
+```
+If $age$ increases by 1 year, $ahe$ is expected to increase by
+$\$0.5313$, that is about $53$ cents per hour.
+
+## (e) 
+
+Do you prefer the regression in (c) to the regression in (b)? Explain.
+
+The difference between the regressions in (b) and (c) is that $age$ is replaced by $log(age)$. The statistical analysis does not point to any major differences. The individual coefficients all have near-zero p-values. The regression's standard error is about the same. The regression's adjusted R-squared is about the same. The regression's p-value is near zero in both cases. The main reason for preferring regression (c) is that the coefficient on $log(age)$ can be interpreted as an elasticity. 
+
+## (f)
+
+Do you prefer the regression in (d) to the regression in (b)? Explain.
+
+The difference between regression (b) and regression (d) is that the linear regressor $age$ is replaced by a quadratic polynomial in $age$ and $age^2$. The regression's standard error, adjusted R-squared, and p-value do not give arguments in favor of one or the other. However, since the individual coefficient on $age^2$ is significant at the $0.05$ level, suggesting the presence of some non-linearity, we prefer regression (d). 
+
+## (g) 
+
+Do you prefer the regression in (d) to the regression in (c)? Explain.
+
+The difference between regression (c) and regression (d) is that $log(age)$ is replaced by a quadratic polynomial in $age$ and $age^2$. The regression's standard error, adjusted R-squared, and p-value do not give arguments in favor of one or the other. We prefer regression (c) because it is parsimonious and the coefficient may be interpreted as an elasticity.
+
+The individual coefficient on $age^2$ has a smaller p-value than that on $log(age)$, but these coefficients cannot be compared since in regression (d) $age^2$ is picking up only the non-linear part of the causal relation between age and hourly earnings, while in regression (c) $log(age)$ is picking up all of the causal relation. See below for a graphical comparison of models (c) and (d).
+
+## Remark
+Differences in the R-squared across the models are non-existent or tiny and cannot be used to discriminate across models, despite what some model answers out there in the internets are saying.
+
+## (h)
+
+Plot the regression relation between $age$ and $ln(ahe)$ from (b), (c), and (d) for males with a high school diploma. Describe the similarities and differences between the estimated regression functions. Would your answer change if you plotted the regression function for females with college degrees?
+
+## Create labels 
+Create labels to replace "0" and "1" with "Male"/"Female" and "High School"/"Bachelor"
+```{r,  include=TRUE, eval=TRUE}
+female.labs <- c("0" = "Male", "1" = "Female")
+bachelor.labs <- c("0" = "High School", "1" = "Bachelor")
+```
+
+## Augment the datasets 
+Augment the datasets with the regression results (from broom package):
+```{r,  include=TRUE, eval=TRUE}
+dm1 <- augment(m1, data=df)
+dm2 <- augment(m2, data=df)
+dm3 <- augment(m3, data=df)
+dm4 <- augment(m4, data=df)
+```
+
+## Plot of $log(ahe|female=0,bachelor=0)$ against $age$ 
+### for regression (b)
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=dm2, aes(x=age, y=log(ahe))) + 
+    geom_point() + 
+    facet_grid(bachelor~female, 
+               labeller=labeller(bachelor=bachelor.labs, female=female.labs)) +
+    geom_smooth(method="lm", color="red",se=FALSE) +
+    geom_segment(aes(xend=age, yend = .fitted), linetype="dashed") +
+    ggtitle("log-linear model")
+```
+
+
+### for regression (c)
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=dm3, aes(x=age, y=log(ahe))) + 
+    geom_point() + 
+    facet_grid(bachelor~female, 
+               labeller=labeller(bachelor=bachelor.labs, female=female.labs)) +
+    geom_smooth(method="lm", color="red",se=FALSE) +
+    geom_segment(aes(xend=age, yend = .fitted), linetype="dashed") +
+    ggtitle("log-log model")
+```
+
+### for regression (d)
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=dm4, aes(x=age, y=log(ahe))) + 
+    geom_point() + 
+    facet_grid(bachelor~female, 
+               labeller=labeller(bachelor=bachelor.labs, female=female.labs)) +
+    geom_smooth(method="lm", color="red",se=FALSE) +
+    geom_segment(aes(xend=age, yend = .fitted), linetype="dashed") +
+    ggtitle("log-quadratic model")
+```
+
+
+## Discussion: Model (c) vs. Model (d)
+
+### Plot of $log(ahe)$ against residuals
+```{r,  include=TRUE, eval=TRUE}
+ggplot(dm3, aes(log(age), .resid)) + 
+  geom_point() + 
+  geom_hline(yintercept=0, color="red", linetype='dashed') + 
+  ggtitle("Residuals in the log-log model")
+```
+
+```{r,  include=TRUE, eval=TRUE}
+ggplot(dm4, aes(age, .resid)) + 
+  geom_point() + 
+  geom_hline(yintercept=0, color="red", linetype='dashed') + 
+  ggtitle("Residuals in the log-quadratic model")
+```
+
+### Plot of $log(ahe)$ against standardized residuals: qq plot
+```{r,  include=TRUE, eval=TRUE}
+ggplot(dm3, aes(sample=.std.resid)) + 
+  geom_qq() +
+  geom_qq_line(color="red") +
+  ggtitle("qq-plot: standardized residuals in the log-log model")
+```
+```{r,  include=TRUE, eval=TRUE}
+ggplot(dm4, aes(sample=.std.resid)) + 
+  geom_qq() +
+  geom_qq_line(color="red") +
+  ggtitle("qq-plot: standardized residuals in the log-quadratic model")
+```
+
+
+
+## Models compared
+```{r,  include=FALSE, eval=TRUE}
+labs <- c("Female & High School", "Male & High School", "Female & Bachelor", "Male & Bachelor")
+ggplot() + 
+  geom_line(data=dm2, aes(x=age, y=.fitted, 
+                          group=interaction(-female, bachelor), 
+                          color=interaction(-female, bachelor)),
+            size=1.5) +
+  scale_color_manual(name="",labels=labs, values=c("red", "forestgreen", "orange", "blue")) +
+  guides(color=guide_legend(reverse=TRUE)) +
+  ggtitle("log-linear model") +
+  theme_bw() -> p2
+```
+
+```{r,  include=FALSE, eval=TRUE}
+ggplot() + 
+  geom_line(data=dm3, aes(x=age, y=.fitted, 
+                          group=interaction(-female, bachelor), 
+                          color=interaction(-female, bachelor)),
+            size=1.5) +
+  scale_color_manual(name="",labels=labs, values=c("red", "forestgreen", "orange", "blue")) +
+  guides(color=guide_legend(reverse=TRUE)) +
+  ggtitle("log-log model") +
+  theme_bw() -> p3
+```
+
+```{r,  include=FALSE, eval=TRUE}
+ggplot() + 
+  geom_line(data=dm4, aes(x=age, y=.fitted, 
+                          group=interaction(-female, bachelor), 
+                          color=interaction(-female, bachelor)),
+            size=1.5) +
+  scale_color_manual(name="",labels=labs, values=c("red", "forestgreen", "orange", "blue")) +
+  guides(color=guide_legend(reverse=TRUE)) +
+  ggtitle("log-quadratic model") +
+  theme_bw() -> p4
+```
+
+```{r,  include=TRUE, eval=TRUE}
+print(p2)
+print(p3)
+print(p4)
+```
+
+
+## (i)
+
+Run a regression of $ln(ahe)$ on $age$, $age2$, $female$, $bachelor$, and the interaction term $female * bachelor$. 
+
+```{r,  include=TRUE, eval=TRUE}
+df$age2 <- (df$age)^2
+df$femalebachelor <- df$female * df$bachelor
+m5 <- lm(log(ahe) ~ age + age2 + female + bachelor + femalebachelor, data=df)
+dm5 <- augment(m5, data=df)
+summary(m5)
+```
+
+```{r,  include=FALSE, eval=TRUE}
+library(stargazer)
+stargazer(m2, m3, m4, m5, type="text", digits=2, out="reg_output.tex") 
+```
+
+### What does the coefficient on the interaction term measure? 
+
+The coefficient shows the extra effect on earnings for females with a bachelor degree that is not captured by the average female and not captured by the average bachelor. 
+
+
+### Alexis and Jane: 30-year old females
+Alexis is a 30-year-old female with a bachelor's degree. What does the regression predict for her value of $ln(ahe)$? Jane is a 30-year-old female with a high school diploma. What does the regression predict for her value of $ln(ahe)$? What is the predicted difference between Alexis's and Jane's earnings? 
+```{r,  include=TRUE, eval=TRUE}
+alexis <- data.frame(age=30, age2=30^2, bachelor=1, female=1, femalebachelor=1)
+log.ahe.alexis = predict(m5, newdata=alexis)
+ahe.alexis = exp(log.ahe.alexis)
+jane <- data.frame(age=30, age2=30^2, bachelor=0, female=1, femalebachelor=0)
+log.ahe.jane = predict(m5, newdata=jane)
+ahe.jane = exp(log.ahe.jane)
+```
+
+The predicted difference between Alexis's and Jane's earnings is about $8,053.7$ dollars:
+```{r,  include=TRUE, eval=TRUE}
+ahe.alexis - ahe.jane
+```
+
+### Bob and Jim: 30-year old males
+Bob is a 30-year-old male with a bachelor's degree. What does the regression predict for his value of $ln(ahe)$? Jim is a 30-year-old male with a high school diploma. What does the regression predict for his value of $ln(ahe)$? What is the predicted difference between Bob's and Jim's earnings?
+```{r,  include=TRUE, eval=TRUE}
+bob <- data.frame(age=30, age2=30^2, bachelor=1, female=0, femalebachelor=1)
+log.ahe.bob = predict(m5, newdata=bob)
+ahe.bob = exp(log.ahe.bob)
+jim <- data.frame(age=30, age2=30^2, bachelor=0, female=0, femalebachelor=0)
+log.ahe.jim = predict(m5, newdata=jim)
+ahe.jim = exp(log.ahe.jim)
+```
+
+The predicted difference between Bob's and Jim's earnings is about $9,742.1$ dollars:
+```{r,  include=TRUE, eval=TRUE}
+ahe.bob - ahe.jim
+```
+
+### Difference-in-Difference
+The difference in the difference predicted effects is about $9,742.1-8,053.7=1,688.4$ dollars:
+```{r,  include=TRUE, eval=TRUE}
+(ahe.bob - ahe.jim) - (ahe.alexis - ahe.jane)
+```
+
+
+The predicted difference in log-earnings between Alexis and Jane is about $0.47559$ log-dollars. The predicted difference in log-earnings between Bob and Jim is about $0.47559$ log-dollars. That just happens to be the same! Thus, the difference in difference in log-earnings is about zero log-dollars. An earlier edition of Stock and Watson used a different sample dataset and reports a near-zero difference ($0.063$), which is consistent with our findings.
+
+## (j)
+Is the effect of Age on earnings different for men than for women? Specify and estimate a regression that you can use to answer this question.
+
+A parsimonious model is the following:
+```{r,  include=TRUE, eval=TRUE}
+m6 <- lm(log(ahe) ~ log(age) + bachelor + log(age)*female + bachelor*female, data=df)
+summary(m6)
+
+library(car)
+H0 <- c("female=0", "log(age):female", "bachelor:female=0")
+tidy(linearHypothesis(m6, H0))
+```
+To test whether the effect of $age$ on $ahe$ is different for men and women, we test the hypothesis that all coefficients involving $female$ are jointly zero. This hypothesis can be firmly rejected since the joint p-value is essentially zero.
+
+
+## (k)
+Is the effect of Age on earnings different for high school graduates than for college graduates? Specify and estimate a regression that you can use to answer this question.
+
+```{r,  include=TRUE, eval=TRUE}
+m7 <- lm(log(ahe) ~ log(age) + female + log(age)*bachelor + female*bachelor, data=df)
+summary(m7)
+
+library(car)
+H0 <- c("bachelor=0", "log(age):bachelor", "female:bachelor=0")
+tidy(linearHypothesis(m7, H0))
+```
+To test whether the effect of $age$ on $ahe$ is different for university graduates and high-school graduates, we test the hypothesis that all coefficients involving $bachelor$ are jointly zero. This hypothesis can be firmly rejected since the joint p-value is essentially zero.
+
+## (l)
+After running all these regressions (and any others that you want to run), summarize the effect of age on earnings for young workers.
+
+The following models fit about $21\%$ of the deviation of average hourly earnings from the sample mean. It's not immediately obvious that one should be preferred over the other.
+
+### Log-quadratic model:
+```{r,  include=TRUE, eval=TRUE}
+m8 <- lm(log(ahe) ~ poly(age,2,raw=TRUE) + bachelor + female, data=df)
+summary(m8)
+dm8 <- augment(m8, data=df)
+ggplot() + 
+  geom_line(data=dm8, aes(x=age, y=.fitted, 
+                          group=interaction(-female, bachelor), 
+                          color=interaction(-female, bachelor)),
+            size=1.5) +
+  scale_x_continuous(breaks=seq(25,35,1)) +
+  scale_color_manual(name="",labels=labs, values=c("red", "forestgreen", "orange", "blue")) +
+  guides(color=guide_legend(reverse=TRUE)) +
+  ggtitle("log-quadratic model") +
+  theme_bw()
+```
+
+### Log-Log model:
+```{r,  include=TRUE, eval=TRUE}
+m9 <- lm(log(ahe) ~ log(age) + bachelor + female, data=df)
+summary(m9)
+dm9 <- augment(m9, data=df)
+ggplot() + 
+  geom_line(data=dm9, aes(x=age, y=.fitted, 
+                          group=interaction(-female, bachelor), 
+                          color=interaction(-female, bachelor)),
+            size=1.5) +
+  scale_x_continuous(breaks=seq(25,35,1)) +
+  scale_color_manual(name="",labels=labs, values=c("red", "forestgreen", "orange", "blue")) +
+  guides(color=guide_legend(reverse=TRUE)) +
+  ggtitle("log-log model") +
+  theme_bw()
+```
+

@@ -1,0 +1,47 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Outliers}
+\begin{itemize}
+\item \emph{Outlier:} 
+A data point that differs significantly from other observations.
+\item Outliers are expected to occur in random data, but distributions differ in how frequently outliers are observed and how far they lie from the center of the distribution.
+\item The probability of an outlier drawn from a normal distribution is small --- not zero, but small.
+\item \emph{Stock Market Crash:} On ``Black Monday'' (October 19, 1987), the Dow Jones Industrial Average fell $22.6\%$. By comparison, the standard deviation of daily percentage price changes on the DJIA had been about one-percent over the previous twenty years! 
+\item A drop of $22.6\%$ was a negative return of $21$ standard deviations $22.6/1.08$. If daily percentage price changes were normally distributed, then the probability of a change of at least $21$ standard deviations would be
+\begin{align*}
+\Pr(|Z| \geq 21) = 2 \Phi(-21) \approx 6.6 \times 10^{-98}
+\end{align*}
+\item Stock price percentage changes have a distribution with heavier tails than the normal distribution!
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Outliers: The Stock Market}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-02-fig-07-Zoom}
+\caption{Daily Percentage Changes in the Dow Jones Industrial Average in the 1980s.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Outliers: The Stock Market}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-02-tbl-05-Zoom}
+\caption{Ten Largest Daily Percentage Changes in the Dow Jones Industrial Average, January 1980-September 2017, with the Normal Probability of a Change at Least as Large.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

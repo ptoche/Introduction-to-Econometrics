@@ -1,0 +1,18 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Instrumental variables regression is a way to estimate causal coefficients when one or more regressors are correlated with the error term.
+\item An endogenous variable is one that is correlated with the error term in the equation. Exogenous variables are uncorrelated with this error term.
+\item A valid instrument is (1) correlated with the included endogenous variable and (2) exogenous.
+\item IV regression requires at least as many instruments as included endogenous variables.
+\item The TSLS estimator has two stages. First, the included endogenous variables are regressed against the included exogenous variables and the instruments. Second, the dependent variable is regressed against the included exogenous variables and the predicted values of the included endogenous variables from the first-stage regression.
+\item Weak instruments are not strongly correlated with the included endogenous variables. Weak instruments make the TSLS estimator biased and TSLS confidence intervals and hypothesis tests unreliable.
+\item If an instrument is not exogenous, the TSLS estimator is inconsistent.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

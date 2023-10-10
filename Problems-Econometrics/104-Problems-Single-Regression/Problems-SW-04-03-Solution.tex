@@ -1,0 +1,131 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Earnings]{Linear Regression: Earnings}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{\begin{align*}
+\verywidehat{AWE} 
+  = 696.7 + 9.6 \times Age,
+  \quad R^2 = 0.023,
+  \quad \vn{SER} = 624.1
+\end{align*}\vspace*{-3ex}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~4, Exercise~3.}
+A regression of average weekly earnings (AWE, measured in dollars) on age (measured in years) using a random sample of college-educated full-time workers aged $25$–$65$ yields the following:
+\ask
+\begin{enumerate}
+\item Explain what the coefficient values $696.7$ and $9.6$ mean.
+\item The standard error of the regression ($\vn{SER}$) is $624.1$. What are the units of measurement for the $\vn{SER}$? (Dollars? Years? Or is $\vn{SER}$ unit free?)
+\item The regression $R^2$ is $0.023$. What are the units of measurement for the $R^2$? (Dollars? Years? Or is $R^2$ unit free?)
+\item What does the regression predict will be the earnings for a 25-year-old worker? For a 45-year-old worker?
+\item Will the regression give reliable predictions for a 99-year-old worker? Why or why not?
+\item Given what you know about the distribution of earnings, do you think it is plausible that the distribution of errors in the regression is normal? (Hint: Do you think that the distribution is symmetric or skewed? What is the smallest value of earnings, and is it consistent with a normal distribution?)
+\item The average age in this sample is $41.6$ years. What is the average value of AWE in the sample?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Explain what the coefficient values $696.7$ and $9.6$ mean.
+
+\begin{answer}
+The coefficient $696.7$ is the intercept of the regression line. The greater the intercept, the higher the overall position of the regression line. The intercept gives the mean value of $AWE$ when $Age=0$. 
+The coefficient $9.6$ measures the marginal effect of $Age$ on $AWE$. On average, every increase of $Age$ by one year causes $AWE$ to increase by $\$9.6$. 
+\end{answer}
+
+\item The standard error of the regression ($\vn{SER}$) is $624.1$. What are the units of measurement for the $\vn{SER}$?
+
+\begin{answer}
+The $\vn{SER}$ is measured in the same units as the $y$ variable, that is dollars per week.
+\end{answer}
+
+\item The regression $R^2$ is $0.023$. What are the units of measurement for the $R^2$?
+
+\begin{answer}
+The $R^2$ is defined as a ratio, where the numerator and denominator are both measured in squared-dollars per week. The units cancel out and therefore $R^2$ is a pure number. 
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item What does the regression predict will be the earnings for a $25$-year-old worker? For a $45$-year-old worker?
+
+\begin{answer}
+The regression predicts:
+\begin{align*}
+696.7 + 9.6 \times 25 & = 936.7 ~\text{for a $25$ year-old worker}\\ 
+696.7 + 9.6 \times 45 & = 1,128.7 ~\text{for a $45$ year-old worker}
+% 696.7+9.6*45
+% 1128.7
+% 696.7+9.6*25
+% 936.7
+\end{align*}
+\end{answer}
+
+\item Will the regression give reliable predictions for a $99$-year-old worker? Why or why not?
+
+\begin{answer}
+A regression may not give reliable predictions for out-of-sample $X$ values. In this case, $99$ years is quite far out of the sample, since the oldest person in the sample is $65$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{5}
+
+\item Given what you know about the distribution of earnings, do you think it is plausible that the distribution of errors in the regression is normal? 
+
+\begin{answer}
+The distribution of earnings itself is not normally distributed; it is strongly positively skewed. 
+\end{answer}
+
+\item The average age in this sample is $41.6$ years. What is the average value of $AWE$ in the sample?
+
+\begin{answer}
+The mean $Age$ in the sample is $41.6$, from which we can compute the mean value of $AWE$ in the sample: 
+\begin{align*}
+\mean{AWE} 
+    = 696.7 + 9.6 \times \mean{Age}
+    = 696.7 + 9.6 \times 41.6 
+    = 1,096.06
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

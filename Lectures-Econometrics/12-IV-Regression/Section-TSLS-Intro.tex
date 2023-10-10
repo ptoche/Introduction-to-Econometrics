@@ -1,0 +1,26 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Two-Stage Least Squares Estimator} 
+\begin{itemize}
+\item \emph{Stage 1} 
+\newline
+The first stage decomposes $X$ into a component that may be correlated with the regression error and a component that is uncorrelated with the error term. 
+\begin{align*}
+X_{i} = {\underbracket{\smash{\phantom{.}\pi_{0} + \pi_{1} Z_{i}\phantom{.}}}_{\text{correlated}}}
+        \quad + 
+        {\underbracket{\phantom{A}v_{i}\phantom{A}}_{\text{uncorrelated}}}
+\end{align*}
+where $\pi_{0}$ is the intercept, $\pi_{1}$ is the slope, and $v_{i}$ is the error term. 
+\item \emph{Stage 2} 
+\newline
+The second stage uses the uncorrelated component to estimate $\beta_{1}$.
+Regress $Y_{i}$ on the predicted value $\hat{X}_{i}=\hat{\pi}_{0}+\hat{\pi}_{1}Z_{i}$:
+\begin{align*}
+Y_{i} = \beta_{0} + \beta_{1} \hat{X}_{i} + u_{i}
+\end{align*}
+The estimators from the second-stage regression are the  TSLS estimators $\hat{\beta}_{0}^{\text{TSLS}}$ and $\hat{\beta}_{1}^{\text{TSLS}}$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

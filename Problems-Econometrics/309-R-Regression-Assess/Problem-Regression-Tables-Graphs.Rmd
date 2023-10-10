@@ -1,0 +1,232 @@
+---
+title: "Regression with R: Extract, Tabulate, Plot"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+library(ggthemes)
+options(digits=5)
+```
+
+# Extract, Tabulate, Plot
+In this notebook we explore how to extract regression coefficients, standard errors, p-values and other pieces of information contained in a linear regression model. We also learn how to augment a regression model, how to tabulate regression results, and how to plot regression lines.
+
+## Dataset on Earnings
+The data file **CPS2015** contains data for full-time, full-year workers, ages 25–34, with a high school diploma or B.A./B.S. as their highest degree. A detailed description is given in **CPS2015_Description**. 
+
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("CPS2015.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+## A Log-quadratic model
+This nonlinear regression model is analyzed in Chapter 8 of Stock and Watson's **Introduction to Econometrics**. Run a linear model with $lm()$ to produce a model object, then call the $summary()$ function to extract basic information. 
+```{r,  include=TRUE, eval=TRUE}
+m1 <- lm(log(ahe) ~ age + I(age^2) + bachelor + female, data=df)
+summary(m1)
+```
+
+## Look inside a model object
+See inside the model object: a list that holds useful results obtained from the regression, including the estimates, residuals, and standard errors.
+```{r,  include=TRUE, eval=TRUE}
+str(m1)
+```
+
+You may save the coefficients to a list:
+```{r,  include=TRUE, eval=TRUE}
+coefs <- coef(m1)
+names(coefs)
+```
+
+You may extract the coefficients by name:
+```{r,  include=TRUE, eval=TRUE}
+coefs["(Intercept)"]
+coefs["bachelor"]
+```
+Remember that you can always invoke $str()$ on an object to examine its content and thus figure out how to extract its elements. For instance, if you call $str(coefs)$ you will find that the regression coefficient on $age$ is called "poly(age, 2, raw = TRUE)1", while the coefficient on $age^2$ is called "poly(age, 2, raw = TRUE)2". 
+
+Beware: In strings, spaces and cases matter, so the following won't work!
+```{r,  include=TRUE, eval=TRUE}
+coefs["(intercept)"]
+```
+
+The $broom$ package offers a more convenient and more versatile interface to extract and transform the regression data.
+
+## Explore the model object with broom
+The $broom$ package provides convenience functions, including $tidy()$, $glance()$ and $augment()$. These functions always return a `tibble` (a modern dataframe).
+
+Extract coefficients: $tidy()$ returns a nicely formatted dataframe:
+```{r,  include=TRUE, eval=TRUE}
+tidy(m1)
+```
+
+Same with pipe operator and a slice to select a coefficient of interest. The function $pull()$ is then used to extract the desired value, e.g. $pull(std.error)$. The result can be manipulated further, e.g. rounding:
+```{r,  include=TRUE, eval=TRUE}
+m1 %>% tidy() %>% slice(2) %>% pull(std.error) %>% round(.,3)
+```
+
+You can add confidence intervals with the $conf.int$ argument and extract the desired values with $pull()$:
+```{r,  include=TRUE, eval=TRUE}
+m1 %>% tidy(conf.int=TRUE, conf.level=0.80) %>% pull(conf.low)
+```
+
+The $augment()$ function can be used to extract the fitted values and residuals for the original observations. In the augmented dataframe/tibble, each of the new columns begins with a dot, e.g. `.fitted`, to avoid accidentally overwriting existing variable names. This data could be extracted and used to plot a regression line and confidence interval, for instance.
+```{r,  include=TRUE, eval=TRUE}
+ma <- augment(m1, data=df)
+names(ma)
+```
+
+The $glance()$ function can be used to extract summary statistics for the entire regression, including the R-squared and the F-statistic. 
+```{r,  include=TRUE, eval=TRUE}
+mg <- glance(m1, data=df)
+names(mg)  # glancing the regression statistics
+```
+For instance, the R-squared can be extracted with:
+```{r,  include=TRUE, eval=TRUE}
+R2 <- mg$r.squared  # or mg[["r.squared"]]
+print(R2)
+```
+
+## Visualize the regression coefficients
+The following plot allows you to quickly visualize the regression coefficients:
+```{r,  include=TRUE, eval=TRUE}
+m1 %>% tidy(conf.int=TRUE, conf.level=0.80)  %>%
+  ggplot(., aes(estimate, term, xmin=conf.low, xmax=conf.high, height=0)) +
+  geom_point() +
+  geom_vline(xintercept=0, lty=4) +
+  geom_errorbarh()
+```
+
+# Plot regression lines
+```{r,  include=TRUE, eval=TRUE}
+augment(m1, df, interval="confidence") %>%
+  ggplot(data=.) +
+  aes(x=age, 
+      y=.fitted,
+      group=interaction(-female, bachelor), 
+      color=interaction(-female, bachelor)) +
+    geom_line(size=1.5) -> p0
+p0
+```
+
+## Fix the legend, select colors, tweak labels
+```{r,  include=TRUE, eval=TRUE}
+labs <- c("Female & High School", "Male & High School", "Female & Bachelor", "Male & Bachelor")  # create labels
+p0 + scale_x_continuous(breaks=seq(25,35,1)) +
+  scale_color_manual(name="",labels=labs, values=c("red", "forestgreen", "orange", "blue")) +
+  guides(color=guide_legend(reverse=TRUE)) +
+  ylab("fitted ahe") +
+  ggtitle("log-quadratic model") -> p1
+p1
+```
+## Add confidence intervals
+```{r,  include=TRUE, eval=TRUE}
+p1 + geom_ribbon(aes(ymin=.lower, ymax=.upper), alpha=.25, color=NA) -> p2
+p2 + theme_minimal()
+```
+
+## Add theme to the plot
+```{r,  include=TRUE, eval=TRUE}
+library(ggthemes)  # to theme the plot
+p2 + theme_wsj(base_size=10)
+```
+
+## Confidence Intervals for Parameters
+The `dplyr` package (part of `tidyverse`) contains a convenient $full_join()$ function that may be used to merge dataframes containing estimates calculated with `broom` functions like $tidy()$ and $glance()$. First, create a dataframe which contains both the data estimates (using $tidy()$) and the model's summary statistics (using $glance()$). Then use $pull()$ to get the desired statistics.
+```{r,  include=TRUE, eval=TRUE}
+dplyr::full_join(
+  df %>% group_modify(.f = ~ tidy(m1, conf.int=TRUE, conf.level=0.99)),
+  df %>% group_modify(.f = ~ glance(m1))
+) -> dm
+```
+
+Then pull the desired statistics:
+```{r,  include=TRUE, eval=TRUE}
+dm %>% pull(estimate)
+dm %>% pull(conf.low)
+dm %>% pull(conf.high)
+```
+
+## Multiple models
+Let's compute several regression models.
+```{r,  include=TRUE, eval=TRUE}
+m2 <- lm(log(ahe) ~ age + I(age^2) + I(age^3) + bachelor + female, data=df)
+m3 <- lm(log(ahe) ~ log(age) + bachelor + female, data=df)
+```
+
+## Fitted values and residuals
+Clusters of points can potentially cause the errors to be heteroskedastic. To visualize this, we color the points according to the four combinations of Male/Female and Bachelor/High-School. We suppress the legend for clarity and set the color palette with the $scale_color_brewer()$ function of the ``ggplot2`` package. 
+```{r,  include=TRUE, eval=TRUE}
+augment(m1, df, interval="confidence") %>%
+  ggplot(data=., aes(x=.fitted, y=.resid)) + 
+  geom_point(aes(color=interaction(-female, bachelor))) +
+  geom_smooth(method="lm") +
+  scale_color_brewer(palette="Set1") +
+  theme_minimal() +
+  theme(legend.position="none")
+```
+
+Look at the distribution of the residuals for evidence of heteroskedasticity:
+```{r,  include=TRUE, eval=TRUE}
+augment(m1, df, interval="confidence") %>%
+  ggplot(data=., aes(x=.resid)) + 
+  geom_histogram(color="white", fill="cornflowerblue") +
+  theme_minimal()
+```
+No evidence of heteroskedasticity! However, the clustering suggests that we must use robust standard errors.
+
+## Compute robust standard errors
+The ``sandwich`` package computes robust Heteroscedasticity-Consistent Covariance estimators with the function $vcovHC()$. The $type$ argument can be used to specify estimators from $HC0$ (White's estimator) to $HC5$ (various refinements). The ``lmtest`` package provides a convenient function, $coeftest()$, to calculate the t test based on the variance-covariance matrix provided in the $vcov$ argument. A robust test may be computed as follows:
+```{r,  include=TRUE, eval=TRUE}
+library(sandwich)
+library(lmtest)  # coeftest, waldtest
+coeftest(m1, vcov=vcovHC(m1, type="HC1"))
+```
+
+## Compute robust Wald test
+A heteroskedasticity robust F test may be calculated with the $waldtest$ function from package $lmtest$ (using White standard errors):
+```{r,  include=TRUE, eval=TRUE}
+m1.unrestricted <- lm(log(ahe) ~ age + I(age^2) + I(age^3) + bachelor + female, data=df)
+waldtest(m1, m1.unrestricted, vcov=vcovHC(m1.unrestricted, type="HC0"))
+```
+
+
+# Tabulate Regression results
+Tabulating regression results may be automated with the help of several packages. A popular solution is ``stargazer``. Here instead I use a newer package, ``texreg``.
+
+## Output the table to screen with $screenreg()$:
+```{r,  include=TRUE, eval=TRUE}
+suppressMessages(library(texreg))
+screenreg(list(m1, m2, m3))
+```
+## Export the table to the LaTeX format with $texreg()$:
+```{r,  include=TRUE, eval=TRUE}
+# htmlreg(list(m1, m2, m3), doctype = FALSE, star.symbol = "\\*")
+texreg(list(`(1)`=m1, `(2)`=m2, `(3)`=m3), booktabs=TRUE, dcolumn=TRUE)
+```
+
+## Export table to HTML format with $htmlreg()$
+[Not shown as it messes up the PDF output]
+
+## Export table to PDF format
+(the texreg argument ``use.packages=FALSE`` is set to suppress any package loading instructions in the preamble)
+```{r, results='asis', echo=TRUE}
+texreg(list(`(1)`=m1, `(2)`=m2, `(3)`=m3), table=FALSE, use.packages=FALSE)
+```
+
+Let's reorder the coefficients
+```{r, results='asis', echo=TRUE}
+texreg(list(`(1)`=m1, `(2)`=m2, `(3)`=m3), table=FALSE, use.packages=FALSE,
+       reorder.coef = c(1,2,3,6,7,4,5))
+```
+

@@ -1,0 +1,143 @@
+---
+title: "Empirical Exercise 1, Stock and Watson Chapter 3"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Your Name + CWID + youremail@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+### Tips
+Explicitly mark the question or question number in your code. Show the output, not just the code: A few months/years from now, the packages will have been updated and the code may no longer run, so it's a good habit to keep a record of the output. Don't forget to answer the questions! 
+
+### Load dataset
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("CPS96_15.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+
+## (a) 
+
+### (i) 
+
+Compute the sample mean for average hourly earnings (AHE) in 1996 and 2015.
+
+```{r,  include=TRUE, eval=TRUE}
+mu.1996 = mean(df[df$year == 1996,]$ahe)
+## 12.693
+mu.2015 = mean(df[df$year == 2015,]$ahe)
+## 21.237
+```
+
+### (ii) 
+
+Compute the sample standard deviation for AHE in 1996 and 2015.
+```{r,  include=TRUE, eval=TRUE}
+sd.1996 = sd(df[df$year == 1996,]$ahe)
+## 6.359
+sd.2015 = sd(df[df$year == 2015,]$ahe)
+## 12.125
+```
+
+### (iii) 
+
+Construct a 95% confidence interval for the population means of AHE in 1996 and 2015.
+```{r,  include=TRUE, eval=TRUE}
+alpha = 0.05
+n = length(df$year == 1996)
+t = qt(1-alpha/2, n-1)
+se = sd.1996/sqrt(n)
+me = t*se
+ci = c(mu.1996-me, mu.1996+me)
+ci
+# 12.585 12.802
+```
+
+### (iv) 
+
+Construct a 95% confidence interval for the change in the population means of AHE between 1996 and 2015.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (b) 
+
+In 2015, the value of the Consumer Price Index (CPI) was 237.0. In 1996, the value of the CPI was 156.9. Repeat (a), but use AHE measured in real 2015 dollars ($2015); that is, adjust the 1996 data for the price inflation that occurred between 1996 and 2015.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (c) 
+
+If you were interested in the change in workers' purchasing power from 1996 to 2015, would you use the results from (a) or (b)? Explain.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (d) 
+
+Using the data for 2015:
+
+### (i) 
+
+Construct a 95% confidence interval for the mean of AHE for high school graduates.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+### (ii) 
+
+Construct a 95% confidence interval for the mean of AHE for workers with a college degree. 
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+### (iii) 
+
+Construct a 95% confidence interval for the difference between the two means.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (e) 
+
+Repeat (d) using the 1996 data expressed in $2015.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+## (f) 
+
+Using appropriate estimates, confidence intervals, and test statistics, answer the following questions:
+
+### (i) 
+
+Did real (inflation-adjusted) wages of high school graduates increase from 1996 to 2015?
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+### (ii) 
+
+Did real wages of college graduates increase?
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+### (iii) 
+
+Did the gap between earnings of college and high school graduates increase? Explain.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+

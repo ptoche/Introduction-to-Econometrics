@@ -1,0 +1,21 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance of Sums}
+\begin{itemize}
+\item \emph{Variance of sums:}
+\begin{align*}
+\var(a + bX + cY) 
+  & = \exp\left[(a+bX+cY - \exp[a + bX + cY])^2\right]\\
+  & = \exp\left[\left(a+bX+cY - (a + b\exp[X] + c\exp[Y])\right)^2 \right]\\
+  & = \exp\left[\left(b(X-\exp[X]) + c(Y-\exp[Y])\right)^2\right]\\
+  & = \exp\left[b^2 (X-\exp[X])^2 + c^2(Y-\exp[Y])^2\right. \\
+      &\left.\quad +\, 2bc(X-\exp[X])(Y-\exp[Y]) \right]\\ 
+  & = b^2 \exp[(X-\exp[X])^2] + c^2 \exp[(Y-\exp[Y])^2] \\ 
+      &\quad +\, 2bc\exp(X-\exp[X])(Y-\exp[Y])\\
+  & = b^2 \var(X) + c^2 \var(Y) + 2bc \cov(X,Y)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  

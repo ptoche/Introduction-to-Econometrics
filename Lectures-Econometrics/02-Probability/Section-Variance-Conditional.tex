@@ -1,0 +1,21 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditional Variance}
+\begin{itemize}
+\item \emph{Conditional Variance:} 
+\begin{align*}
+\var(Y|X) = \exp\left[(Y-\exp[Y|X])^2 | X\right]
+\end{align*}
+\item \emph{Law of Total Variance:}
+\begin{align*}
+\var(Y) = \var\left(\exp[Y | X]\right) +  \exp\left[\var(Y|X)\right]
+\end{align*}
+where the first term $\var\left(\exp[Y|X]\right)$ captures the explained part of the variance and the second term $\exp\left[\var(Y|X)\right]$ the unexplained part.
+\item The Analysis of Variance (ANOVA) is based on the Law of Total Variance. In ANOVA, the observed variance in a particular variable is partitioned into components attributable to different sources of variation.
+\item The law of total variance is also known as the law of iterated variances.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

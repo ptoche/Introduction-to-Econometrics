@@ -1,0 +1,47 @@
+
+
+\subsection{Discrete}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete random variables}
+\begin{itemize}
+\item A \emph{random variable} is a function from the sample space $\mathcal{S}$ to a real number.
+\item A random variable is \emph{discrete} if it takes countably many distinct values, $X \in \{x_1, ..., x_n\}$, where the distance between values is not always meaningful.
+\item Example: Rolling a die, $X \in \{1, 2, 3, 4, 5, 6\}$, where $X$ is the face value.
+\item \emph{Probability Mass Function:} The \textbf{pmf} $f$ of random variable $X$ evaluated at $x$ gives the probability that $X$ equals the discrete value $x$,
+\begin{align*}
+p = f(x) = \Pr(X=x)
+\end{align*}
+\item \emph{Cumulative Distribution Function}: The \textbf{cdf} $F$ of random variable $X$ evaluated at $x$ gives the probability that $X$ equals a value at least as large as $x$,
+\begin{align*}
+F(x) = \Pr(X \leq x) = \sum_{i=1}^n p_i 1\{x_i \leq x\}
+\end{align*}
+where $1\{x_i \leq x \}$ is an indicator variable equal to $1$ if the condition $x_i \leq x$ is satisfied; $0$ otherwise. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+\subsection{Continuous}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Continuous random variables}
+\begin{itemize}
+\item A \emph{continuous} random variable is one which takes an uncountably infinite number of possible values, each with vanishingly small probability, where the distance between values is usually meaningful.
+\item Examples: A real value taken between $0$ and $1$; a random point on a plane; measurement of lengths, weights, temperatures.
+\item The \textbf{cdf} of a continuous random variable is continuous and differentiable --- its \textbf{pdf} may have jumps, but commonly used distributions can be represented by a continuous, differentiable probability density function. 
+\item \emph{Probability Density Function:} The derivative of the Cumulative Distribution function:
+\begin{align*}
+f(x) & = \frac{dF}{dx}(x) \\
+F(x) & = \int_{-\infty}^x f(t) dt
+\end{align*}
+\item The lower bound of the support of the random variable could be strictly greater than $-\infty$ of course, a common case being the positive real numbers $\int_{0}^x f(t) dt$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+

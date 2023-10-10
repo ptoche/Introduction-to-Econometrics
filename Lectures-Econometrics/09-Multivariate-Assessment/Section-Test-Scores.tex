@@ -1,0 +1,148 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{External Validity: California and Massachusetts}
+\begin{itemize}
+\item \emph{External validity:} Does California data generalize to other standardized tests in other elementary public school districts in the United States?
+\item We examine a different data set, based on standardized test results for fourth graders in $220$ public school districts in Massachusetts in 1998. Both the Massachusetts and California tests are broad measures of student knowledge and academic skills, although the details differ. The organization of classroom instruction is broadly similar at the elementary school level in the two states, but aspects of elementary school funding and curriculum differ.
+\item The average test score is higher in Massachusetts, but the test is different, so a direct comparison of scores is not appropriate.
+\item The average student-teacher ratio is higher in California: $19.6$ vs. $17.3$. 
+\item Average district income is $20\%$ higher in Massachusetts, but the standard deviation of district income is greater in California. 
+\item The average percentage of students still learning English and the average percentage of students receiving subsidized lunches are both much higher in California.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size: Control for Average District Income}
+\emph{Test Scores vs District Income in California}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-07-Zoom}
+\caption{The estimated linear-log and cubic regression functions are nearly identical in the California districts sample.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size: Control for Average District Income}
+\emph{Test Scores vs District Income in Massachusetts}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-09-fig-01-Zoom}
+\caption{The estimated linear-log and cubic regression functions are similar for district incomes between $\$13,000$ and $\$30,000$, the region containing most of the observations.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size}
+\emph{Comparison of the California and Massachusetts data}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-09-tbl-01-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=1\textheight,keepaspectratio]%
+{StockWatson4e-09-tbl-02-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size}
+\emph{Main findings for California}
+\begin{enumerate}
+\item Adding variables that control for student background characteristics reduces the coefficient on the student-teacher ratio from $-2.28$ to $-0.73$.  
+\item The hypothesis that the true coefficient on the student-teacher ratio is $0$ is rejected at the $1\%$ significance level, even after adding variables that control for student background and district economic characteristics.
+\item The effect of cutting the student-teacher ratio does not depend in a statistically significant way on the percentage of English learners in the district.
+\item There is some evidence that the relationship between test scores and the student-teacher ratio is nonlinear.
+\end{enumerate}
+\begin{itemize}
+\item[] Do we these findings carry over to Massachusetts? Yes for (1)-(3), but no for (4).
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size}
+\emph{Main findings for Massachusetts}
+\begin{enumerate}
+\item Adding variables that control for student background characteristics reduces the coefficient on the student-teacher ratio from $-1.72$ to $-0.69$. %\checkmark
+\item The hypothesis that the true coefficient on the student-teacher ratio is $0$ is rejected at the $5\%$ significance level, whereas it is rejected at the $1\%$ level in the California data.  However, the California sample is much larger, so the California estimates are more precise. 
+\item The effect of cutting the student-teacher ratio does not depend in a statistically significant way on the percentage of English learners in the district.
+\item The hypothesis that the relationship between the student-teacher ratio and test scores is linear cannot be rejected at the $5\%$ significance level when tested against a cubic specification.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size}
+\emph{Comparing California and Massachusetts}
+\begin{itemize}
+\item The standardized tests are different --- One point on the Massachusetts test is not the same as one point on the California test --- the regression coefficients cannot be compared directly. 
+\item Standardize the test scores: Subtract the sample average and divide by the standard deviation so that they have a mean of $0$ and a variance of $1$. The slope coefficients in the regression with the standardized test score equal the slope coefficients in the original regression divided by the standard deviation of the test. 
+\item The coefficient on the student-teacher ratio divided by the standard deviation of test scores can be compared across the two data sets.
+\item The OLS coefficient estimate using California data is $-0.73$, so cutting the student-teacher ratio by two is estimated to increase district test scores by $-0.73 \times (-2) = 1.46$ points. The standard deviation of test scores is $19.1$ points, so the standardized gain is $1.46/19.1=0.076$ standard deviation units of the distribution of test scores across districts. The standard error of this estimate is $0.26 \times 2 / 19.1 = 0.027$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and Class Size}
+\emph{Massachusetts data suggests California results are externally valid}
+\begin{itemize}
+\item Based on the linear model using California data, a reduction of two students per teacher is estimated to increase test scores by $0.076$ standard deviation units, with a standard error of $0.027$. 
+\item The nonlinear models for California data suggest a somewhat larger effect, with the specific effect depending on the initial student-teacher ratio. Based on the Massachusetts data, this estimated effect is $0.085$ standard deviation units, with a standard error of $0.036$.
+\item The $95\%$ confidence interval for Massachusetts contains the $95\%$ confidence interval for the California linear specification. 
+\item Cutting the student-teacher ratio is predicted to raise test scores, but the predicted improvement is small.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=10]
+\frametitle{Test Scores and Class Size}
+\emph{Addressing potential threats to internal validity} 
+\begin{itemize}
+\item \emph{Omitted variables:}
+Possibly omitted: teacher quality, e.g. better teachers are attracted to schools with smaller student-teacher ratios; districts with low teacher-student ratios attract families more committed to achieving high test scores.
+Solution: design an experiment with random assignment of students.
+\item \emph{Functional form:}
+Introducing nonlinearities does not substantially alter estimates of the coefficient on the student-teacher ratio. 
+\item \emph{Errors in variables:}
+Average district income is from the 1990 Census, while the other data pertain to 1998 (Massachusetts) or 1999 (California). If the economic composition of the district changed substantially over the 1990s, this would be an imprecise measure of the actual average district income.
+\item \emph{Sample selection:}
+The sample is exhaustive as it covers all public elementary school districts in the state that satisfy minimum size restrictions. 
+\item \emph{Simultaneous causality:}
+Would arise if the performance on standardized tests affected the student-teacher ratio. This could happen if the funding of poorly performing schools or districts resulted in more teachers being hired. In California, court cases led to some equalization of funding, but this redistribution of funds was not based on student achievement. In Massachusetts no such mechanism was in place.
+\item \emph{Internal validity:} The study controls for student background, family economic background, and district affluence; and checks for non-linearities in the regression function.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

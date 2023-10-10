@@ -1,0 +1,29 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Ridge Regression for School Test Scores}
+\begin{itemize}
+\item Fit a predictive model for school test scores using $817$ predictors with $1,966$ observations.
+\item The square root of the MSPE estimates the magnitude of a typical out-of-sample prediction error. 
+\item The choice of $m=10$ represents a practical balance between the desire to use as many observations as possible to estimate the parameters and the computational burden of repeating that estimation $m$ times for each value of $\lambda_{\text{Ridge}}$.
+\item The MSPE is minimized for $\hat{\lambda}_{\text{Ridge}}=2,233$.
+\item The square-root of MSPE evaluated at $\lambda_{\text{Ridge}}=\hat{\lambda}_{\text{Ridge}}$ is about $39.5$. 
+\item The square-root of MSPE evaluated at $\lambda_{\text{Ridge}}=0$ --- the OLS estimator ---  is about $78.2$.
+\item Because $\hat{\lambda}_{\text{Ridge}}$ minimizes the cross-validated MSPE, the cross-validated MSPE evaluated at $\hat{\lambda}_{\text{Ridge}}$ is not an unbiased estimator of the MSPE. We therefore use the remaining $1,966$ observations to obtain an unbiased estimator of the MSPE for ridge regression using $\hat{\lambda}_{\text{Ridge}}$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Square Root of the MSPE for the Ridge Regression Prediction}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-02-Zoom}
+\caption{The MSPE is estimated using $10$-fold cross validation for the school test score data set with $k=817$ predictors and $n=1966$ observations.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

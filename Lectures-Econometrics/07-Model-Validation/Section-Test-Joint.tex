@@ -1,0 +1,50 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Joint Hypothesis Tests}
+\emph{$F$-Test for Two Restrictions:}
+\begin{itemize}
+\item The F-statistic is used to test a joint hypothesis about regression coefficients. 
+\item Joint Hypothesis:
+\quad $H_{0}\colon \beta_{1}=0 \quad \text{and} \quad \beta_{2}=0$
+\item $F$-statistic with $q=2$ restrictions:
+\begin{align*}
+F = \frac{1}{2}\left(\frac{t_{1}^{2}+t_{2}^{2}-2\hat{\rho}_{t_{1},t_{2}} t_{1}t_{2}}{1-\hat{\rho}_{t_{1},t_{2}}^{2}}\right)
+\end{align*}
+where $\hat{\rho}_{t_{1},t_{2}}$ is an estimator of the correlation between the two $t$-statistics.
+\item In large samples, under the null hypothesis, the $F$-statistic has sampling distribution $F_{q,\infty}$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Joint Hypothesis Tests}
+\emph{$F$-Test for Two Restrictions:}
+\begin{align*}
+\verywidehat{\vn{TestScore}}
+  = \muse{649.6}{15.5} - \muse{0.29}{0.48}   \vn{STR}
+                       - \muse{0.656}{0.032} \vn{PctEL}
+                       + \muse{3.87}{1.59}   \vn{Expn}
+\end{align*}
+\begin{enumerate}
+\item $H_{0}\colon \vn{STR}=0 \quad \text{and} \quad \vn{Expn}=0$
+\item Compute heteroskedasticity-robust $F$-statistic:
+\quad $F^{\text{act}}=5.43$. 
+\newlinequad
+In large samples, $F \sim F(2,\infty)$.
+\item Compute critical $F_{\alpha/2}(2,\infty)$ values:
+\begin{align*}
+F_{0.05/2}(2,\infty) & \approx 3.00 \\
+F_{0.01/2}(2,\infty) & \approx 4.61 
+\end{align*}
+\item Conclude: 
+\quad $F^{\text{act}}>F_{\alpha/2}(2,\infty)\implies$ reject $H_{0}$. 
+\newline
+At least one of $\vn{STR}$ or $\vn{Expn}$ has a statistically significant effect on $\vn{TestScore}$.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

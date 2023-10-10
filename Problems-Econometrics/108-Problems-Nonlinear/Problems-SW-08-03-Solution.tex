@@ -1,0 +1,66 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Nonlinear Regression]{Nonlinear Regression: Test Scores and Class Size}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=16]
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~8, Exercise~3.}
+After reading this chapter's analysis of test scores and class size, an educator comments, ``In my experience, student performance depends on class size, but not in the way your regressions say. Rather, students do well when class size is less than $20$ students and do very poorly when class size is greater than $25$. There are no gains from reducing class size below $20$ students, the relationship is constant in the intermediate region between $20$ and $25$ students, and there is no loss to increasing class size when it is already greater than $25$.'' The educator is describing a threshold effect, in which performance is constant for class sizes less than $20$, jumps and is constant for class sizes between $20$ and $25$, and then jumps again for class sizes greater than $25$. To model these threshold effects, define the binary variables:
+\begin{align*}
+   \vn{STRsmall} & = 1 ~\text{if}~ \vn{STR} < 20 ~\text{and}~ \vn{STRsmall} = 0 ~\text{otherwise};\\
+\vn{STRmoderate} & = 1 ~\text{if}~ 20 \leq \vn{STR} \leq 25 ~\text{and}~ \vn{STRmoderate} = 0 ~\text{otherwise};\\
+   \vn{STRlarge} & = 1 ~\text{if}~ \vn{STR} > 25 ~\text{and}~ \vn{STRlarge} = 0 ~\text{otherwise}.
+\end{align*}\vspace*{-3ex}
+\begin{enumerate}
+\item Consider the regression $\vn{TestScore}_{i}=\beta_{0}+\beta_{1}\vn{STRsmall}_{i}+\beta_{2}\vn{STRlarge}_{i}+u_{i}$. Sketch the regression function relating $\vn{TestScore}$ to $\vn{STR}$ for hypothetical values of the regression coefficients that are consistent with the educator's statement.
+\item A researcher tries to estimate the regression $\vn{TestScore}_{i}=\beta_{0}+\beta_{1}\vn{STRsmall}_{i}+\beta_{2}\vn{STRmoderate}_{i}+\beta_{3}\vn{STRlarge}_{i}+u_{i}$ and finds that the software gives an error message. Why?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Consider the regression $\vn{TestScore}_{i}=\beta_{0}+\beta_{1}\vn{STRsmall}_{i}+\beta_{2}\vn{STRlarge}_{i}+u_{i}$. Sketch the regression function relating $\vn{TestScore}$ to $\vn{STR}$ for hypothetical values of the regression coefficients that are consistent with the educator's statement.
+
+\begin{answer}
+Since the regression function is given, the question is effectively asking what values or range of values of the coefficients are consistent with the educator's statement. First, the signs are $\beta_{1}\geq0$ and $\beta_{2}\leq0$. The population regression line of $\vn{TestScore}$ on $\vn{STR}$ has three horizontal segments. A higher segment for values of $\vn{STR}<20$, an intermediate segment for $20 \leq \vn{STR} \leq 25$, and a lower segment for $\vn{STR}>25$.
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item A researcher tries to estimate the regression $\vn{TestScore}_{i}=\beta_{0}+\beta_{1}\vn{STRsmall}_{i}+\beta_{2}\vn{STRmoderate}_{i}+\beta_{3}\vn{STRlarge}_{i}+u_{i}$ and finds that the software gives an error message. Why?
+
+\begin{answer}
+This is the ``dummy variable trap.'' The error is due to the perfect multicollinearity among the three binary regressors $\vn{STRsmall}$, $\vn{STRmoderate}$, and $\vn{STRlarge}$. Because the intercept is a linear function of the three regressors, the regression cannot be estimated by least squares. The solution is to either drop one of the binary regressors or drop the intercept. 
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

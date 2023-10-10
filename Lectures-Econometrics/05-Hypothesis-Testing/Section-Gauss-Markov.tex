@@ -1,0 +1,20 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Gauss-Markov Theorem}
+\begin{itemize}
+\item \emph{BLUE:} 
+Under the ``Gauss-Markov conditions'', the OLS estimator $\hat{\beta}_{1}$ has the smallest conditional variance given $X_1, \ldots,X_n$ --- is the Best --- of all Linear conditionally Unbiased Estimators of $\beta_{1}$.
+\item Drawbacks: 
+\begin{enumerate}
+\item If the error term is heteroskedastic, OLS is no longer the efficient linear conditionally unbiased estimator.
+\item There are other candidate estimators that are not linear and conditionally unbiased.
+\end{enumerate}
+\item \emph{Weighted Least Squares (WLS):} If the conditional variance of $u_{i}$ given $X_{i}$ is known up to a constant factor of proportionality, then it is possible to construct an estimator that has a smaller variance than the OLS estimator.
+\item WLS: weighs the $i$th observation by the inverse of the square root of the conditional variance of ui given $X_{i}$. 
+\item The practical problem with weighted least squares is that you must know how.
+\item \emph{Least Absolute Deviations (LAD):} The LAD estimator is robust to large outliers. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

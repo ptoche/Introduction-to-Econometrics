@@ -1,0 +1,72 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Lasso Regression}
+\emph{Penalized Sum of Squared Residuals}
+\begin{itemize}
+\item The Lasso estimator minimizes a penalized sum of squares, where the penalty increases with the sum of the absolute values of the coefficients:
+\begin{align*}
+S^{\text{Lasso}}(b; \lambda_{\text{Lasso}}) 
+    = \sum_{i=1}^{n} (Y_{i} - b_{1}\,X_{1i} - \ldots - b_{k}\,X_{ki})^{2}
+      + \lambda_{\text{Lasso}} \sum_{j=1}^{k}|b_{j}|
+\end{align*}
+where $\lambda_{\text{Lasso}}$ is the Lasso shrinkage parameter. 
+\item \emph{Sparse model:}
+A regression model in which the coefficients are nonzero for only a small fraction of the predictors. In sparse models, predictions can be improved by estimating many of the coefficients to be exactly $0$. The Lasso regression sets many of the estimated coefficients exactly to $0$. The regressors it keeps are subject to less shrinkage than with Ridge regression.%
+\begin{itemize}
+\item Ridge regression penalty increases with the square $b^{2}$.
+\item Lasso regression penalty increases with the absolute value $|b|$.
+\item For large values of $b$, the ridge penalty exceeds the Lasso penalty. If the OLS estimate is large, the Lasso shrinks it less than Ridge; if the OLS estimate is small, the Lasso shrinks it more.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Lasso Regression: Penalty Function}
+\begin{figure}
+\centering
+\includegraphics[width=0.48\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-03a}\hfill%
+\includegraphics[width=0.48\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-03b}
+\caption{The Lasso Estimator Minimizes the Sum of Squared Residuals Plus a Penalty. For a single regressor, (a) when the OLS estimator is far from zero, the Lasso estimator shrinks it toward $0$; (b) when the OLS estimator is close to $0$, the Lasso estimator becomes exactly $0$.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Lasso Regression: Shrinkage}
+\emph{Choosing the Shrinkage Parameter}
+\begin{itemize}
+\item Unlike OLS and ridge regression, there is no simple expression for the Lasso estimator when $k > 1$, so the Lasso minimization problem must be done using specialized algorithms. Recent advances in machine learning have made it easier to compute Lasso problems. 
+\item With Ridge and Lasso regressions, the estimated coefficients depend on the specific choice of the linear combination of regressors used. Selecting regressors requires more care because predictions are more sensitive to the choice of regressors. 
+\item Using the California Schools data on test scores yields:
+\begin{align*}
+\text{MSPE}_{\text{OLS}} & = 78.2\\
+\hat{\lambda}^{\text{Lasso}} = 4,527 \to 
+\text{MSPE}_{\text{Lasso}} & = 39.7\\
+\hat{\lambda}^{\text{Ridge}} = 2,233 \to 
+\text{MSPE}_{\text{Ridge}} & = 39.5
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Square Root of the MSPE for the Lasso Prediction}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.75\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-04-Zoom}
+\caption{The MSPE is estimated by $10$-fold cross validation using $46$ the school test score data set with $k=817$ predictors and $n=1966$ observations. The MSPE is minimized when the shrinkage parameter is $\hat{\lambda}=4,527$, with $\text{MSPE}_{\text{Lasso}}=39.7<\text{MSPE}_{\text{OLS}}=78.2$. The Lasso and Ridge MSPE are similar, $\text{MSPE}_{\text{Ridge}}=39.5$.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

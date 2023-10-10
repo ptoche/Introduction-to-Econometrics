@@ -1,0 +1,188 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Probability: Discrete Distribution}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Probability Distribution}
+$X$ and $Y$ are discrete random variables with the following joint distribution:
+\bigskip
+\begin{center}
+\newcolumntype{C}{>{\centering\arraybackslash}wc{0.1\linewidth}}% 
+\begin{tabular*}{\linewidth}{p{0.2\linewidth}@{\extracolsep{\fill}}lCCCCC} 
+\toprule
+&& \multicolumn{5}{c}{\textbf{Value of Y}}\\[1ex]
+\cmidrule{3-7}
+    &   &   14 &   22 &   30 &   40 &   65\\
+\cmidrule{3-7}
+    & 1 & 0.02 & 0.05 & 0.10 & 0.03 & 0.01\\
+\textbf{Value of X}
+    & 5 & 0.17 & 0.15 & 0.05 & 0.02 & 0.01\\
+    & 8 & 0.02 & 0.03 & 0.15 & 0.10 & 0.09\\
+\bottomrule
+\end{tabular*}
+\medskip
+\end{center}
+That is, $\Pr[X=1, Y=14]$, and so forth.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Probability Distribution}
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Calculate the probability distribution, mean, and variance of $Y$. 
+
+\begin{answer}
+\begin{center}
+\newcolumntype{C}{>{\centering\arraybackslash}wc{0.1\linewidth}}% 
+\begin{tabular*}{\linewidth}{p{0.2\linewidth}@{\extracolsep{\fill}}lCCCCCC} 
+\toprule
+&& \multicolumn{5}{c}{\textbf{Value of Y}}\\[1ex] 
+\cmidrule{3-8}
+      &   &   14 &   22 &   30 &   40 &   65 & \textbf{Total}\\
+\cmidrule{3-8}
+      & 1 & 0.02 & 0.05 & 0.10 & 0.03 & 0.01 & 0.21\\
+\textbf{Value of X}
+      & 5 & 0.17 & 0.15 & 0.05 & 0.02 & 0.01 & 0.40\\
+      & 8 & 0.02 & 0.03 & 0.15 & 0.10 & 0.09 & 0.39\\
+\cmidrule{3-8}
+\textbf{Total}
+      &   & 0.21 & 0.23 & 0.30 & 0.15 & 0.11 & 1.00\\
+\bottomrule
+\end{tabular*}
+\end{center}
+\bigskip
+The probability distribution can be obtained by adding the values in the table. For instance, the joint probability distribution of $Y=14$ is $\Pr[Y=14]=0.02+0.17+0.02=0.21$. 
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Probability Distribution}
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Calculate the probability distribution, mean, and variance of $Y$. 
+
+\begin{answer}
+\begin{align*}
+\exp[Y] 
+& = 14 \cdot 0.21 + 
+    22 \cdot 0.23 + 
+    30 \cdot 0.30 + 
+    40 \cdot 0.15 + 
+    65 \cdot 11 
+  = 30.15 \\
+\exp[Y^2] 
+& = 14^2 \cdot 0.21 + 
+    22^2 \cdot 0.23 + 
+    30^2 \cdot 0.30 + 
+    40^2 \cdot 0.15 + 
+    65^2 \cdot 11 
+  = 1127.23 \\
+\var[Y] 
+& = \exp[Y^2] - \left(\exp[Y]\right)^2
+  = 1127.23 - (30.15)^2 
+  = 218.21 \\
+\std_Y
+& = \sqrt{218.21}
+  = 14.77
+\end{align*}
+(Note: equalities are typically approximate)
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Probability Distribution}
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Calculate the probability distribution, mean, and variance of $Y$ given $X=8$.
+
+\begin{answer}
+\begin{footnotesize}
+\begin{align*}
+\exp[Y|X=8] 
+& = 14 \cdot \frac{0.02}{0.39} + 
+    22 \cdot \frac{0.03}{0.39} + 
+    30 \cdot \frac{0.15}{0.39} + 
+    40 \cdot \frac{0.10}{0.39} + 
+    65 \cdot \frac{0.09}{0.39} 
+  = 39.21 \\
+\exp[Y^2|X=8] 
+& = 14^2 \cdot \frac{0.02}{0.39} + 
+    22^2 \cdot \frac{0.03}{0.39} + 
+    30^2 \cdot \frac{0.15}{0.39} + 
+    40^2 \cdot \frac{0.10}{0.39} + 
+    65^2 \cdot \frac{0.09}{0.39}  
+  = 1778.70 \\
+\var[Y|X=8] 
+& = \exp[Y^2|X=8] - \left(\exp[Y|X=8]\right)^2
+  = 1778.70 - (39.21)^2 
+  = 241.65 \\
+\std_{Y|X=8}
+& = \sqrt{241.65}
+  = 15.54
+\end{align*}
+\end{footnotesize}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Discrete Probability Distribution}
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Calculate the covariance and correlation between $X$ and $Y$. 
+%
+\begin{answer}
+\begin{align*}
+\exp[XY] 
+  & =  14 \cdot \left(0.02 \cdot 1 + 0.17 \cdot 5 + 0.02 \cdot 8\right)\\
+  & +\ 22 \cdot \left(0.05 \cdot 1 + 0.15 \cdot 5 + 0.03 \cdot 8\right)\\
+  & +\ 30 \cdot \left(0.10 \cdot 1 + 0.05 \cdot 5 + 0.15 \cdot 8\right)\\
+  & +\ 40 \cdot \left(0.03 \cdot 1 + 0.02 \cdot 5 + 0.10 \cdot 8\right)\\
+  & +\ 65 \cdot \left(0.01 \cdot 1 + 0.01 \cdot 5 + 0.09 \cdot 8\right)\\[1ex]
+  & = 171.7 
+\end{align*}
+This is when you appreciate the power of computing machines!
+\pause
+\begin{align*}
+\cov[X,Y]
+  & = \exp[XY] - \exp[X] \times \exp[Y] 
+    = 171.70 - 5.33 \times 30.15
+    = 11.00\\
+\cor[X,Y]
+  & = \frac{\cov[X,Y]}{\var[X]\times\var[Y]} 
+    = \frac{11.00}{2.60 \times 14.77}
+    = 0.286
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

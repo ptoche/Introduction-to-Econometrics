@@ -1,0 +1,148 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Correlations]{Linear Regression: Correlations}
+\date{}
+
+
+\def\askone{Show that the regression $R^2$ in the regression of $Y$ on $X$ is the squared value of the sample correlation between $X$ and $Y$. That is, show that $R^2=r^2_{XY}$.}
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]
+\frametitle{Correlations}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~4, Exercise~12.}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item \askone
+
+\begin{answer}
+Pearson's sample correlation coefficient $r_{XY}$ (population is denoted $\rho_{XY}$) is
+\begin{align*}
+r_{XY} 
+    = \frac{s_{XY}}{s_{X}s_{Y}}
+\end{align*}
+
+The OLS estimator may be written:
+\begin{align*}
+\hat{\beta}_{1} 
+    = \frac{\sum_{i=1}^{n}(X_{i}-\mean{X})(Y_{i}-\mean{Y})}{\sum_{i=1}^{n}(X_{i}-\mean{X})^{2}}
+    = \frac{s_{XY}}{s_{X}^2}
+\end{align*}
+where $s_{XY}$ denotes the sample covariance and $s_{X}^2$ denotes the variance, $s_{XY}=s_{X}^2$. The proof of this is standard and follows from minimizing the sum of squared residuals of the regression of $Y$ on $X$. 
+\begin{comment}
+If you were expected to show it, I think the question would be more explicit.
+It follows that
+\begin{align*}
+r_{XY} 
+    = \frac{s_{X,Y}}{s_{X}s_{Y}}
+    = \frac{s_{X,Y}}{s_{X}s_{Y}}\frac{s_{X}}{s_{X}}
+    = \frac{s_{X,Y}}{s_{X}^2}\frac{s_{X}}{s_{Y}}
+    = \hat{\beta}_{1} \frac{s_{X}}{s_{Y}}
+\end{align*}
+\end{comment}
+
+The coefficient of determination of the regression of $Y$ on $X$ is
+\begin{align*}
+R^{2}
+  = 1 - \frac{\sum_{i=1}^{n}\hat{u}_{i}^2}{\sum_{i=1}^{n}(Y_{i}-\mean{Y})^2}
+  = 1 - \frac{\sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}X_{i})^2}{s_{YY}}
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Correlations}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item \askone
+
+\begin{answer}
+\begin{align*}
+\hat{\beta}_{0}
+     = \mean{Y} - \hat{\beta}_{1} \mean{X}
+\implies
+& \sum_{i=1}^{n}(Y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}X_{i})^2
+     = \sum_{i=1}^{n}[(Y_{i}-\mean{Y})-\hat{\beta}_{1}(X_{i}-\mean{X})])^2\\
+    & = \sum_{i=1}^{n}(Y_{i}-\mean{Y})^2
+       -2\hat{\beta}_{1}\sum_{i=1}^{n}(X_{i}-\mean{X})(Y_{i}-\mean{Y})
+       + \hat{\beta}_{1}^2\sum_{i=1}^{n}(X_{i}-\mean{X})^2\\
+    & = s_{YY} -2\hat{\beta}_{1} s_{XY} + \hat{\beta}_{1}^2 s_{XX}
+\end{align*}
+Plugging the above into the coefficient of determination:
+\begin{align*}
+R^{2} 
+    &  = 1 - \frac{s_{YY} -2\hat{\beta}_{1} s_{XY} + \hat{\beta}_{1}^2 s_{XX}}{s_{YY}} 
+      = 2\hat{\beta}_{1} \frac{s_{XY}}{s_{YY}} - \hat{\beta}_{1}^2 \frac{s_{XX}}{s_{YY}}\\
+    & = 2 \frac{s_{XY}}{s_{X}^2}\frac{s_{XY}}{s_{YY}} 
+         - \left(\frac{s_{XY}}{s_{X}^2}\right)^2 \frac{s_{XX}}{s_{YY}}
+      = \frac{s_{XY}^2}{s_{X}^2\,s_{Y}^2} 
+      = r_{XY}^2
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Correlations}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Show that the $R^2$ from the regression of $Y$ on $X$ is the same as the $R^2$ from the regression of $X$ on $Y$.
+
+\begin{answer}
+Since we have shown that $R^2=r^2_{XY}$, it follows from $s_{XY}=s_{YX}$:
+\begin{align*}
+R^{2} ~\text{of $Y$ on $X$}
+  = r_{XY}^2
+  = \frac{s_{XY}}{s_{X}s_{Y}}
+  = \frac{s_{YX}}{s_{Y}s_{X}}
+  = r_{YX}^2
+  = R^{2} ~\text{of $X$ on $Y$}
+\end{align*}
+\end{answer}
+
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Correlations}
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Show that $\hat{\beta}_1=r_{XY}(s_{Y}/s_{X})$, where $r_{XY}$ is the sample correlation between $X$ and $Y$, and $s_X$ and $s_Y$ are the sample standard deviations of $X$ and $Y$.
+
+\begin{answer}
+We've done most of the work already:
+\begin{align*}
+\hat{\beta}_{1}
+    = \frac{s_{XY}}{s_{X}^2}
+    = \frac{r_{XY} s_{X} s_{Y}}{s_{X}^2}
+    = \frac{r_{XY} s_{Y}}{s_{X}}
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

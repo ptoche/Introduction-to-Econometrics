@@ -1,0 +1,89 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Before / After Comparisons}
+\emph{Eliminating Fixed Effects}
+\begin{itemize}
+\item Let $Z_{i}$ be a variable that determines the fatality rate in the $i$th state but does not change over time: Note the absence of the time subscript in $Z_{i}$, meaning $Z_{i,1982}=Z_{i,1988}$.
+\begin{align*}
+\vn{FatalityRate_{i,1982}}
+  & = \beta_{0} + \beta_{1} \vn{BeerTax}_{i,1982} + \beta_{2} Z_{i} + u_{i,1982}\\
+\vn{FatalityRate_{i,1988}}
+  & = \beta_{0} + \beta_{1} \vn{BeerTax}_{i,1988} + \beta_{2} Z_{i} + u_{i,1988}
+\end{align*}
+\item Because $Z_{i}$ does not change over time, it cannot be the cause of any change in the fatality rate between 1982 and 1988. 
+\item \emph{The influence of $Z_{i}$ can be eliminated by analyzing the change in the fatality rate between the two periods.} Taking the difference between the above two equations:
+\begin{align*}
+& \vn{FatalityRate_{i,1988}} - \vn{FatalityRate_{i,1982}}\\
+  & \quad = \left(\beta_{0} + \beta_{1} \vn{BeerTax}_{i,1988} + \beta_{2} Z_{i} + u_{i,1988}\right)
+  - \left(\beta_{0} + \beta_{1} \vn{BeerTax}_{i,1982} + \beta_{2} Z_{i} + u_{i,1982}\right)\\[1ex]
+  & \quad = \beta_{1}\, (\vn{BeerTax}_{i,1988}-\vn{BeerTax}_{i,1982})
+    + u_{i,1988}-u_{i,1982}
+\end{align*}
+where the constants $\beta_{0}$ and $Z_{i}$ have been cancelled out of the difference.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Tax on Beer and Traffic Fatality Rate: Before/After}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-10-fig-02-Zoom}
+\caption{There is a negative relationship between changes in the fatality rate and changes in the beer tax between 1982 and 1988.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Tax on Beer and Traffic Fatality Rate: Before/After}
+\emph{Difference Operator $\Delta$}
+\begin{itemize}
+\item The difference operator, denoted $\Delta$, is a convenient device to compute a difference between two regression equations with less notation.
+\item Let $\Delta X_{i}$ denote the difference operator:
+\begin{align*}
+\Delta X_{i} = X_{i,a}-X_{i,b} \quad\text{for some variable $X$ measured between dates $a$ and $b$.}
+\end{align*}
+\item Consider the regression equation in year $t$ (where $t$ stands for either date $a$ or date $b$):
+\begin{align*}
+Y_{i,t} = \beta_{0} + \beta_{1} X_{i,t} + \beta_{2} Z_{i} + u_{i,t}
+\end{align*}
+\item Apply the operator to the regression equation:
+\begin{align*}
+\Delta Y_{i} = \beta_{1} \Delta X_{i} + \Delta u_{i}
+\end{align*}
+(note that $\beta_{0}+\beta_{2}Z_{i}$ cancels out)
+\item Thus, let $\Delta X_{i}$ denote the difference operator for years 1988 and 1982:
+\begin{align*}
+\Delta \vn{FatalityRate_{i}}
+  = \beta_{1}\Delta\vn{BeerTax}_{i} + \Delta u_{i}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Tax on Beer and Traffic Fatality Rate: Before/After}
+\emph{Interpreting Before-and-After Effects} 
+\begin{itemize}
+\item If omitted variables such as ``cultural attitude'' or ``law and order'' did not change between 1982 and 1988, then they cannot be the cause of any observed change in fatalities in the state over that period.
+\item After differencing, omitted variables that are constant cancel out of the regression equation: 
+\emph{We do not need data for these omitted variables!}
+\begin{align*}
+\Delta\verywidehat{\vn{FatalityRate}_{i}}
+  = -\muse{0.072}{0.065} 
+  - \muse{1.04}{0.36} \Delta \vn{BeerTax}_{i}
+\end{align*}
+\item The estimated regression suggests that traffic fatalities can be cut in half merely by increasing the real tax on beer by $\$1$ per case.
+\item This simple ``before-and-after'' analysis --- regression in differences --- would be cumbersome to extend to several time periods. Since our dataset contains seven years, we develop a more general approach: fixed effect regression.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,49 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Variance}
+\begin{itemize}
+\item The expectation and variance are special cases of the ``moments'' of a random variable. The expectation is the first moment --- The variance is the second ``central'' moment. Moments of order $k$ are defined as follows:
+\item \emph{$k$th moment} of $X$: 
+\begin{align*}
+\exp[X^k]
+\end{align*}
+\item \emph{$k$th central moment} of $X$: 
+\begin{align*}
+\exp\left[\left(X - \exp[X]\right)^k\right]
+\end{align*}
+\item \emph{Variance as Second Central Moment:}
+\begin{align*}
+\var(X) 
+  & = \exp\left[ \left(X - \exp[X]\right)^2 \right]\\
+  & = \exp[X^2] - 2\exp[X\cdot\exp[X]] +\exp(\exp[X])^2\\
+  & = \exp[X^2] - \exp[X]^2
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Standard Deviation}
+\begin{itemize}
+\item \emph{Standard deviation:}
+\begin{emphalign*}
+\std(X) = \sqrt{\var(X)}
+\end{emphalign*}
+\item The standard deviation is expressed in the same units as the expected value, whereas the variance is expressed in squared-units, which may not be so easily interpreted.
+\item While the expectation operator is linear, the variance is quadratic in the following sense:
+\begin{align*}
+\var(a + b X) = b^2 \var(X)
+\end{align*}
+\item The standard deviation satisfies:
+\begin{align*}
+\std(a + b X) = b \std(X)
+\end{align*}
+This is not the same as ``linearity'' since the constant term $a$ has vanished.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

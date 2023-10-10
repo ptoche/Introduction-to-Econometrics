@@ -1,0 +1,69 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Panel Data}
+\begin{itemize}
+\item \emph{Panel data:} 
+\newlinequad
+\textit{aka} longitudinal data --- $n$ different entities observed at $T$ different time periods: $Y_{it}$ denotes the variable $Y$ observed for the $i$th of $n$ entities in the $t$th of $T$ periods.
+\item \emph{Balanced panel:} 
+\newlinequad
+Variables are observed for each entity and each time period. 
+\item \emph{Unbalanced panel:} 
+\newlinequad
+Some missing data for at least one time period for at least one entity. 
+\item \emph{Fixed effects panel regression:} 
+\newlinequad
+Controls for omitted variables that vary across entities, but do not change over time. 
+\item \emph{Time fixed effects panel regression:} 
+\newlinequad
+Controls for omitted variables that are constant across entities, but change over time.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Panel Data: Traffic Deaths and Alcohol Taxes}
+\emph{Traffic Deaths and Alcohol Taxes}
+\begin{align*}
+\text{Year 1982:}\quad & \verywidehat{\vn{FatalityRate}}
+  = \muse{2.01}{0.15} + \muse{0.15}{0.13} \vn{BeerTax}\\
+\text{Year 1988:}\quad & \verywidehat{\vn{FatalityRate}}
+  = \muse{1.86}{0.11} + \muse{0.44}{0.13} \vn{BeerTax}
+\end{align*}
+\begin{itemize}
+\item The coefficient on the real beer tax is statistically significant at the $1\%$ level in 1988, but not so at the $10\%$ level in 1982. The estimated coefficients for the 1982 and the 1988 data are positive! Are higher real beer taxes associated with more traffic fatalities? No! These regressions suffer from omitted variable bias. 
+\item \emph{Dealing with omitted variables:} Factors that affect the fatality rate: cars' safety features, whether state highways are in good repair, density of cars on the road, laws and police controls. Some of these omitted variables would be difficult to measure.
+\item \emph{These factors can be held constant even when they cannot be measured or observed.}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Traffic Deaths and Alcohol Taxes: 1982}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-10-fig-01a}
+\caption{Traffic fatality rates and the real tax on a case of beer for $48$ states in 1982 (in 1988 dollars).}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Traffic Deaths and Alcohol Taxes: 1988}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-10-fig-01b}
+\caption{Traffic fatality rates and the real tax on a case of beer for $48$ states in 1988 (in 1988 dollars).}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

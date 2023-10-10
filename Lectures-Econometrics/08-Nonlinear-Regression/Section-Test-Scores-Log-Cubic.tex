@@ -1,0 +1,32 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Linear-Log-Polynomial regression model:}
+\begin{itemize}
+\item Estimate of linear-log-polynomial regression model relating test scores and income:
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = \muse{486.1}{79.4} & + \muse{113.4}{87.9}\,\ln(Income) 
+                         - \muse{26.9}{31.7}\,[\ln(Income)]^2\\
+                       & - \muse{3.06}{3.74}\,[\ln(Income)]^3, \quad \bar{R}^2 = 0.560
+\end{align*}
+\item The null hypothesis that the true coefficient on the cubic term is zero cannot be rejected at the $10\%$ significance level. 
+\item The $F$-statistic for the joint hypothesis that the true coefficients on the quadratic and cubic terms are both zero cannot be rejected at the $10\%$ level. 
+\item The cubic logarithmic model is not, statistically speaking, an improvement over the linear-log model.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Linear-Log and Cubic Regressions}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-07-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,626 @@
+---
+title: "Distribution of Hourly Earnings by Age"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: default
+    fonttheme: professionalfonts
+    slide_level: 2
+    includes:
+        in_header: beamer-header.tex
+    keep_tex: yes
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+classoption: svgnames, handout, t
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, comment=NA, concordance=TRUE, cache=TRUE)
+knitr::opts_chunk$set(dev=c('pdf','png'), fig.align='center', fig.height=c(4.5, 5), fig.width=c(8, 8), dpi=600, pdf.options(encoding="ISOLatin9.enc")) 
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+options(pillar.bold=TRUE, pillar.subtle_num=TRUE)
+options(digits=3)
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk=function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\n \\", "footnotesize","\n\n", x, "\n\n \\normalsize")
+})
+library(knitr)
+library(readxl)
+library(scales)
+library(dplyr)
+library(tidyverse)
+```
+
+
+## Objectives
+1. Compute the marginal distribution of Age.
+2. Compute the mean of AHE for each value of Age. 
+3. Plot the mean of AHE versus Age.
+4. Compute the variance of AHE.
+5. Compute the covariance between AHE and Age. 
+6. Compute the correlation between AHE and Age.
+
+
+## Why use R
+The convenience of programming over spreadsheets is that you can run multiple calculations in a few lines of code and, as a result, you can reproduce your results quickly, and share your calculations easily. With a spreadsheet, you typically need to use the menus and mouse multiple times and replication is not so straightforward. 
+
+``R`` is open-source, free software that is popular for statistical calculations. An alternative is ``Python``, also open source and free. 
+
+Each have their strengths and weaknesses. 
+
+One of the best things about ``R`` is the ``RStudio`` interface and the ``tidyverse`` family of packages, particularly the plotting library ``ggplot2``. 
+
+One of the best things about ``Python`` is its huge and increasing following, particularly in machine learning. 
+
+For data-heavy project, consider ``Julia``, another wonderful open-source project.
+
+
+## Set Up Working Directory
+The working directory is where R/Rstudio will search for data files and where it will save objects you create. 
+
+If you're on Windows, set your working directly with:
+```{r, eval=FALSE, echo=TRUE}
+    setwd("c:/R/workspace")
+```
+
+If you're on MacOS, use
+```{r, eval=FALSE, echo=TRUE}
+    setwd("~/R/workspace")
+```
+where `~` is a short-hand for the path to the user directory.
+
+The condition below checks your operating system and sets a working directory accordingly. 
+```{r, eval=FALSE, echo=TRUE}
+# useful if you switch from Windows to Mac/Linux: 
+if(.Platform$OS.type == "windows"){
+    setwd("c:/R/workspace")
+} else {
+    setwd("~/R/workspace")
+}
+```
+Check that you're in the right place with
+```{r, eval=FALSE, echo=TRUE}
+    getwd()
+```
+
+
+## Set Options
+To reduce the number of significant digits that are printed in the console, you may set the `digits` option:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+library("readxl")
+options(digits=4)
+```
+
+If you are working with time series data, you may find the `digits.secs` option useful,
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+library("readxl")
+options(digits.secs=2)
+```
+
+Another useful option to limit or increase the output printed to the console is `max.print`,
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+library("readxl")
+options(max.print=5)
+```
+
+Note that in R, the period is a character like any other. In Python it is not, so the naming convention would most likely be one of `maxprint` or `MaxPrint`. In Python, the use of underscores, as in `max_print`, is usually preferred for functions, with the ``camel'' notation preferred for variable names, but not everyone follows these guidelines. In R, the use of dots in variable names and function arguments is popular.
+
+
+## Install Packages
+In R, packages are also called libraries.
+
+In order to use a package, you first need to install it:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+add.packages("readxl")
+```
+
+And before you use it, you must load it with the `library()` function,
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library("readxl")
+```
+
+Once in a while, remember to update your existing packages, with
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+update.packages()
+```
+The above will attempt to update all your packages. This is generally a good idea, though it could occasionally break your code if the package has experienced an overhaul. 
+
+If you need to install a package from source -- an older version of a popular package or an experimental package not available via the usual distribution channels:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+url <- "http://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_0.9.1.tar.gz"
+install.packages(url, repos=NULL, type="source")
+```
+Not recommended unless an update has broken your code and you are under a tight deadline!
+
+
+## Read the Data
+The data is in `xlsx` format: One way to read it is with the `readxl` library. This creates a `tibble` (part of `tidyverse`) rather than the standard `dataframe` (base R).
+
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library("readxl")  # remember to load the package beforehand
+data <- read_xlsx("Age_HourlyEarnings.xlsx")
+```
+
+- We are using the `read_xlsx` function from the package `readxl`. 
+
+- We are assigning the result of applying the `read_xlsx` function to the variable name `data`
+
+In R, assignments are bi-directional, so we could also do:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library("readxl")
+read_xlsx("Age_HourlyEarnings.xlsx") -> data
+```
+
+An assignment could also be done with the equal sign,
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library("readxl")
+data = read_xlsx("Age_HourlyEarnings.xlsx")
+```
+
+Was the data loaded correctly?
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+View(data)  # Note the capital V in View!
+```
+
+
+## Read the Data
+More control: takes some trial and error to get it right!
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=FALSE}
+library("readxl")
+df1 <- read_xlsx("Age_HourlyEarnings.xlsx",
+                  col_names=TRUE,
+                  skip=1,
+                  trim_ws=TRUE)
+```
+
+- Set `col_names=TRUE` to use the ages as column names
+
+- Skip the first line with `skip=1`
+
+- Trim white space with `trim_ws`, because white spaces can mess things up in ways that are difficult to debug.
+
+- See more options with `?read_xlsx`
+
+
+## Quick View of the Data
+Our data may be accessed with the name `df1`. We will clean it and, as we do, overwrite it at each iteration. However, when you are debugging your own data, it is recommended that you use a different name, say `df1.tmp`, and check that everything is as expected before renaming it `df1` and overwriting the data. 
+
+The dataframe `df1` is in **wide format**. We will convert it to **long format** and name the new dataframe `df2`. We will use `df1` or `df2` whenever the format is most convenient for our purpose. 
+
+Quickly view a slice of the data with `head(df1)`:
+```{r, include=TRUE, echo=TRUE}
+head(df1)
+```
+
+
+## Quick View of the Data
+View less or more of the data by setting the second argument of `head()`
+```{r, include=TRUE, echo=TRUE}
+head(df1, 2)
+```
+
+or look at the tail `tail(df1)`:
+```{r, include=TRUE, echo=TRUE}
+tail(df1, 4)
+```
+
+## Quick View of the Data
+A few things are apparent from viewing the data in the console, that may not have been immediately obvious from the display of `View()` 
+
+The column names are strings:
+```{r, include=TRUE, echo=TRUE}
+colnames(df1)
+```
+
+In R, a string is called a character, it is usually displayed with quote-marks, as in "25".
+
+There are missing values -- those are the ``NA`` values.
+
+The variables described as ``<dbl>`` are double-precision floating-point number -- as opposed to, say, integers.
+
+
+## Quick View of the Data
+We see missing values in the last rows of the dataframe, but the output of `head()` and `tail()` is truncated before the last columns, where there are more missing values. These missing values are not apparent from viewing the spreadsheet in Excel, but they could be seen with `View(df1)`.
+
+Viewing a selected slice of the dataframe:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1[ncol(df1)]  # last column
+```
+where `ncol()` counts the number of columns -- There is also `nrow()`.
+
+
+## Quick View of the Data
+Viewing a selected slice of the dataframe:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1[,(ncol(df1)-4):ncol(df1)]  # last 5 columns
+```
+
+
+## Quick View of the Data
+Viewing a selected slice of the dataframe:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1[6:7]  # if you know exactly which columns to select
+```
+
+
+## Quick View of the Data
+with tidyverse pipe | displays in reverse order:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+library(tidyverse)
+df1 %>% select(last_col(offset=0:4), everything()) %>% head(5)
+```
+
+The `%>%` symbol is a "pipe" to conveniently transforme the original `tibble` in a series of stages, convenient for debugging.
+
+The `%>%` pipe is from the `tidyverse` family, not from base R.
+
+
+## Quick View of the Data
+A more compact display of the last column:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+library(tidyverse)
+df1[ncol(df1)] %>% data.frame %>% head(5)
+```
+Here we transform the `tibble` to a dataframe before displaying the `head`. A dataframe has a more compact display. 
+
+The default `dataframe` does not support integers as names and therefore prepends an `X`: "25" becomes "X25". In `tidyverse`, the `tibble` is an extension of the `dataframe` which supports numbers as column names. Let's see that now.
+
+
+## Read the Data as CSV
+It is often convenient to work with ``csv`` files (``csv`` stands for comma-separated values), because ``csv`` files have a simple structure and can be read with other statistical software.
+
+Save the excel spreadsheet as a plain ``csv`` file and open it with:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+df1.csv <- read.csv("Age_HourlyEarnings.csv", 
+                    skip=1, 
+                    header=TRUE, 
+                    stringsAsFactors=FALSE)
+```
+
+Most of the time, you want to make sure that strings are not converted to factors. This is done with the argument ``stringsAsFactors=FALSE``, which is otherwise set to ``TRUE`` by default. 
+
+By contrast, ``readxl`` does not convert strings as factors by default. 
+
+Let's see the differences between ``df1`` and this ``df``.  We can check the structure of an object with ``str()``.
+
+
+## Compare dataframe and tibble
+This is the structure of the data imported with ``read_xlsx()``:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+str(df1)
+```
+
+
+## Compare dataframe and tibble
+This is the structure of the data imported with ``read.csv()``:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+str(df1.csv)
+```
+
+
+## Compare dataframe and tibble
+The ``tibble`` is a modern evolution of the ``dataframe`` available in base ``R``. It is part of the family of packages developed by RStudio and Hadley Wickham that go under the name ``tidyverse``. The description states "The tidyverse is an opinionated collection of R packages designed for data science."
+
+These packages include, among others:
+
+- ``ggplot2`` the most popular plotting library
+- ``scales`` a companion to ``ggplot2`` that assists in scaling axes and formatting labels
+- ``dplyr``, ``tidyr`` provide various utilities to conveniently manipulate data. 
+- ``readxl`` to read excel files and convert them to a ``tibble``
+- ``stringr`` to manipulate strings
+- ``forcats``, ``readr``, ``purr``, etc.
+
+Go to https://www.tidyverse.org/ and download the cheatsheets
+
+Older, now deprecated packages that people still use include ``plyr``, ``reshape2``. 
+
+- Be careful if you use both ``plyr`` and ``dplyr`` because they both use a ``summarise`` function, and unexpected results can occur. Instead of ``summarise``, write ``dplyr::summarise`` or ``plyr::summarise`` to make sure you are using the desired function.
+
+
+## Clean the Data
+Check basic information:
+```{r, include=TRUE, eval=FALSE, echo=TRUE}
+nrow(df1)
+ncol(df1)
+colnames(df1)
+is.na(df1)
+complete.cases(df1)
+```
+
+Remove empty columns:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+df1 <- Filter(function(x)!all(is.na(x)), df1)
+```
+
+Remove empty columns, including empty strings and 0 values:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+Filter(function(x)!all(is.na(x) || is.null(x) || x == "" || x == 0), df1)
+```
+
+See if any rows have missing values:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+complete.cases(df1)
+```
+The last two rows have missing values!
+
+
+## Clean the Data
+Remove empty rows:
+```{r, include=TRUE, echo=TRUE}
+df1 <- df1[complete.cases(df1), ] 
+```
+
+Save cleaned data:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+save(df1, file = "Age_HourlyEarnings_clean_wide.RData")
+```
+
+Or see below how to save to a ``csv`` or to an ``xlsx`` file.
+
+
+## Clean the Data | with dplyr
+The ``dplyr`` does certain things more intuitively than base ``R``. Let's clean the data again!
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1 <- read_xlsx("Age_HourlyEarnings.xlsx", col_names=TRUE, skip=1, trim_ws=TRUE)
+```
+
+Because there are missing values in both the rows and the columns, we have to proceed with caution. It would be tempting to do this:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1 %>% filter_all(all_vars(complete.cases(.)))
+```
+but then the whole dataset would be filtered out except the column names!
+
+Instead, proceed in two separate steps.
+
+Remove the empty rows:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1 %>% select_if(~!(all(is.na(.)))) -> df1
+```
+
+Remove the empty columns:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+df1 %>% filter_all(any_vars(!is.na(.))) -> df1
+```
+
+
+## Transform the Data
+The data is currently in wide format, it will be convenient to convert it to long format:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+library("tidyr")
+df2 <- gather(df1, Age, Probability, -AHE)
+df2$Age <- as.integer(df2$Age)  # convert the string to an integer
+```
+
+Quick check:
+```{r, include=TRUE, echo=TRUE}
+head(df2, 6)
+```
+
+Save the long-form data as ``xlsx`` for reference
+```{r, include=TRUE, echo=TRUE}
+library("writexl")
+write_xlsx(df2, "Age_HourlyEarnings_clean_long.xlsx")
+```
+
+
+## Wide Format
+This is what data in wide format looks like:
+
+![](data-wide-format.pdf)
+
+
+## Long Format
+This is what data in long format looks like:
+
+![](data-long-format.pdf)
+
+
+## Marginal Distribution
+The general expression for the marginal distribution:
+$$
+\text{Pr}(Y=y) = \sum_{i=1}^n \text{Pr}(X=x_i, Y=y)
+$$
+In particular, for $Age=25$, we have
+$$
+\text{Pr}(Age=25) = \sum_{ahe=5}^{70} \text{Pr}(AHE=ahe, Age=25)
+$$
+We can now calculate these conveniently with the long-form dataframe.
+
+
+## Marginal Distribution
+Add up the probabilities by Age, using the long-form dataframe:
+```{r, include=TRUE, echo=TRUE}
+sum(df2[df2$Age == 25,]$Probability)
+sum(df2[df2$Age == 26,]$Probability)
+sum(df2[df2$Age == 27,]$Probability)
+sum(df2[df2$Age == 28,]$Probability)
+sum(df2[df2$Age == 29,]$Probability)
+sum(df2[df2$Age == 30,]$Probability)
+sum(df2[df2$Age == 31,]$Probability)
+sum(df2[df2$Age == 32,]$Probability)
+sum(df2[df2$Age == 33,]$Probability)
+sum(df2[df2$Age == 34,]$Probability)
+```
+
+
+## Marginal Distribution
+To avoid copy-pasting, you can use a split/apply technique:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+sapply(split(df2, df2$Age), function(x) sum(x$Probability))
+```
+
+And you can always write a loop:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+for (age in 25:34){
+    print(sum(df2[df2$Age == age,]$Probability))
+}
+```
+
+
+## Marginal Distribution
+Using data in wide format is sometimes convenient.
+
+Add up for all MHE rows:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+colSums(df1[,names(df1) != "AHE"])
+```
+
+Add up for all Age columns, using the wide-form dataframe:
+```{r, include=TRUE, echo=TRUE}
+rowSums(df1[,names(df1) != "AHE"])
+```
+
+Note that:
+```{r, include=TRUE, echo=TRUE}
+sum(colSums(df1[,names(df1) != "AHE"]))
+```
+
+
+## Save your results
+You may want to append your results to the original data, the way you would in a spreadsheet. This may be convenient if you plan to save the data in a spreadsheet at the end of the project. 
+
+To avoid altering the clean dataframe ``df1``, let's make a copy first:
+```{r, include=TRUE, echo=TRUE}
+d <- df1  # make a copy to preserve original dataframe
+```
+
+Append sums to last column:
+```{r, include=TRUE, echo=TRUE}
+d$Total <- rowSums(df1[,names(df1) != "AHE"])
+```
+
+Append sums to last row: add NA to the first column, for alignment
+```{r, include=TRUE, echo=TRUE}
+d <- rbind(d, c(NA, colSums(d[,names(d) != "AHE"])))
+```
+
+Save it as a ``csv`` file:
+```{r, include=TRUE, echo=TRUE}
+write.csv(d, file="Age_HourlyEarnings_clean_wide_sums.csv")
+```
+
+Save it as a ``xlsx`` file:
+```{r, include=TRUE, echo=TRUE}
+library("writexl")  # remember to install the package first
+write_xlsx(d, "Age_HourlyEarnings_clean_wide_sums.xlsx")
+```
+
+If you haven't set your working directory, run ``getwd()`` to see where the files were saved.
+
+
+## Compute Weighted Means by Age: Base R
+Using base R | See below for other methods
+
+Here is an approach based on split/apply:
+```{r, include=TRUE, echo=TRUE}
+sapply(split(df2, df2$Age), function(x) weighted.mean(x$AHE, x$Probability))
+```
+
+There are many ways to achieve the same result. The ``tidyverse`` offers more intuitive functions for this purpose. We explore them next.
+
+
+## Compute Weighted Means by Age: plyr
+The ``dplyr`` package is a crowd's favorite:
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+detach("package:plyr")  # to avoid conflict with dplyr
+library("dplyr")
+df2 %>%
+    group_by(Age) %>%
+    summarise(AHE = weighted.mean(AHE, Probability)) %>%
+    head(5)
+```
+One advantage of piping is that you can write the variable name directly --- that is, ``Age`` instead of ``df2$Age``
+
+## Compute Weighted Means by Age: data.table
+Another popular choice is based on the ``data.table`` library. The ``data.table`` library is the most efficient for large datasets.
+```{r, include=TRUE, echo=TRUE, message=FALSE}
+library("data.table")
+head(setDT(df2)[, .(AHE = weighted.mean(AHE, Probability)), Age])
+```
+
+
+## Law of Iterated Expectations
+In general,
+$$
+E[Y] = \sum_{i=1}^n E[Y|X=x_i]\ \text{Pr}(X=x_i)
+$$
+In particular,
+$$
+E[AHE] = \sum_{age=25}^{34} E[AHE|Age=age]\ \text{Pr}(Age=age)
+$$
+
+
+## Compute Variance by Age
+Similar to what we did with the function ``weighted.mean``, but here we roll our own ``weighted.variance``:
+```{r, include=TRUE, echo=TRUE}
+weighted.variance <- function(x,w) sum(w*(x-weighted.mean(x,w))^2)/sum(w)
+dv <- sapply(split(df2, df2$Age), function(x) weighted.variance(x$AHE, x$Probability))
+head(dv)
+```
+As information about the sample size is not available, we do not attempt to remove any bias that may be present in the formula.
+
+
+## Compute Variance for all Ages
+To compute the variance for all ages, we first save the mean computed earlier and merge with the variance computed above.
+```{r, include=TRUE, echo=TRUE}
+df2 %>% group_by(Age) %>%
+    dplyr::summarise(Probability = sum(Probability)) -> df
+
+df2 %>% group_by(Age) %>%
+    dplyr::summarise(Mean = weighted.mean(AHE, Probability)) %>%
+    left_join(df, by = "Age") -> df
+
+df2 %>% group_by(Age) %>%
+    dplyr::summarise(Var = weighted.variance(AHE, Probability)) %>%
+    left_join(df, by = "Age") -> df
+
+head(df, 3)
+```
+
+
+## Compute Variance for all Ages
+We can now compute the weighted mean and weighted variance:
+```{r, include=TRUE, echo=TRUE}
+df %>% summarize(Mean = weighted.mean(Mean, Probability)/sum(Probability))
+
+df %>% summarize(Var = weighted.mean(Var, Probability)/sum(Probability))
+```
+
+The expected value of the square could be computed likewise
+```{r, include=TRUE, echo=TRUE}
+weighted.squared.exp <- function(x,w) sum(w*x^2)/sum(w)
+```
+
+
+## Visualize the Data
+Mean Earnings by Age:
+```{r scatter-mean, include=TRUE, echo=TRUE, fig.show='hide'}
+library("ggplot2")
+ggplot(data=dm, aes(x=Age, y=Mean)) +
+    geom_point() +
+    ggtitle("Mean Earnings by Age") +
+    theme_bw()
+```
+
+Variance of Earnings by Age:
+```{r scatter-variance, include=TRUE, echo=TRUE, fig.show='hide'}
+ggplot(data=dv, aes(x=Age, y=Variance)) +
+    geom_point() +
+    ggtitle("Variance of Earnings by Age") +
+    theme_bw()
+```
+
+
+## Visualize the Data
+![](`r knitr::fig_chunk('scatter-mean', 'pdf')`)
+
+
+## Visualize the Data
+![](`r knitr::fig_chunk('scatter-variance', 'pdf')`)`
+

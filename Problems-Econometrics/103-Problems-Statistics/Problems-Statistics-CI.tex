@@ -1,0 +1,71 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Statistics: Confidence Interval}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{Let $Y_1,\ldots,Y_n$ be i.i.d. draws from a distribution with mean $\mu$. A test of $H_0{:}~ \mu=5$ ~vs.~ $H_1{:}~ \mu \ne 5$ using the usual $t$-statistic yields a $p$-value of $0.03$.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+\ask
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Does the $95\%$ confidence interval contain $\mu=5$? Explain.
+
+\begin{answer}
+The $p$-value is less than the significance level, so the null hypothesis is rejected,
+\begin{align*}
+p = 0.03 < 0.05 = \alpha = 1-0.95
+\end{align*}
+The confidence interval does not contain $\mu$.
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+\ask
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Can you determine if $\mu=6$ is contained in the $95\%$ confidence interval? Explain.
+
+\begin{answer}
+There is not enough information to determine if $\mu=6$ is contained in the confidence interval. We know neither the sample size $n$ nor the variance $\sigma^2$. The variance could be estimated, but that estimate would depend on the sample size, which is unknown. 
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+
+
+% UNFINISHED MUSINGS BELOW
+
+What if we knew the sample size $n$? Oh and let's keep it simple and suppose we also know the variance $\sigma^2$ (an innocuous assumption for large $n$). Let's suppose $n=100$ and $\sigma^2=1$, so that $\sqrt{n}=10$. The significance level is $\alpha=1-0.95=0.05$ and we have $\mu_0=5$ and $p=0.03$.
+A two-sided confidence interval under the null is the following:
+\begin{align*}
+H_0 \colon \mu = \mu_0, \quad H_1 \colon \mu \ne \mu_0\\
+p = \P{-z_{\alpha/2}
+    < \frac{\mean{Y}-\mu_0}{\sigma/\sqrt{n}} 
+    < z_{\alpha/2} }
+    & = 2\cdot\P{\frac{\mean{Y}-5}{1/\sqrt{100}} < 1.96}\\
+0.03& = 2\cdot\P{\mean{Y} < 5.196}\\
+% qnorm(1-0.03)
+% 1.880794
+\end{align*}

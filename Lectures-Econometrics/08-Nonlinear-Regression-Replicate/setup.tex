@@ -1,0 +1,41 @@
+\usepackage{lmodern}% bug: converts \pounds to dollar sign
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}% font encoding, load before inputenc
+\usepackage{fontspec}% font encoding
+\frenchspacing
+\defaultfontfeatures{
+   Mapping=tex-text,
+   Scale=MatchLowercase,
+}
+%   \setsansfont{Montserrat}
+\setsansfont{Lato}
+\setmonofont{Droid Sans Mono}
+\newfontfamily\fontbold{Lato Bold}
+\newfontfamily\fontitalic{Lato Italic}
+\newfontfamily\fontbolditalic{Lato Bold Italic}
+\newfontfamily\quotefont{Minotaur}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+
+\colorlet{themetext}{black}
+\colorlet{themefill}{RoyalBlue!50}
+\colorlet{themecolor}{NavyBlue}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamertemplate{title page}[empty]
+\usecolortheme{seahorse}
+\setbeamercovered{transparent=4}
+\setbeamercolor{palette primary}{use=structure,fg=black,bg=themefill}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{itemize item}{fg=themecolor}
+\setbeamercolor{enumerate item}{fg=themecolor}
+\setbeamercolor{itemize subitem}{fg=themecolor}
+\setbeamercolor{enumerate subitem}{fg=themecolor}
+\setbeamertemplate{itemize item}[triangle] 
+\setbeamertemplate{itemize subitem}{\raisebox{-0.7ex}{\scalebox{1}[2.5]{\bfseries\textendash}}} 
+\setbeamertemplate{enumerate subitem}{\alph{enumii}.}

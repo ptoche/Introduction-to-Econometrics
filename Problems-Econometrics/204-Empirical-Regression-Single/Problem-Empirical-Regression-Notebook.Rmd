@@ -1,0 +1,94 @@
+---
+title: "Empirical Exercise 1, Stock and Watson Chapter 4"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+```{r data, include=FALSE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("Growth.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+In this exercise, you will investigate the relationship between growth and trade.
+
+### (a) 
+Construct a scatterplot of average annual growth rate (Growth) on the average trade share (TradeShare). Does there appear to be a relationship between the variables?
+
+```{r,  include=TRUE, eval=TRUE}
+library(ggplot2)
+df$country <- as.factor(df$country_name)
+ggplot(data=df, aes(x=tradeshare, y=growth)) + geom_point()
+```
+
+
+### (b) 
+One country, Malta, has a trade share much larger than the other countries. Find Malta on the scatterplot. Does Malta look like an outlier?
+
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_text(size=2, aes(colour = I(ifelse(country == "Malta", "red", "black")))) 
+```
+
+
+
+### (c) 
+Using all observations, run a regression of Growth on TradeShare. What is the estimated slope? What is the estimated intercept? Use the regression to predict the growth rate for a country with a trade share of 0.5 and for another with a trade share equal to 1.0.
+
+```{r,  include=TRUE, eval=TRUE}
+ols <- lm(growth ~ tradeshare, data=df)
+summary(ols)
+```
+
+
+
+### (d) 
+Estimate the same regression, excluding the data from Malta. Answer the same questions in (c).
+
+```{r,  include=TRUE, eval=TRUE}
+# get regression coefficients
+df2 <- subset(df, country != "Malta")
+ols2 <- lm(growth ~ tradeshare, data=df2)
+b0 <- coef(ols2)[1]
+b1 <- coef(ols2)[2]
+# get Malta trade share
+x_obs <- df[df$country == "Malta", "tradeshare"]
+y_hat <- b0 + b1 * x_obs
+y_hat
+
+# or use the built-in predict:
+predict(ols2, newdata=x_obs)
+```
+
+
+
+### (e) 
+Plot the estimated regression functions from (c) and (d). Using the scatterplot in (a), explain why the regression function that includes Malta is steeper than the regression function that excludes Malta.
+
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth)) + 
+    geom_point(col="darkgreen") +
+    geom_smooth(method = "lm", se=FALSE, data=df2) +
+    labs(title = 'OLS is not robust to regression',
+         caption="Regression line with outlier omitted", 
+         x="trade share")
+```
+
+
+
+### (f) 
+Where is Malta? Why is the Malta trade share so large? Should Malta be included or excluded from the analysis?
+
+Malta is a Mediterranean island off the coast of Sicily and not far from Tunisia. It is by necessity a very open economy. In a larger dataset with other islands, it would make sense to keep it, but here it makes it harder to make reliable predictions for economies that are much less open.

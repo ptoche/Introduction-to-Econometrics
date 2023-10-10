@@ -1,0 +1,67 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Hypothesis Tests}
+\emph{Test the Hypothesis $\beta_{j}=\beta_{j,0}$}
+\begin{enumerate}
+\item State the Null Hypothesis and the Alternate:
+\begin{align*}
+H_{0}\colon \beta_{j}=\beta_{j,0}; 
+\qquad 
+H_{1}\colon \beta_{j}\ne\beta_{j,0}
+\end{align*}
+%\item Compute the standard error: \quad $\SE(\hat{\beta}_{j})$
+\item Compute the $t$-statistic: \quad $t^{\text{act}}=\frac{\hat{\beta}_{j}-\beta_{j,0}}{\SE(\hat{\beta}_{j})}$
+\item Compute the $p$-value: \quad $p=2\Phi(-\abs{t^{\text{act}}})$
+\item Conclude: \quad $p<\alpha \implies$ reject $H_{0}$ \quad (fail to reject otherwise).
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Effect of Student-Teacher Ratio on Test Scores}
+\emph{Test the Hypothesis $\vn{STR}=0$}
+\begin{align*}
+\verywidehat{\vn{TestScore}}
+  = \muse{686.0}{8.7} - \muse{1.10}{0.43} \vn{STR}
+                      - \muse{0.650}{0.031} \vn{PctEL}
+\end{align*}
+\begin{enumerate}
+\item State the hypothesis:
+\quad $H_{0}\colon \vn{STR}=0; \quad H_{1}\colon \vn{STR}\ne0$.
+\item Compute the $t$-statistic: 
+\quad $t^{\text{act}}=\frac{-1.10-0}{0.43}\approx-2.54$.
+\item Compute the $p$-value: 
+\quad $p=2\Phi(-2.54)\approx 1.1\%$.
+\item Reject $H_{0}$ at the $5\%$ level.
+\item $95\%$ Confidence interval:
+\quad $-1.10 \pm 1.96 \cdot 0.43 \approx (-1.95, -0.26)$.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Controlling for Expenditure Per Pupil}
+\emph{Test the Hypothesis $\vn{STR}=0$}
+\begin{align*}
+\verywidehat{\vn{TestScore}}
+  = \muse{649.6}{15.5} - \muse{0.29}{0.48}   \vn{STR}
+                       - \muse{0.656}{0.032} \vn{PctEL}
+                       + \muse{3.87}{1.59}   \vn{Expn}
+\end{align*}
+where $\vn{Expn}$ is total annual expenditures per pupil in thousands of dollars.
+\begin{itemize}
+\item Adding $\vn{Expn}$ as a regressor, the estimated coefficient on $\vn{STR}$ changes from $-1.10$ to $-0.29$. 
+\item The $t$-statistic associated with $H_{0}\colon \vn{STR}=0$ is $t^{\text{act}}=\frac{-0.29-0}{0.48}\approx-0.60$. \item $H_{0}$ cannot be rejected at the $10\%$ significance level.
+\item Holding expenditures per pupil and the percentage of English learners constant, the student-teacher ratio has no significant effect on test scores. 
+\item Interpretation: school administrators allocate their budgets efficiently.
+\item In other words: Reallocating spending to reduce class sizes --- without increasing spending --- will not help raise test scores. There is no ``free lunch''. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

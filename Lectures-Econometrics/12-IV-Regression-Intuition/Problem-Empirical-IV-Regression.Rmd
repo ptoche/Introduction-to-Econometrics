@@ -1,0 +1,419 @@
+---
+title: "Research Design and Causality"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+header-includes:
+   - \usepackage{amsmath}
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(broom)
+library(dplyr)
+library(tidyr)
+library(ggdag)
+library(ggraph)
+options(digits=5)
+```
+
+---
+
+# Research Design Identifies Causality
+
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+ggplot(data = tibble(x=c(0,10), y=c(0,10))) +
+  aes(x = x, y = y) +
+  geom_text(x=1,y=0.75, label="Correlation", size=10, color="#fde0dd") +
+  geom_text(x=5,y=0.75, label="Causation", size=10, color="#7a0177") +
+  geom_text(x=1,y=1.5, label="Differences", size=5, color="#fde0dd") +
+  geom_text(x=1,y=1.25, label="Pre-Post", size=5, color="#fde0dd") +
+  geom_text(x=2,y=1.75, label="Multiple Regression", size =5, color="#fbb4b9") +
+  geom_text(x=2,y=1.25, label="Matching", size=5, color="#fbb4b9") +
+  geom_text(x=3,y=2, label="Fixed Effects", size=5, color="#f768a1") +
+  geom_text(x=3.5,y=2.25, label="Diff-in-Diff", size=5, color="#c51b8a") +
+  geom_text(x=4,y=1.25, label="Natural Experiments", size=5, color="#c51b8a") +
+  geom_text(x=3.5,y=1.5, label="Regression Discontinuity", size=5, color="#c51b8a")+
+  geom_text(x=5,y=1.75, label="RCTs", size=5, color="#7a0177")+
+  annotate("segment", x = 1, xend = 5, y = 1, yend = 1, colour = "black", size=2, alpha=1, arrow=arrow(length=unit(0.5,"cm"), ends="last", type="closed"))+
+  scale_x_continuous(breaks = seq(0,6,1), limits = c(0,6)) +
+  scale_y_continuous(breaks = seq(0,3,1), limits = c(0.5,2.3)) +
+  theme_void()
+```
+
+---
+
+# The Problem of Endogeneity
+
+- **Endogeneity** remains the hardest (and most common) econometric challenge
+
+- Difference-in-Difference and Fixed Effects are used to address endogeneity
+  - *Requires* panel data.
+  - Cannot use time-varying omitted variables that are correlated with regressors.
+- Instrumental Variables: Find some source of exogenous variation that removes the endogeneity.
+
+---
+
+# Instrumental Variables
+
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+node_colors <- tribble(
+  ~name, ~Variable,
+  "X", "Endogenous",
+  "Y", "Endogenous",
+  "Z", "Endogenous",
+  "I", "Exogenous",
+)
+
+dag <- dagify(Y ~ X + Z,
+              X ~ I + Z,
+              outcome = "Y",
+              exposure = "X") %>% 
+  tidy_dagitty(layout = "dh", seed = 256) 
+
+# Add node types/colors to DAG data
+dag$data <- dag$data %>% 
+  left_join(node_colors, by = "name")
+
+ggplot(data = dag) +
+  aes(x = x, y = y, xend = xend, yend = yend) +
+  geom_dag_point(size = 10, mapping = aes(color=Variable)) +
+  geom_dag_edges(start_cap = circle(4, "mm"),
+                 end_cap = circle(4, "mm")) +
+  geom_dag_text(size = 5) +
+  scale_adjusted() +
+  theme_void() +
+  theme(legend.position = "bottom")
+```
+
+---
+
+# Understanding Instrumental Variables
+
+- **X** and **Y** are correlated
+- Confounding variable **Z** that meets the conditions of omitted variable bias:
+  1. Causes $Y$ (in error term $u)$
+  2. Correlated with $X$
+
+- Causality from $X$ to $Y$:
+  1. $X \rightarrow Y$ (causal, front door)
+  2. $X \leftarrow Z \rightarrow Y$ (non-causal, back door)
+
+- Consider variable **I** which causes **X** but *not* **Y**
+
+- Variable **I** has no backdoors between it and $Y$
+- The only way to reach $Y$ from $I$ is through $X$:
+  - $I \rightarrow X \rightarrow Y$
+- Variable **I** is a good instrument for $X$ if it satisfies two conditions:
+  1. **Inclusion condition:** $I$ statistically-significantly explains $X$
+  2. **Exclusion condition:** $I$ is uncorrelated with $u$, so it does not directly affect $Y$
+    - $I$ only affects $Y$ *through* its effect on $X$
+
+---
+
+# Example: How does veteran status affect earnings?
+
+$$
+\text{Earnings}_{i}
+    = \beta_0+\beta_1 \, \text{Veteran}_{i}
+    + \text{u}_{i}
+$$
+- Veteran$_i$ is endogenous, correlated with other things in $u_i$
+  - Choice to enlist in military for non-random reasons
+
+- We want to split variation in $X$ into an exogenous part and an endogenous part:
+$$
+\begin{align*}
+\text{Earnings}_i &= \beta_0 + \beta_1 \, \text{Veteran}_i + u_i \\
+\text{Earnings}_i &= \beta_0 + \beta_1 \,  (\text{Veteran}_i^{Ex.}+\text{Veteran}_i^{End.})+u_i\\
+\text{Earnings}_i &= \beta_0 + \beta_1 \, \text{Veteran}_i^{Ex.} + \underbrace{\beta_1 \text{Veteran}_i^{End.}+u_i}_{w_i}\\
+\text{Earnings}_i &= \beta_0 + \beta_1 \, \text{Veteran}_i^{Ex.} + w_i
+\end{align*}
+$$
+
+--
+
+- What would a plausible source of Veteran$_i^{Ex.}$ be?
+
+- Choices to enlist in the military for "random" reasons, uncorrelated with $u_i$ (other things that affect Earnings$_i)$
+
+- We isolate the *exogenous variation* in $X_i$ with an instrumental variable that is:
+
+1. Correlated with the explanatory variable (relevance)
+2. Uncorrelated with the error term (exogenous)
+
+$$\text{Earnings}_{i}=\beta_0+\beta_1 \, \text{Veteran}_{i}+\text{u}_{i}$$
+
+We want an instrument $I$ for Veteran$_i$ which is:
+1. **Relevant:** $cor(Veteran_i, I_i)\neq 0$
+2. **Exogenous:** $cor(I_i, u_i)\neq 0$
+
+---
+
+### Relevance
+
+- **Relevance**: we need $I_i$ to vary with our endogenous $X_i$ variable
+
+- We can *test* this condition using a regression and $t$-test on the relevant coefficient
+
+- **Example**: For *veteran* status, consider several potential $I_i$ variables:
+
+1. Social security number
+
+- **Irrelevant** uncorrelated with military service
+
+2. Physical fitness
+
+- **Likely relevant** may be correlated with military service
+
+3. Vietnam War Draft
+
+- **Relevant** being drawn in draft causes military service
+
+---
+
+### Exogeneity
+
+- **Exogeneity:** we need $I_i$ to be "as good as randomly assigned", uncorrelated with $u_i$ (other factors that determine $Y_i)$
+
+- **Example**: For *veteran* status, consider several potential $I_i$ variables:
+
+
+1. Social security number
+
+- **Exogenous** uncorrelated with other factors of earnings
+
+2. Physical fitness
+
+- **Not exogeous** correlated with many other factors of earnings
+
+3. Vietnam War Draft
+
+- **Exogenous** lottery was random!
+
+---
+
+### Choice of Instrument
+
+- Instrument must be
+1. Correlated with our endogenous variable $(X_i)$
+2. Uncorrelated with omitted variables that affect $Y_i$
+
+- To summarize: **the instrument only affects the outcome through its relationship with the endogenous variable**
+
+- **Example**: For *veteran* status, our several potential $I_i$ variables:
+
+1. Social security number
+
+- **Not relevant** 
+- **Exogenous**
+
+2. Physical fitness
+
+- **Relevant** 
+- **Not exogenous**
+
+
+3. Vietnam War Draft
+
+- **Relevant**
+- **Exogenous**
+
+- The Vietnam War Draft is the only **valid instrument**
+
+---
+
+# DAG Form
+
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+vet_colors <- tribble(
+  ~name, ~Variable, ~Adjusted,
+  "Vet", "X", "Not",
+  "Earn", "Y", "Not",
+  "Draft", "Z", "Not",
+  "U", "Z", "Not",
+)
+
+vet_dag <- dagify(Earn ~ Vet + U,
+              Vet ~ Draft + U,
+              outcome = "Earn",
+              exposure = "Vet") %>% 
+  tidy_dagitty(seed = 256) 
+
+# Add node types/colors to DAG data
+vet_dag$data <- vet_dag$data %>% 
+  left_join(vet_colors, by = "name")
+
+ggplot(data = vet_dag) +
+  aes(x = x, y = y, xend = xend, yend = yend) +
+  geom_dag_point(size = 10,
+                 aes(color=Variable,
+                     shape = Adjusted)) +
+  geom_dag_edges(start_cap = circle(4, "mm"),
+                 end_cap = circle(4, "mm")) +
+  geom_dag_text(size = 3) +
+  scale_adjusted()+
+  theme_void()+
+  scale_shape_manual(values = c(16,17)) +
+  theme(legend.position = "none")
+```
+
+
+- Causal relation from $X$ to $Y$:
+  1. $Vet \rightarrow Earn$
+  2. $Vet \leftarrow U \rightarrow Earn$
+  
+- We want the causal effect of
+
+- $Vet \rightarrow Earn$
+
+- With our instrument
+  - $Draft \rightarrow Vet \rightarrow Earn$
+
+- With our instrument
+  - $Draft \rightarrow Vet \rightarrow Earn$
+
+- Based on our assumptions on independence and exogeneity:
+
+$$
+(\text{Effect of the draft on earnings}) =
+(\text{Effect of the draft on veteran status})
+\times 
+(\text{Effect of veteran status on earnings})
+$$
+- To find effect of veteran status on earnings, rearrange the equation:
+$$
+(\text{Effect of veteran status on earnings}) =
+(\text{Effect of the draft on earnings})
+/
+(\text{Effect of the draft on veteran status})
+$$
+---
+
+# Estimating Instrumental Variables
+
+Estimate the effect of veteran status on earnings.
+$$
+\text{Earnings}_i = \beta_0 + \beta_1 \, \text{Veteran}_i + u_i
+$$
+
+- Consider two related effects:
+
+1. Effect of instrument on the endogenous variable:
+$$
+\text{Veteran}_i = \gamma_0 + \gamma_1 \, \text{Draft}_i + w_i
+$$
+
+
+2. Effect of instrument on the outcome variable:
+$$
+\text{Earnings}_i = \pi_0 + \pi_1 \text{Draft}_i + v_i
+$$
+---
+
+# Example: Police and Crime Rate
+
+- Police $\rightarrow$ crime (more police reduces crime)
+- Crime $\rightarrow$ Police (high crime areas tend to have more police)
+- $cor(\text{Police}, \text{u})\neq 0$: population, income per capita, drug use, recessions, demography, etc.
+- How do (more) police affect crime rates?
+$$\text{Crime}_{it}=\beta_0+\beta_1 \, \text{Police}_{it}+\text{u}_{it}$$
+- Police $\rightarrow$ crime (more police reduces crime)
+- Crime $\rightarrow$ Police (high crime areas tend to have more police)
+- $cor(\text{Police}, \text{u})\neq 0$: population, income per capita, drug use, recessions, demography, etc..
+- Levitt (2002): use number of firefighters as an **instrument** for police.
+
+
+- *Some* variation in Police is **endogenous**
+  - More police hired to combat rising crime
+  - Changes in economy, demographics, etc, correlated with crime
+
+- *Some* variation in Police is **exogenous**
+  - Some police might be hired for reasons *not* connected to crime
+  - Perhaps city gets a larger budget one year
+
+- Exogenous, non-crime-related changes affect number of *Firefighters* in a city (excess budget, etc)
+  - Isolate that portion of variation in Police that covaries with Firefighters (exogenous)
+  - Throw out variation in Police that is endogenous (covaries with things that vary with crime)
+  - See how the exogenous variation in Firefighters helps explain variation in Crime via Police! 
+
+
+Levitt, Steven D, (2002), "Using Electoral Cycles in Police Hiring to Estimate the Effect of Police on Crime: Reply," *American Economic Review* 92(4): 1244-1250.
+
+---
+
+### Two-Stage Least Squares
+
+- Equation of interest:
+
+$$
+\widehat{Y_i} 
+    = \widehat{\beta_0} 
+    + \widehat{\beta_1} X_{1i} 
+    + \widehat{\beta_2} X_{2i}
+    + \widehat{u_i}
+$$
+
+- **First Stage**: use $IV$ to explain $X_{1i}$ in an **auxiliary regression**:
+
+$$
+\widehat{X_{1i}} 
+    = \hat{\gamma_0} 
+    + \hat{\gamma_1} Z_i 
+    + \hat{\gamma_2} X_{2i} 
+    + \hat{\epsilon_i}
+$$
+
+
+- **Second Stage**: substitute the *predicted* value of $\widehat{X_{1i}}$ in the original regression:
+
+$$
+\widehat{Y_i}
+    = \hat{\beta_0}
+    + \hat{\beta_1} \widehat{X_{1i}}
+    + \hat{\beta_2} X_{2i}
+    + \hat{u_i}
+$$
+
+---
+
+### Understanding Instrumental Variables
+
+
+```{r,  include=TRUE, eval=TRUE, echo=FALSE}
+node_colors2 <- tribble(
+  ~name, ~Variable, ~Adjusted,
+  "X", "Endogenous", "Not",
+  "Y", "Endogenous", "Not",
+  "Z", "Endogenous", "Not",
+  "I", "Exogenous", "Not",
+  "A", "Endogenous", "Adjusted"
+)
+
+dag2 <- dagify(Y ~ X + Z + A,
+              X ~ I + Z,
+              I ~ A,
+              outcome = "Y",
+              exposure = "X") %>% 
+  tidy_dagitty(seed = 256) 
+
+# Add node types/colors to DAG data
+dag2$data <- dag2$data %>% 
+  left_join(node_colors2, by = "name")
+
+ggplot(data = dag2) +
+  aes(x = x, y = y, xend = xend, yend = yend)+
+  geom_dag_point(size = 10,
+                 aes(color = Variable,
+                     shape = Adjusted)) +
+  geom_dag_edges(start_cap = circle(4, "mm"),
+                 end_cap = circle(4, "mm")) +
+  geom_dag_text(size = 5) +
+  scale_adjusted() +
+  theme_void() +
+  scale_shape_manual(values = c(17,16)) +
+  theme(legend.position = "none")
+```

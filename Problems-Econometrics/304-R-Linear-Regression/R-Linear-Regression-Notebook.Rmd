@@ -1,0 +1,170 @@
+---
+title: "Introduction to Linear Regression with R"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+  html_document:
+    df_print: paged
+---
+
+```{css my-header-colors, echo = FALSE}
+.page-header {
+    background-image: linear-gradient(120deg, #4863A0, #ADDFFF);
+}
+```
+
+```{r setup,  include=FALSE, eval=TRUE}
+# install.packages("ggplot2")
+# install.packages("dplyr")
+# install.packages("tidyr")
+# install.packages("ggthemes")
+# # install.packages("prettydoc") # to theme knitr
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(ggthemes)
+library(ggrepel)
+options(digits=5)
+```
+
+### Rmarkdown themes
+
+The overall theme of your notebook is controlled by the option `theme` in the `yaml` preamble. Supported themes include `cerulean`,  `cosmo`,  `flatly`,  `journal`,  `lumen`,  `paper`, `readable`, `sandstone`, `simplex`,  `spacelab`, `united`, and `yeti`. 
+
+The highlighting theme is controlled by the option `highlight`, usually placed immediately below the theme. Supported styles include `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, and `textmate`.
+
+See this [gallery](https://www.datadreaming.org/post/r-markdown-theme-gallery/) for examples. For more themes, you can use the extension package [prettydoc](https://cran.r-project.org/web/packages/prettydoc/vignettes/tactile.html). And you can also modify existing styles, or even create your own style from scratch, with `css` modifiers. See immediately below the `yaml` preamble of the source `Rmd` file for a simple example.
+
+
+### Load dataset
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("Growth.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+### Make a scatterplot of average annual growth rate and average trade share:
+```{r,  include=TRUE, eval=TRUE}
+library(ggplot2)
+df$country <- as.factor(df$country_name)
+ggplot(data=df, aes(x=tradeshare, y=growth)) + geom_point()
+```
+
+### Detect the outlier: Print the country name
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_point() +
+    geom_text()
+```
+
+### Detect the outlier: Print the country name + Tweak
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_point(col='blue', size=1) +
+    geom_text(size=3)
+```
+
+### Detect the outlier: Use labels instead of plaint text
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_label(size=2)
+```
+
+### Detect the outlier: Highlight the variable name
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_text(size=2, aes(colour = I(ifelse(country == "Malta", "red", "black")))) 
+```
+
+### Detect the outlier: Avoid overlapping labels
+```{r,  include=TRUE, eval=TRUE}
+library(ggrepel)
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_point(col="darkgreen", size=0.5) +
+    geom_text_repel(aes(label=country), size=2) 
+```
+
+### Detect the outlier: Add a theme!
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth, label=country)) + 
+    geom_point(col="darkgreen", size=1) +
+    geom_text_repel(aes(label=country), colour=I(ifelse(df$country == "Malta", "red", "black")), size=I(ifelse(df$country == "Malta", 4, 2))) +
+    ggtitle("growth vs trade") +
+    theme_wsj()
+```
+
+### Investigate correlation:
+```{r,  include=TRUE, eval=TRUE}
+cor.test(df$growth, df$tradeshare)
+```
+
+### Investigate linear regression:
+```{r,  include=TRUE, eval=TRUE}
+ols <- lm(growth ~ tradeshare, data=df)
+summary(ols)
+```
+
+### Add regression line to the scatterplot:
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth)) + 
+    geom_point(col="darkgreen") +
+    geom_smooth(method = "lm", se=FALSE)
+```
+
+### Add regression line to the scatterplot | confidence interval:
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth)) + 
+    geom_point(col="darkgreen") +
+    geom_smooth(method = "lm", se=TRUE) +
+    theme_bw()
+```
+
+### Regression without the outlier
+```{r,  include=TRUE, eval=TRUE}
+df2 <- subset(df, country != "Malta")
+ggplot(data=df2, aes(x=tradeshare, y=growth)) + 
+    geom_point(col="darkgreen") +
+    geom_smooth(method = "lm", se=FALSE)
+```
+
+### Regression without the outlier
+```{r,  include=TRUE, eval=TRUE}
+ggplot(data=df, aes(x=tradeshare, y=growth)) + 
+    geom_point(col="darkgreen") +
+    geom_smooth(method = "lm", se=FALSE, data=df2) +
+    labs(title = 'OLS is not robust to regression',
+         caption="Regression line with outlier omitted", 
+         x="trade share")
+```
+
+### Predict Malta
+```{r,  include=TRUE, eval=TRUE}
+# get regression coefficients
+ols2 <- lm(growth ~ tradeshare, data=df2)
+b0 <- coef(ols2)[1]
+b1 <- coef(ols2)[2]
+# get Malta trade share
+x_obs <- df[df$country == "Malta", "tradeshare"]
+y_hat <- b0 + b1 * x_obs
+y_hat
+
+# or use the built-in predict:
+predict(ols2, newdata=x_obs)
+```
+
+### Prediction with/without Malta in sample, compared
+```{r,  include=TRUE, eval=TRUE}
+# observed value:
+y_obs <- df[df$country == "Malta", "growth"]
+y_obs
+# predicted value with outlier:
+predict(ols, newdata=x_obs)
+
+# predicted value without outlier:
+predict(ols2, newdata=x_obs)
+```

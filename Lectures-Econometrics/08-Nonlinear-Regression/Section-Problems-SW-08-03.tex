@@ -1,0 +1,19 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=16]
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~8, Exercise~3.}
+After reading this chapter's analysis of test scores and class size, an educator comments, ``In my experience, student performance depends on class size, but not in the way your regressions say. Rather, students do well when class size is less than $20$ students and do very poorly when class size is greater than $25$. There are no gains from reducing class size below $20$ students, the relationship is constant in the intermediate region between $20$ and $25$ students, and there is no loss to increasing class size when it is already greater than $25$.'' The educator is describing a threshold effect, in which performance is constant for class sizes less than $20$, jumps and is constant for class sizes between $20$ and $25$, and then jumps again for class sizes greater than $25$. To model these threshold effects, define the binary variables:
+\begin{align*}
+   \vn{STR}small & = 1 ~\text{if}~ \vn{STR} < 20 ~\text{and}~ \vn{STR}small = 0 ~\text{otherwise};\\
+\vn{STR}moderate & = 1 ~\text{if}~ 20 \leq \vn{STR} \leq 25 ~\text{and}~ \vn{STR}moderate = 0 ~\text{otherwise};\\
+   \vn{STR}large & = 1 ~\text{if}~ \vn{STR} > 25 ~\text{and}~ \vn{STR}large = 0 ~\text{otherwise}.
+\end{align*}\vspace*{-3ex}
+\begin{enumerate}
+\item Consider the regression $\vn{TestScore}_{i}=\beta_{0}+\beta_{1}\vn{STR}small_{i}+\beta_{2}\vn{STR}large_{i}+u_{i}$. Sketch the regression function relating $\vn{TestScore}$ to $\vn{STR}$ for hypothetical values of the regression coefficients that are consistent with the educator's statement.
+\item A researcher tries to estimate the regression $\vn{TestScore}_{i}=\beta_{0}+\beta_{1}\vn{STR}small_{i}+\beta_{2}\vn{STR}moderate_{i}+\beta_{3}\vn{STR}large_{i}+u_{i}$ and finds that the software gives an error message. Why?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

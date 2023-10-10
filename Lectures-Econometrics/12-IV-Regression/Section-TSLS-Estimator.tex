@@ -1,0 +1,27 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sampling Distribution of the TSLS Estimator}
+\emph{Large Sample Distribution} 
+\begin{itemize}
+\item For a single regressor $X$ and a single instrument $Z$, the TSLS estimator has a simple formula.
+\item The TSLS estimator of $\beta_{1}$ is the ratio of the sample covariance between $Z$ and $Y$ to the sample covariance between $Z$ and $X$:
+\begin{align*}
+\hat{\beta}_{1}^{\text{TSLS}} 
+  = \frac{s_{ZY}}{s_{ZX}}
+\end{align*}
+\item In large samples, $\hat{\beta}_{1}^{\text{TSLS}}$ is consistent and normally distributed. 
+\begin{align*}
+\hat{\beta}_{1}^{\text{TSLS}}
+    & \xrightarrow{p} \beta_{1}\\
+\hat{\beta}_{1}^{\text{TSLS}} 
+    & \sim \N(\beta_{1}, \sigma^{2}_{\hat{\beta}_{1}^{\text{TSLS}}})\\
+\sigma^{2}_{\hat{\beta}_{1}^{\text{TSLS}}} 
+    & = \frac{1}{n} \frac{\var[(Z_{i}-\mu_{Z})u_{i}]}{[\cov(Z_{i}, X_{i})]^{2}}
+\end{align*}
+\item Because $\hat{\beta}_{1}^{\text{TSLS}}$ is normally distributed in large samples, hypothesis
+tests about $\beta_{1}$ can be performed by computing the $t$-statistic.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

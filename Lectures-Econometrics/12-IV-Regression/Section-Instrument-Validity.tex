@@ -1,0 +1,25 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Two Conditions for Valid Instruments}
+\emph{The TSLS estimator is consistent and has a normal sampling distribution in large samples IF:}
+\begin{enumerate}
+\item \emph{Instrument Relevance}
+\begin{itemize}
+\item Let $\hat{X}_{1i}$ be the predicted value from the regression of $X_{1i}$ on the instruments ($Z$) and the included exogenous regressors ($W$): 
+\begin{align*}
+\hat{X}_{1i},\ldots,\hat{X}_{ki},W_{1i},\ldots,W_{ri},1 ~\text{are not perfectly multicollinear.}
+\end{align*}
+($1$ is the intercept). 
+\end{itemize}
+\item \emph{Instrument Exogeneity}
+\begin{itemize}
+\item The instruments are uncorrelated with the error term: 
+\begin{align*}
+\cor(Z_{1i},u_{i}) = \ldots = \cor(Z_{mi},u_{i}) = 0.
+\end{align*}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

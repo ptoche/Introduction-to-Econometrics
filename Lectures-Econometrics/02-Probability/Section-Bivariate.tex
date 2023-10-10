@@ -1,0 +1,63 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bivariate Distributions: Discrete Case}
+\begin{itemize}
+\item \emph{Discrete Bivariate Distribution:}
+\begin{itemize}
+\item \emph{Joint pmf:}
+\begin{align*}
+f_{X,Y}(x,y) = \Pr(X=x, Y=y)
+\end{align*}
+\item \emph{Marginal pmf:}
+\begin{align*}
+f_X(x) = \Pr(X=x) = \sum_{y\in\mathcal{Y}} \Pr(X=x,Y=y)
+\end{align*}
+\item \emph{Conditional pmf:}
+\begin{align*}
+f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+\end{align*}
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bivariate Distributions: Continuous Case}
+\begin{itemize}
+\item \emph{Continuous Bivariate Distribution:}
+\begin{itemize}
+\item \emph{Joint cdf:}
+\begin{align*}
+F_{X,Y}(x,y) 
+  = \Pr(X \leq x, Y \leq y) 
+  = \int_{-\infty}^x \int_{-\infty}^y f_{X,Y}(u,t)\,du\,dt
+\end{align*}
+\item \emph{Joint pdf:}
+\begin{align*}
+f_{X,Y}(x,y) 
+  = \frac{\partial^2 F_{X,Y}}{\partial x \,\partial y}(x,y)
+\end{align*}
+\item \emph{Marginal cdf:}
+\begin{align*}
+F_X(x) = \Pr(X \leq x) = F_{X,Y}(x,\infty)
+\end{align*}
+\item \emph{Marginal pdf:}
+\begin{align*}
+f_X(x) 
+  = \frac{d F_X}{dx}(x) 
+  = \int_{-\infty}^\infty f_{X,Y}(x,y)\,dy
+\end{align*}
+\item \emph{Conditional pdf:}
+\begin{align*}
+f_{X|Y}(x|y) = \frac{f_{X,Y}(x,y)}{f_Y(y)}
+\end{align*}
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+

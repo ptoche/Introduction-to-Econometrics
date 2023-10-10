@@ -1,0 +1,86 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Confidence Intervals]{Confidence Intervals: Earnings}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=1\textheight,keepaspectratio]%
+{StockWatson4e-07-tbl-E5}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~7, Exercise~3.}
+Using the regression results in column (2):
+\begin{enumerate}
+\item Is age an important determinant of earnings? Use an appropriate statistical test and/or confidence interval to explain your answer.
+\item Sally is a $29$-year-old female college graduate. Betsy is a $34$-year-old female college graduate. Construct a $95\%$ confidence interval for the expected difference between their earnings.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+Using the regression results in column (2):
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Is age an important determinant of earnings? Use an appropriate statistical test and/or confidence interval to explain your answer.
+
+\begin{answer}
+The $t$-statistic is $0.61/0.05=12.2>1.96$, so the coefficient on $Age$ is statistically significant at the $5\%$ level. Age is therefore an important determinant of earnings. A $95\%$ confidence interval for the population coefficient on $Age$ is:
+\begin{align*}
+[0.61 \pm 1.96 \times 0.05] = [0.512, 0.708]
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+Using the regression results in column (2):
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Sally is a $29$-year-old female college graduate. Betsy is a $34$-year-old female college graduate. Construct a $95\%$ confidence interval for the expected difference between their earnings.
+
+\begin{answer}
+The age difference is $\Delta Age = 34-29 = 5$ years, and so the expected difference between mean earnings for an age difference of $5$ years is:
+\begin{align*}
+\Delta Age \times [0.61 \pm 1.96 \times 0.05]
+& = 5 \times [0.512, 0.708] \\
+& = [2.56, 3.54]
+\end{align*}
+% 0.61 - 1.96 * 0.05
+%  0.512
+% 0.61 + 1.96 * 0.05
+% 0.708
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

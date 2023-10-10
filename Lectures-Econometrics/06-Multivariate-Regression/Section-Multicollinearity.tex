@@ -1,0 +1,41 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Multicollinearity}
+\emph{The dummy variable trap:}
+\begin{itemize} 
+\item Consider binary variables that represent exhaustive and mutually exclusive states, e.g. true/false; black/white; male/female; spring/summer/fall/winter; If there is an intercept in the regression, $\beta_{0}\neq 0$, and if all binary variables are included as regressors, the regression will fail because of perfect multicollinearity.
+\item The usual way to avoid the dummy variable trap is to exclude one of the binary variables from the multiple regression, to eliminate the redundancy. 
+\item Another way is to omit the intercept, that is estimate the coefficients $\beta_{1},\ldots,\beta_{k}$ in the linear population regression without an intercept $\beta_{0}$:
+\begin{align*}
+\exp[Y_{i}|X_{1i}=x_{1}, X_{2i}=x_{2}] 
+    = \beta_{1} x_{1} + \beta_{2} x_{2}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Multicollinearity}
+\emph{Imperfect multicollinearity:}
+\begin{itemize}
+\item Two or more of the regressors are highly correlated with each other.
+\item If the regressors are imperfectly multicollinear, then the coefficients on at least one individual regressor will be imprecisely estimated --- they have a large sample variance.
+\item Let there be only two regressors and let the errors be homoskedastic. In this special case, the variance of the distribution reduces to:
+\begin{align*}
+\sigma_{\hat{\beta}_{1}}^{2} 
+    = \frac{1}{n} \left(\frac{1}{1-\rho_{X_{1}X_{2}}^{2}}\right) \frac{\sigma_{u}^{2}}{\sigma_{X_{1}}^{2}}
+\end{align*}
+where $\rho_{X_{1}X_{2}}$ is the population correlation coefficient between the two regressors $X_{1}$ and $X_{2}$, and $\sigma_{X_{1}}^{2}$ is the population variance of $X_{1}$.
+\item If $X_{1}$ and $X_{2}$ are highly correlated, then $\rho_{X_{1}X_{2}}^{2}\approx1$, so the term in the denominator is small and the variance of $\hat{\beta}_{1}$ is larger than it would be if $\rho_{X_{1}X_{2}}\approx0$.
+\item Another feature is that $\hat{\beta}_{1}$ and $\hat{\beta}_{2}$ are, in general, correlated. With homoskedastic errors, the correlation may be computed as:
+\begin{align*}
+\cor(\hat{\beta}_{1}, \hat{\beta}_{2})
+    = -\rho_{X_{1}X_{2}}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,67 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=5]
+\frametitle{Standard Error of the Regression}
+\emph{Standard Error of the Regression:}
+\begin{itemize}
+\item A measure of the spread of the distribution of $Y$ around the regression line. The standard error of the regression ($\vn{SER}$) is the square-root of the mean squared residuals with an adjustment for degrees of freedom: 
+\begin{align*}
+SSR & = \sum_{i=1}^{n} \hat{u}_{i}^{2}\\[1ex]
+\vn{SER} & = \sqrt{\frac{SSR}{n-k-1}}
+\end{align*}
+where $SSR$ stands for the sum of the squared residuals.
+\item $n-k-1$ adjusts for the downward bias introduced from estimating $k+1$ coefficients.
+\item A related measure is the root mean squared error (RMSE) --- the square-root of the mean squared error (MSE), with no adjustment for degrees of freedom: 
+\begin{align*}
+ MSE & = \frac{SSR}{n}\\
+RMSE & = \sqrt{MSE}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Coefficient of Determination $R^{2}$}
+\emph{Coefficient of Determination}
+\begin{itemize}
+\item The regression $R^{2}$ is the fraction of the sample variance of $Y_{i}$ explained by the regressors. 
+\item Equivalently, $R^{2}$ is $1$ minus the fraction of the variance of $Y_{i}$ not explained by the regressors.
+\begin{align*}
+R^{2} = \frac{ESS}{TSS}
+    = 1-\frac{SSR}{TSS}
+\end{align*}
+where 
+\begin{align*}
+TSS & = \sum_{i=1}^{n}\left(Y_{i}-\hat{Y}_{i}\right)^{2}\\
+ESS & = \sum_{i=1}^{n}\left(\hat{Y}_{i}-\mean{Y}\right)^{2}\\
+SSR & = \sum_{i=1}^{n}\left(Y_{i}-\mean{Y}\right)^{2}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Adjusted $R^{2}$}
+\emph{Adjusted $R^{2}$:} 
+\begin{align*}
+\bar{R}^{2} 
+    & = 1-\frac{n-1}{n-1-k}\,\frac{SSR}{TSS}\\[1ex]
+    & = 1-\dfrac{s_{\hat{u}}^{2}}{s_{Y}^{2}}
+\end{align*}
+\begin{itemize}
+\item Because the $R^{2}$ increases when a new variable is added, an increase in the $R^{2}$ does not mean that adding a variable actually improves the fit of the model --- $R^{2}$ gives an inflated estimate of how well the regression fits the data. The adjusted $R^{2}$, denoted $\bar{R}^{2}$, corrects that. 
+\item Adding a regressor has two opposite effects on the $R^{2}$: 
+\begin{itemize}
+\item the $SSR$ falls.
+\item $(n-1)/(n-1-k)$ rises.
+\end{itemize}
+\item By construction, $\bar{R}^{2} \leq R^{2}$.
+\item A negative $\bar{R}^{2}$ is theoretically possible. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

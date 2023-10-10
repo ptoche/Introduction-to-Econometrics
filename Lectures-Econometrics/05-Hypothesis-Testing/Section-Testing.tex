@@ -1,0 +1,228 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Recall: Hypothesis Test About Sample Mean}
+\begin{itemize}
+\item \emph{Two-Sided Test About $\mu$}
+\begin{align*}
+H_{0} \colon \exp[Y] & = \mu_{0}\\
+H_{1} \colon \exp[Y] & \ne \mu_{0}
+\end{align*}
+\item \emph{Step 1:}
+Compute $\SE(\mean{Y})$
+\item \emph{Step 2:} 
+Compute $t$-statistic
+\begin{align*}
+t_{0} = \frac{\mean{Y}-\mu_{0}}{\SE(\mean{Y})}
+\end{align*}
+\item \emph{Step 3 | $\alpha$ Variant:} 
+Set significance level $\alpha$ and compute the critical $t$ value for that level:
+\begin{align*}
+|t_{0}| > t_{\alpha/2}
+\implies 
+\text{Reject $H_{0}$}
+\end{align*}
+\item \emph{Step 3 | $p$ Variant:} 
+Compute $p$-value for a two-sided test
+\begin{align*}
+\text{$p$-value} = 2 \Phi(-|t_{0}|)
+\to \text{small}
+\implies 
+\text{Reject $H_{0}$}
+\end{align*}
+The challenge is deciding whether values like $p\text{-value} \approx 5\%$ are ``small'' for your purpose.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=10]
+\frametitle{Testing Hypotheses About Regression Coefficients}
+\begin{itemize}
+\item \emph{Two-Sided Test About $\beta_{1}$}
+\begin{align*}
+H_{0} \colon \beta_{1} & = \beta_{1,0}\\
+H_{1} \colon \beta_{1} & \ne \beta_{1,0}
+\end{align*}
+\item \emph{Step 1:}
+Compute the standard error 
+\begin{emphalign*}
+\SE(\hat{\beta}_{1})
+\end{emphalign*}
+\item \emph{Step 2:} 
+Compute the $t$-statistic
+\begin{emphalign*}
+t_{0} = \frac{\hat{\beta}_{1}-\beta_{1,0}}{\SE(\hat{\beta}_{1})}
+\end{emphalign*}
+\item \emph{Step 3:} 
+Compute the $p$-value
+\begin{emphalign*}
+\text{$p$-value} = 2 \Phi(-|t_{0}|)
+\to \text{Is $p$-value small?}
+\end{emphalign*}
+$p$-value: Probability of sampling a value $\hat{\beta}_{1}$ at least as far from $\beta_{1,0}$ as our sample $\hat{\beta}_{1}$ actually is.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Regression Equations Reporting}
+\begin{itemize}
+\item Regression results report the standard errors associated with each coefficient estimate. They are usually reported  in parentheses below each coefficient.
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = \muse{698.9}{10.4} - \muse{2.28}{0.52} \times \vn{STR},
+  \quad R^2 = 0.051,
+  \quad \vn{SER} = 18.6
+\end{align*}
+The above report is equivalent to:
+\begin{align*}
+\verywidehat{\vn{TestScore}} & = \beta_{0} + \beta_{1} \times \vn{STR}\\
+\hat{\beta}_{0} & = 698.9\\
+\SE(\hat{\beta}_{0}) & = 10.4\\
+\hat{\beta}_{1} & = -2.28\\
+\SE(\hat{\beta}_{1}) & = 0.52
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Testing Hypotheses}
+\begin{itemize}
+\item A very common desire is to test the significance of the regression coefficients:
+\begin{align*}
+H_{0} \colon \beta_{1} & = 0\\
+H_{1} \colon \beta_{1} & \ne 0
+\end{align*}
+\item \emph{Step 1:} Read the standard error from the regression output.
+\item \emph{Step 2:} Compute the $t$-statistic under the null:
+\begin{align*}
+t_{0} 
+  = \frac{-2.28}{0.52}
+  = -4.38
+\end{align*}
+\item \emph{Step 3 | $\alpha$ Variant:} 
+Let $\alpha=0.05$ --- a good criterion for the social sciences, not so much for medical research! Compute the critical value or read it from a probability table. Since the sample size is large, we can approximate the Student-$t$ distribution with the standard normal distribution:
+\begin{align*}
+t_{\alpha/2} \approx 1.96
+\end{align*}
+\item Because $|t_{0} > t_{\alpha/2}|$, we reject the null hypothesis in favor of the two-sided alternative at the $\alpha=5\%$ significance level.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile,shrink=10]% lstlisting requires the fragile option
+\frametitle{Critical Values: Standard Normal Distribution\flushbold{R code}}
+\begin{itemize}
+\item Compute the critical $z$-value for a two-sided test:
+\begin{Rcode}
+alpha = 0.05
+qnorm(1-alpha/2)
+## 1.959964
+\end{Rcode}
+\item Compute the critical $z$-value for a one-sided test:
+\begin{Rcode}
+alpha = 0.05
+qnorm(1-alpha)
+## 1.644854
+\end{Rcode}
+\item What do these compute?
+\begin{Rcode}
+qnorm(0.05)
+## -1.644854
+
+qnorm(0.05/2)
+## -1.959964
+\end{Rcode}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile,shrink=10]% lstlisting requires the fragile option
+\frametitle{Critical Values: Student-$t$ Distribution\flushbold{R code}}
+\begin{itemize}
+\item Compute the critical $t$-value for a two-sided test, with $10$ degrees of freedom:
+\begin{Rcode}
+alpha = 0.05
+qt(1-alpha/2, df=10)
+## 2.228139
+\end{Rcode}
+\item Compute the critical $t$-value for a one-sided test, with $10$ degrees of freedom:
+\begin{Rcode}
+alpha = 0.05
+qt(1-alpha, df=10)
+## 1.812461
+\end{Rcode}
+\item Note how the critical $t$-value is larger than the critical $z$-value.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile,shrink=10]% lstlisting requires the fragile option
+\frametitle{$p$-Values: Standard Normal Distribution\flushbold{R code}}
+\begin{itemize}
+\item Compute the $p$-value for a two-sided test:
+\begin{Rcode}
+2 * pnorm(-4.38)
+## 1.186793e-05
+\end{Rcode}
+\item Compute the $p$-value for a one-sided test:
+\begin{Rcode}
+pnorm(-4.38)
+## 5.933965e-06
+\end{Rcode}
+\item A $p$-value smaller than (say) $0.05$ suggests that if the null hypothesis is true, then our sample estimate is at least two standard deviations away from the hypothesized mean. 
+\item A $p$-value smaller than (say) $0.05$ provides evidence against the null hypothesis.
+\item A $p$-value smaller than (say) $0.0001$ provides even stronger evidence against the null hypothesis. 
+\item Beware: This inference is valid if the estimated model satisfies all the conditions needed for inference. If one of these assumptions is violated, the $p$-value may no longer provide adequate guidance.
+\item Note how the $p$-value for the one-sided test is smaller than for the two-sided test.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile,shrink=10]% lstlisting requires the fragile option
+\frametitle{$p$-Values: Student-$t$ Distribution\flushbold{R code}}
+\begin{itemize}
+\item Compute the $p$-value for a two-sided test, with $10$ degrees of freedom:
+\begin{Rcode}
+2 * pt(-4.38, df=10)
+## 0.0013774
+\end{Rcode}
+\item Compute the $p$-value for a one-sided test, with $10$ degrees of freedom:
+\begin{Rcode}
+pt(-4.38, df=10)
+## 0.0006887001
+\end{Rcode}
+\item Note how the $p$-value for the Student-$t$ distribution is larger than for the standard Normal distribution.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Understand the $p$-Value}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-05-fig-01-Zoom}
+\only<1->{\caption{\textbf{The $p$-value of a two-sided test for $t_{0}=-4.38$ is about $0.00001$.}}}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

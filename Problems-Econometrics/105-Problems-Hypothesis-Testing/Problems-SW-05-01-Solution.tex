@@ -1,0 +1,196 @@
+  % !TEX root = ../../MakeBeamer.tex
+\title[Weight]{Hypothesis Testing \& Confidence Intervals: California Test Scores}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{\begin{align*}
+\verywidehat{TestScore} 
+  = \muse{520.4}{20.4} - \muse{5.82}{2.21} \times CS,
+  \quad R^2 = 0.08,
+  \quad \vn{SER} = 11.5
+\end{align*}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+A researcher, using data on class size (CS) and average test scores from $100$ third-grade classes, estimates the OLS regression:
+\ask
+\begin{enumerate}
+\item Construct a $95\%$ confidence interval for $\beta_1$, the regression slope coefficient.
+\item Calculate the p-value for the two-sided test of the null hypothesis
+$H_0\colon \beta_1 = 0$. Do you reject the null hypothesis at the $5\%$ level? At the $1\%$ level?
+\item Calculate the $p$-value for the two-sided test of the null hypothesis $H_{0}\colon\beta_{1}=-5.6$. Without doing any additional calculations, determine whether $-5.6$ is contained in the $95\%$ confidence interval for $\beta_{1}$.
+\item Construct a $99\%$ confidence interval for $\beta_{0}$.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+\ask
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Construct a $95\%$ confidence interval for $\beta_1$, the regression slope coefficient.
+
+\begin{answer}
+A two-tailed $\alpha\%$ confidence interval for $\beta_{1}$ is:
+\begin{align*}
+\hat{\beta}_{1} & \pm t_{\alpha/2} \cdot \SE(\hat{\beta}_{1}) \\
+       = - 5.82 & \pm t_{\alpha/2} \cdot 2.21
+\end{align*}
+As the sample size is $n=100$, the Student-$t$ distribution with $n-2=98$ degrees of freedom is reasonably well approximated by the standard normal distribution. 
+The critical $t$- or $z$-value may be read from a probability table or computed with, say, the R command \Rinline{qt(1-0.05/2,df=98)} or \Rinline{qnorm(1-0.05/2)}.
+% qt(1-0.05/2,df=98)
+% 1.984467
+% qnorm(1-0.05/2)
+% 1.959964
+
+A two-tailed $95\%$ confidence interval for $\beta_{1}$ is:
+\begin{align*}
+-10.15 & < \beta_{1} < -1.49
+:\quad\text{based on the standard normal distribution $z_{0.05/2}\approx1.96$}\\
+% -5.82 - qnorm(1-0.05/2) * 2.21
+% -10.15152
+% -5.82 + qnorm(1-0.05/2) * 2.21
+% -1.48848
+-10.20 & < \beta_{1} < -1.44
+:\quad\text{based on the Student-$t$ distribution $t_{0.05/2}(98)\approx1.98$}
+% -5.82 - qt(1-0.05/2,df=98) * 2.21
+% -10.20567
+% -5.82 + qt(1-0.05/2,df=98) * 2.21
+% -1.434327
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+\ask
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Calculate the p-value for the two-sided test of the null hypothesis
+$H_0\colon \beta_1 = 0$. Do you reject the null hypothesis at the $5\%$ level? At the $1\%$ level?
+
+\begin{answer}
+The test statistic associated with $H_{0}$ is:
+\begin{align*}
+t_{0} 
+    = \frac{\hat{\beta}_{1}-\beta_{1,0}}{\SE(\hat{\beta}_{1})}
+    = \frac{-5.82-0}{2.21}
+    \approx -2.63
+% -5.82/2.21
+% -2.633484
+\end{align*} 
+The two-sided $p$-value is therefore:
+\begin{align*}
+p\text{-value} 
+    = 2 \Phi(t_{0})
+    \approx 0.0085
+% 2 * pnorm(-5.82/2.21)
+% 0.008451378
+\end{align*} 
+The $p$-value may be computed with \Rinline{2*pnorm(-2.63)}.
+
+Since the $p$-value is smaller than one percent, we reject the null hypothesis at the $5\%$ significance level and at the $1\%$ level.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Calculate the $p$-value for the two-sided test of the null hypothesis $H_{0}\colon\beta_{1}=-5.6$. Without doing any additional calculations, determine whether $-5.6$ is contained in the $95\%$ confidence interval for $\beta_{1}$.
+
+\begin{answer}
+The test statistic associated with $H_{0}$ is:
+\begin{align*}
+t_{0} 
+    = \frac{\hat{\beta}_{1}-\beta_{1,0}}{\SE(\hat{\beta}_{1})}
+    = \frac{-5.82+5.6}{2.21}
+    \approx -0.10
+% (-5.82+5.6)/2.21
+% -0.09954751
+\end{align*} 
+The two-sided $p$-value is therefore:
+\begin{align*}
+p\text{-value} 
+    = 2 \Phi(t_{0})
+    \approx 0.92 
+% 2*pnorm(-0.09954751)
+% 0.9207036
+\end{align*} 
+The $p$-value may be computed with \Rinline{2*pnorm(-0.10)}.
+The $p$-value is large and we cannot reject the null hypothesis at the usual significance levels. Since we cannot reject the null at the $5\%$ significance level, $-5.6$ is contained in the $95\%$ confidence interval for $\beta_{1}$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item Construct a $99\%$ confidence interval for $\beta_{0}$.
+
+\begin{answer}
+A two-tailed $\alpha\%$ confidence interval for $\beta_{0}$ is: 
+\begin{align*}
+\hat{\beta}_{0} & \pm t_{\alpha/2} \cdot \SE(\hat{\beta}_{0}) \\
+        = 520.4 & \pm t_{\alpha/2} \cdot 20.4 
+\end{align*}
+As the sample size is $n=100$, the Student-$t$ distribution with $n-2=98$ degrees of freedom is reasonably well approximated by the standard normal distribution. 
+The critical $t$-value, $t_{\alpha/2}\approx2.5758$, may be read from a probability table or computed with the R command \Rinline{qt(1-0.01/2,df=98)} or \Rinline{qnorm(1-0.01/2)}.
+% qnorm(1-0.01/2)
+% 2.575829
+% qt(1-0.01/2,df=98)
+% 2.626931
+
+A two-tailed $99\%$ confidence interval for $\beta_{0}$ is:
+\begin{align*}
+467.85 & < \beta_{0} < 572.95
+:\quad\text{based on the standard normal distribution $z_{0.01/2}\approx2.58$}\\
+% 520.4 - qnorm(1-0.01/2) * 20.4
+% 467.8531
+% 520.4 + qnorm(1-0.01/2) * 20.4
+% 572.9469
+466.81 & < \beta_{0} < 573.99
+:\quad\text{based on the Student-$t$ distribution $t_{0.01/2}(98)\approx2.63$}
+% 520.4 - qt(1-0.01/2,df=98) * 20.4
+% 466.8106
+% 520.4 + qt(1-0.01/2,df=98) * 20.4
+% 573.9894
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

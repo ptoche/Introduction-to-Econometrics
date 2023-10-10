@@ -1,0 +1,74 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Prediction Procedure}
+\begin{itemize}
+\item Do the many-predictor methods improve upon test score predictions made using OLS with a small data set and, if so, how do the many-predictor methods compare?
+\item Predict school test scores using small ($k = 4$), large ($k = 817$), and very large ($k = 2065$) data sets, using OLS, Ridge, Lasso, and PC. 
+\item We reserve half the observations for assessing the performance of the estimated models. Using the 1966 observations in the estimation sample, we estimate the shrinkage parameter by $10$-fold cross validation. Using this estimated shrinkage parameter, the regression coefficients are re-estimated using all 1966 observations in the estimation sample. Those estimated coefficients are then used to predict the out-of-sample values for all the observations in the reserved test sample.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Prediction Procedure}
+\emph{Standout Features:}
+\begin{enumerate}
+\item The MSPE of OLS is much less using the small data set than using the large data set.
+\item There are substantial gains from increasing the number of predictors from $4$ to $817$, with the square root of the MSPE falling by roughly one-fourth, but not much beyond that.
+\item The in-sample estimates of MSPE (the $10$-fold cross-validation estimates) are similar to the out-of-sample estimates. This is mainly because the coefficients used for the out-of-sample estimate of the MSPE are estimated using all 1966 observations in the estimation sample. 
+\item The MSPE in the reserved test sample is generally similar for all the many-predictor methods. The lowest out-of- sample MSPE is obtained using Ridge in the large data set.
+\item For the large data set, the many-predictor methods succeed where OLS fails: The many-predictor methods allow the coefficient estimates to be biased in a way that reduces their variance by enough to compensate for the increased bias.
+\end{enumerate} 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Three Sets of Predictors, School Test Score Data Set}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-14-tbl-02-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Out-of-Sample Performance of Predictive Models for School Test Scores}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-14-tbl-03-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Coefficients on Selected Standardized Regressors}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-14-tbl-04-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Scatterplots for Out-of-Sample Predictions}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.85\textheight,keepaspectratio]%
+{StockWatson4e-14-fig-08-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,449 @@
+---
+title: "Getting Started with R"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+fontsize: 11pt
+output:
+  beamer_presentation:
+    latex_engine: xelatex
+    theme: default
+    fonttheme: professionalfonts
+    slide_level: 2
+    includes:
+        in_header: ../beamer-header.tex
+    keep_tex: yes
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+classoption: svgnames, handout, t
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, comment=NA, concordance=TRUE, cache=TRUE)
+knitr::opts_chunk$set(dev=c('pdf','png'), fig.align='center', fig.height=c(4.5, 5), fig.width=c(8, 8), dpi=600, pdf.options(encoding="ISOLatin9.enc")) 
+knitr::opts_chunk$set(collapse=TRUE, comment="#>")
+options(pillar.bold=TRUE, pillar.subtle_num=TRUE)
+options(digits=3)
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk=function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\n \\", "footnotesize","\n\n", x, "\n\n \\normalsize")
+})
+library(knitr)
+library(readxl)
+library(scales)
+library(dplyr)
+library(tidyverse)
+```
+
+
+
+## Contents
+1. Know your data types and data containers
+2. Convert strings and factors to numeric values
+3. Select/Create data inside a dataframe
+4. Import/Export data
+5. Quick sums
+6. Split/Apply
+7. Create functions
+
+
+
+## Introduction
+This document is work in progress. It will be updated as we proceed through the course, in response to questions that arise for particular tasks. It is designed to be permanently incomplete and permanently revised. Also, please use with care: Always back up your data!
+
+
+
+## Know your data types
+We are going to be dealing with the following data types: numbers, strings, booleans, factors, and containers filled with these, including: vectors/lists, named lists, matrices, dataframes, tibbles.
+
+Start a new session, type the letter a into the console: you get an error!
+```{r, include=TRUE, echo=TRUE, eval=FALSE, message=TRUE}
+a
+```
+
+Now type the letter c into the console: you get something!
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+c
+```
+
+That's because in ``R`` the letter ``c`` is the name of a function ``c()``. That's unfortunate, but ``R`` was designed in the 1970s when very few people had a need of symbols beyond ``a`` and ``b``. Lol.
+
+
+
+## Know your data types
+Other than ``c()``, other names that are used by ``R``, and are therefore best avoided as names for other objects, include ``df`` and ``data``. But because they are names of functions, these names are actually still available for other objects. For instance,
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# define c
+c = 0
+
+# check the value of c
+c
+
+# but c() is still available
+c(0,1)
+```
+It's not too smart, but we do it all the time. Better people use ``C`` or ``DF``, because ``R`` is case sensitive and the upper-case symbols are available. 
+
+
+
+## Know your data types
+The following is definitely stupid:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# define c
+c = function(x) NULL
+
+# check c(0,1)
+c()
+
+# remove this before it ruins our life
+rm(c)
+```
+
+
+
+## Know your data types
+So let's investigate some data types:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# floating-point number aka num
+a1 = 0
+str(a1)
+
+# string aka character chr
+a2 = "0"
+str(a2)
+
+# boolean aka logical
+a3 = TRUE
+str(a3)
+```
+In ``R`` booleans are called ``logical`` vectors. 
+
+
+
+## Know your data types
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# integer aka int
+a4 = 0L
+str(a4)
+
+# factor
+a5 = factor(0, level=1)
+str(a5)
+
+# vector of factors
+a6 = factor(c(0,1), levels=c(1,2))
+str(a6)
+```
+
+
+
+## Know your data containers
+We will be dealing mostly with 'vectors' and 'dataframes' In ``R`` lists are vectors. A vector is the most fundamental data container in ``R``. Even a single object is under the hood a vector with a single value. 
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# a vector/list of numbers:
+l1 = c(0, 1)
+str(l1)
+
+# a vector/list of integers:
+l2 = c(0, 1L)
+str(l2)
+
+# a vector/list of booleans:
+l3 = c(FALSE, TRUE)
+str(l3)
+```
+
+
+
+## Know your data containers
+In ``R`` named lists have a purpose similar to 'dictionaries' in ``Python``.
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# a named list:
+l4 = c("name1" = 1, "name2" = TRUE)
+str(l4)
+```
+
+Every object stored in a named list has a name and a value:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# get the name and value with []
+l4["name1"]
+
+# get the value with [[]]
+l4[["name1"]]
+```
+
+
+
+## Know your data containers
+The easiest way to create a dataframe is from several vectors.
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+# define band member, the date they joined/quit the band, and their net worth
+# data from a quick web search - not meant to be accurate!
+member <- c('Brian', 'Mick', 'Keith', 'Stewart', 'Bill', 'Charlie', 'Ronnie')
+start <- as.Date(c('1962-07-12', '1962-07-12','1962-07-12','1962-07-12',
+                   '1962-12-07','1963-02-02','1976-04-23'))
+today <- as.character(Sys.Date())
+end <- as.Date(c('1969-06-09', today, today, 
+                 '1963-05-01', '1992-12-01', '2021-08-24', today))
+worth <- c(10, 500, 500, 1, 80, 250, 200)
+df <- rolling.stones <- data.frame(member, start, end, worth)
+str(rolling.stones)
+
+# add information about the units:
+rolling.stones$currency <- "$"  # R is clever that way
+```
+
+
+
+## Know your data containers
+We can output the core structure of a dataframe with the ``dput()`` function.
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+dput(df)
+```
+This is useful to share the dataframe without creating a ``csv`` file or similar. It is the best way to share toy data on websites like [stackoverflow](https://stackoverflow.com/).
+
+You can convert the dataframe to a ``tibble`` using the ``as_tibble()`` function:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+dput(as_tibble(df))
+```
+which shows that the ``tibble`` does not contain more information than the ``dataframe``.
+
+
+
+## Convert strings and factors to numeric values
+Conversion across types must be done with care, obviously. 
+
+Functions such as ``as.numeric()``, ``as.character()`` are 'vectorized', which means they can be applied to a vector/list and also to a single column in a dataframe.
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# convert a number ot a string:
+as.character(0)
+
+# convert a string to a number:
+as.numeric("0")
+
+# convert a string to an integer:
+as.integer("0")
+as.integer("0.5")
+
+# convert a vector of booleans:
+as.numeric(c(TRUE, FALSE))
+```
+
+
+
+## Convert strings and factors to numeric values
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# convert a factor to number:
+f = factor(c(0,1), levels=c(1,2))
+as.character(f)
+as.numeric(as.character(f))
+
+# convert a column of a dataframe and reassign back to dataframe
+df$worth <- as.integer(df$worth)
+str(df)
+```
+
+
+
+## Select data inside a dataframe
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# get a column
+df$member
+
+# get one row
+df[2,]
+
+# get several rows
+df[2:3,]
+
+# get a row by criterion
+df[df$worth >= 300,]
+```
+
+
+
+## Add data to a dataframe
+We can create categorical variables as follows:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+df$poor <- df$worth < 100
+df$middle <- df$worth >= 100 & df$worth < 300
+df$rich <- df$worth >= 300
+```
+
+We can create a duration variable as follows:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+df$duration <- round(100*as.integer((df$end-df$start))/as.integer(max(df$end-df$start)))
+```
+This calculates the interval between the start and end dates, calculates the maximum time interval in the datasets, and for each interval calculates the percentage it represents. 
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+df
+```
+
+
+
+## Use data in a dataframe
+The correlation between net worth and the duration variable is positive, as expected:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+cor(df$duration, df$worth)
+```
+
+And significant:
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+cor.test(df$duration, df$worth)
+```
+
+
+
+## Import data
+The most common data format is ``csv`` --- comma separated values. 
+
+The most commonly needed options are ``stringsAsFactors=FALSE`` to prevent ``R`` from converting strings to factors and the option to use or discard header information, with ``header=FALSE`` or ``header=TRUE``:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+# basic import:
+d <- read.csv("Age_HourlyEarnings.csv", stringsAsFactors=FALSE)
+
+# import with more control:
+d <- read.csv("Age_HourlyEarnings.csv", stringsAsFactors=FALSE, 
+              skip=1, na.strings="NA", header=TRUE, strip.white=TRUE)
+```
+
+There are many ways to import excel data. One option is to use the ``read_xlsx()`` function from the ``readxl`` package.
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library(readxl)
+d <- read_xlsx("Age_HourlyEarnings.xlsx", col_names=TRUE, skip=1, trim_ws=TRUE)
+```
+
+
+
+## Export data
+To save a dataframe as a ``csv`` file:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+write.csv(df, file = "filename.csv", row.names=FALSE)
+```
+where you typically do not want to save the row names.
+
+To save a dataframe as a ``xlsx`` file, among many options, you can use the ``write_xlsx()`` function from the ``writexl`` package:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library(writexl)
+write_xlsx(df, file = "filename.csv", row.names=FALSE)
+```
+
+You can also save the data in the native ``RData`` format. This format will preserve information about data types, information that will otherwise be lost with the ``csv`` and ``xlsx`` formats. The only downside of the ``RData`` format is that it cannot be imported by spreadsheets and may not be easily read by other software, whereas the ``csv`` format is universal and the ``xlsx`` format nearly universal. 
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+save(df, file = "filename.RData")
+```
+
+
+
+## Export data
+It is possible to import data from other formats, including ``Stata``, ``SPSS``, ``SAS``. One option, among several, comes from the ``Hmisc`` and ``foreign`` packages. Examples:
+```{r, include=TRUE, echo=TRUE, eval=FALSE}
+library(foreign)
+df.stata <- read.dta("stata-format.dta")
+
+library(Hmisc)
+df.spss <- spss.get("spss-format.por", use.value.labels=TRUE)
+
+library(Hmisc)
+df.sas <- sasxport.get("sas-format.xpt")
+```
+
+
+
+## Quick sums
+``R`` knows how to sum the elements of a vector:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+x = c(1,2,3,4,5)
+sum(x)
+
+x = c(TRUE, TRUE)
+sum(x)
+```
+
+Other operations are possible in the same way:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+x = c(TRUE, FALSE)
+mean(x)
+```
+
+To sum across the columns or rows of a dataframe or matrix, the ``colSums()`` and ``rowSums()`` are optimized for speed. Similar are ``colMeans()`` and ``rowMeans()``.
+```{r, include=TRUE, echo=TRUE, eval=TRUE}
+m = matrix(1:9, nrow = 3)
+colSums(m)
+rowMeans(m)
+```
+
+
+
+## Split/Apply
+To apply a particular calculation to a subset of the data, the ``split()`` function is convenient.  
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+# split the data: poor vs the rest
+split(df, df$poor)
+
+# apply a calculation: compute the mean for each group
+sapply(split(df$worth, df$poor), mean)
+```
+
+
+
+## Functions
+It is often convenient to create convenience functions. Ah yes. 
+
+A population standard deviation does not exist in base ``R``. For quick check, ``?sd``: The Help page for ``sd`` states "Like `var` this uses denominator n-1."
+
+Let's roll our own:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+std <- function(x) sqrt(sum((x-mean(x))^2)/length(x))
+std(df$worth)
+```
+Note that we divide by `length(x)` and not ``length(x)-1``
+
+Functions that stretch over several lines use an opening and closing curly brace:
+```{r, include=TRUE, echo=TRUE, eval=TRUE, message=TRUE}
+weighted.std <- function(x,w) {
+    sqrt(sum(w*(x-weighted.mean(x,w))^2)/sum(w))
+}
+std(df$worth)
+```
+
+
+## Dataframe V. List
+There is a subtle difference between the two lines of code below. 
+```{r,  include=TRUE, eval=TRUE}
+library(tibble)
+d <- as_tibble(df)
+d[d$poor, "member"]
+d[d$poor,]$member
+```
+
+They yield the same result here. Execute code snippets to see how `R` works:
+So what is the difference? Try `str()` on the resulting object to see.
+```{r,  include=TRUE, eval=TRUE}
+# the tibble
+str(d[d$poor, "member"])
+str(d[d$poor,]$member)
+# the dataframe
+str(df[df$poor, "member"])
+str(df[df$poor,]$member)
+```
+
+Beware of tibbles, sometimes. See the difference?
+```{r,  include=TRUE, eval=TRUE}
+# sum
+sum(d[d$poor, "worth"])
+sum(d[d$poor,]$worth)
+# mean
+mean(d[d$poor, "worth"])
+mean(d[d$poor,]$worth)
+```
+
+
+
+
+## END OF DOCUMENT
+This document ends here. Please check back later for updates.
+
+

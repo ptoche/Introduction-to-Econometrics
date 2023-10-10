@@ -1,0 +1,159 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Weight]{Linear Regression: Weight \& Height}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{\begin{align*}
+\verywidehat{\vn{Weight}} 
+  = -99.41 + 3.94 \times \vn{Height},
+  \quad R^2 = 0.81,
+  \quad \vn{SER} = 10.2
+\end{align*}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~4, Exercise~2.}
+Suppose a random sample of $200$ $20$-year-old men is selected from a population and their heights and weights are recorded. A regression of weight on height yields
+\ask
+where $\vn{Weight}$ is measured in pounds and $\vn{Height}$ is measured in inches. 
+\begin{enumerate}
+\item What is the regression's weight prediction for someone who is $70$ in. tall? $65$ in. tall? $74$ in. tall?
+\item A man has a late growth spurt and grows $1.5$ in. over the course of a year. What is the regression's prediction for the increase in this man's weight?
+\item Suppose that instead of measuring weight and height in pounds and inches, these variables are measured in centimeters and kilograms. What are the regression estimates from this new kilogram–centimeter regression? (Give all results, estimated coefficients, $R^{2}$, and $\vn{SER}$.)
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Weight \& Height}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item What is the regression's weight prediction for someone who is $70$ in. tall? $65$ in. tall? $74$ in. tall?
+
+\begin{answer}
+\begin{align*}
+\verywidehat{\vn{Weight}}_{|\vn{Height}=70}
+    & = -99.41 + 3.94 \times 70 
+      = 176.39 ~\text{pounds}\\
+\verywidehat{\vn{Weight}}_{|\vn{Height}=65}
+    & = -99.41 + 3.94 \times 65 
+      = 156.69 ~\text{pounds}\\
+\verywidehat{\vn{Weight}}_{|\vn{Height}=74}
+    & = -99.41 + 3.94 \times 74 
+      = 192.15 ~\text{pounds}
+% -99.41 + 3.94 * 70 
+% 176.39
+% -99.41 + 3.94 * 65
+% 156.69
+% -99.41 + 3.94 * 74 
+% 192.15
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Weight \& Height}
+\ask
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item A man has a late growth spurt and grows $1.5$ in. over the course of a year. What is the regression's prediction for the increase in this man's weight?
+
+\begin{answer}
+\begin{align*}
+\verywidehat{\vn{Weight}}_{|\Delta \vn{Height}=1.5}
+    & = 3.94 \times 1.5
+      = 5.91 ~\text{pounds}
+% 3.94 * 1.5
+% 5.91
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Weight \& Height}
+\ask 
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Suppose that instead of measuring weight and height in pounds and inches, these variables are measured in centimeters and kilograms. What are the regression estimates from this new kilogram–centimeter regression? (Give all results, estimated coefficients, $R^{2}$, and $\vn{SER}$.)
+
+\begin{answer}
+In the original units, the intercept coefficient, $\beta_{0}$, is measured in the same unit as the dependent variable --- pounds. The slope coefficient, $\beta_{0}$, is measured in pounds per inch. The coefficient of determination, $R^{2}$, is a ratio of sums of squares measured in pounds-squared and is therefore unit free. The standard error of the regression, $\vn{SER}$, is measured in the same unit as the dependent variable --- pounds. 
+
+\medskip
+
+Suppose now that weight is measured in kilogram (kg) and height in centimeter (cm). We have:
+The intercept coefficient, $\beta_{0}$, is measured in kilograms. 
+The slope coefficient, $\beta_{0}$, is measured in kilograms per centimeter. 
+The coefficient of determination, $R^{2}$, is unit free. 
+The standard error of the regression, $\vn{SER}$, is measured in kilograms. 
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Weight \& Height}
+\ask 
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Suppose that instead of measuring weight and height in pounds and inches, these variables are measured in centimeters and kilograms. What are the regression estimates from this new kilogram–centimeter regression? (Give all results, estimated coefficients, $R^{2}$, and $\vn{SER}$.)
+
+\begin{answer}
+The in/cm and lb/kg correspondence is:
+\begin{align*}
+1 \text{in} = 2.54 \text{cm}\\
+1 \text{lb} = 0.453592\text{kg}
+\end{align*}
+The regression becomes:
+\begin{align*}
+\verywidehat{\vn{Weight}} 
+  & = -99.41 \times 0.453592 + 3.94 \times 0.453592/2.54 \times \vn{Height}, \\
+  & \qquad R^2 = 0.81,
+  \quad \vn{SER} = 10.2 \times 0.453592\\[2ex]
+\verywidehat{\vn{Weight}} 
+  & = -45.09 + 0.70 \times \vn{Height},
+  \quad R^2 = 0.81,
+  \quad \vn{SER} = 4.6
+% -99.41 * 0.453592
+% -45.09158
+% 3.94 * 0.453592/2.54
+% 0.7036033
+% 10.2 * 0.453592
+% 4.626638
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

@@ -1,0 +1,47 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Dealing with Weak Instruments}
+\emph{Checking for Weak Instruments}
+\begin{itemize}
+\item \emph{Weak instruments Rule of Thumb:} for a single endogenous regressor, $F_{\text{first-stage}}<10$.
+\item The first-stage $F$-statistic tests the hypothesis that the coefficients on the instruments are all equal to zero in the first stage of two stage least squares. 
+\item If the instruments are weak, the TSLS estimator is biased even in large samples. 
+\newlinequad
+$t$-statistics and confidence intervals are unreliable.
+\item \emph{What to do?}
+\begin{itemize}
+\item If you have many instruments, discard the weakest instruments.
+\newlinequad
+With weak instruments, the standard errors are invalid, so if these standard errors become smaller after dropping instruments, that is meaningless.
+\item $J$-test for overidentifying restrictions
+\item find stronger instruments!
+\item Go beyond TSLS.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Dealing with Weak Instruments}
+\emph{Overidentifying Restrictions Test: $J$-Statistics}
+\begin{itemize}
+\item Use OLS to estimate a regression of the residuals from TSLS estimation ($\hat{u}^{\text{TSLS}}_{i}$) on the instruments ($Z$) and exogenous regressors ($W$):
+\begin{align*}
+\hat{u}^{\text{TSLS}}_{i} 
+= \delta_{0} + \delta_{1}Z_{1i} + \ldots + \delta_{m}Z_{mi} + \delta_{m+1}W_{1i} + \ldots + \delta_{m+r}W_{ri} + e_{i}
+\end{align*}
+where $e_{i}$ is the regression error term. 
+\item Use the estimated regression coefficients $\hat{\delta}_{0},\ldots,\hat{\delta}_{m}$ to test the hypothesis:
+\begin{align*}
+\delta_{1} = \ldots = \delta_{m} = 0
+\end{align*}
+\item Let $F$ denote the homoskedasticity-only $F$-statistic. The overidentifying restrictions test statistic is $J=mF$. 
+\item Under the null hypothesis that all the instruments are exogenous, if $e_{i}$ is homoskedastic, in large samples $J$ is distributed $\chi^{2}_{m-k}$, where $m-k$ is the degree of overidentification.
+\item The degree of overidentification, $m-k$, is the number of instruments ($Z$) minus the number of endogenous regressors ($W$).
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

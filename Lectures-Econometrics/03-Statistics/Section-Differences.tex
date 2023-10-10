@@ -1,0 +1,51 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Mean Differences}
+\begin{itemize}
+\item \emph{Test for Difference Between Two Means:} 
+Consider the null that two groups $w$ and $m$ differ by a quantity $d_0$:
+\begin{align*}
+H_0\colon & \mu_m - \mu_w = d_0 \\
+H_1\colon & \mu_m - \mu_w \ne d_0 
+\end{align*}
+\item Example: Test the hypothesis that the earnings of women and men are no different on average, that is $d_0=0$:
+\begin{align*}
+H_0\colon & \mu_{\text{men}} = \mu_{\text{women}} \\
+H_1\colon & \mu_{\text{men}} \ne \mu_{\text{women}}
+\end{align*}
+\item To test the hypothesis, we collect two samples of size $n_w$ and $n_m$ and compute the \text{actual} sample means $\mean{Y}_w$ and $\mean{Y}_m$. A natural estimator for this test is $\mean{Y}_m-\mean{Y}_w$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Mean Differences}
+\begin{itemize}
+\item What is the sample distribution of the estimator $\mean{Y}_m-\mean{Y}_w$~?
+\item We have
+\begin{align*}
+\mean{Y}_w \sim N(\mu_w, \sigma_w^2/n_w), \quad
+\mean{Y}_m \sim N(\mu_m, \sigma_m^2/n_m), \quad
+\mean{Y}_m \indep \mean{Y}_w
+\end{align*}
+\item The distribution follows:
+\begin{align*}
+\mean{Y}_m-\mean{Y}_w \sim N\left(\mu_m-\mu_w, \frac{\sigma_m^2}{n_m} + \frac{\sigma_w^2}{n_w} \right)
+\end{align*}
+\item The standard error:
+\begin{align*}
+\SE(\mean{Y}_m-\mean{Y}_w) 
+  = \sqrt{\frac{\sigma_m^2}{n_m} + \frac{\sigma_w^2}{n_w}}
+\end{align*}
+\item The $t$-statistic for comparing two means:
+\begin{align*}
+t = \frac{(\mean{Y}_m-\mean{Y}_w) - d_0}{\SE(\mean{Y}_m-\mean{Y}_w)}
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

@@ -1,0 +1,99 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Multiple Regression]{Multiple Regression: Multicollinearity}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~6, Exercise~4.}
+Consider the regression of average hourly earnings $\vn{AHE}$ (in dollars) on $\vn{Age}$ (in years) and several binary variables for characteristics such as sex, education, and region of employment:
+\begin{align*}
+\verywidehat{\vn{AHE}} 
+  = 0.33 & + 10.42\,\vn{College} - 4.57\,\vn{Female} + 0.61\,\vn{Age}\\ 
+         & + 0.74\,\vn{Northeast} - 1.54\,\vn{Midwest} - 0.44\,\vn{South}\\
+  \quad R^2 = 0.185, &
+  \quad \vn{SER} = 12.01, 
+  \quad n = 7178
+\end{align*}
+\vspace*{-2ex}
+\begin{enumerate}
+\item Do there appear to be important regional differences?
+\item Why is the regressor $\vn{West}$ omitted from the regression? What would happen if it were included?
+\item Juanita is a $28$-year-old female college graduate from the $\vn{South}$. Jennifer is a $28$-year-old female college graduate from the $\vn{Midwest}$. Calculate the expected difference in earnings between Juanita and Jennifer.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Do there appear to be important regional differences?
+
+\begin{answer}
+Since the variables for $West$ is omitted from the regression, it is the reference group to which the other regional variables can be compared to. 
+On average, and controlling for other variables in the regression, workers in the $Northeast$ earn $\$0.74$ more per hour than workers in the $West$; while workers in the $Midwest$ earn $\$1.54$ less than workers in the West; and workers in the $South$ earn $\$0.44$ less than workers in the $West$.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Why is the regressor $West$ omitted from the regression? What would happen if it were included?
+
+\begin{answer}
+The regressor $West$ is omitted to avoid perfect multicollinearity. Perfect multicollinearity would arise because the data is divided into exactly $4$ groups: $West$, $Midwest$, $Northeast$, and $South$. Since the $4$ categories are exchaustive and mutually exclusive, by construction, they add up to $1$ for every observation in the dataset. This is known as the ``dummy variable trap''. Perfect multicollinearity among regressors is usually easy to detect. Some software will produce an error, others will drop one of the perfectly multicollinear regressors and issue a warning. Imperfect multicollinearity is another issue, much less easy to deal with. 
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Juanita is a $28$-year-old female college graduate from the South. Jennifer is a $28$-year-old female college graduate from the Midwest. Calculate the expected difference in earnings between Juanita and Jennifer.
+
+\begin{answer}
+The expected difference in earnings between Juanita and Jennifer is:
+\begin{align*}
+AHE_{\text{Juanita}} & - AHE_{\text{Jennifer}} \\[1ex]
+  = &~ (AHE | College=1, Female=1, Age=28, \\
+    & \hspace*{4em} Northeast=0, Midwest=0, South=1)\\ 
+  - &~ (AHE | College=1, Female=1, Age=28, \\
+    & \hspace*{4em} Northeast=0, Midwest=1, South=0)\\ 
+  = &~ (-0.44) - (-1.54) \\
+  = &~ + 1.10
+%  1.54-0.44
+\end{align*}
+The expected difference in earnings between Juanita and Jennifer, based on the information used in the regression, is $\$1.10$ per hour.
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
+

@@ -1,0 +1,38 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Summary}
+\begin{enumerate}
+\item The probabilities associated with a random variable are summarized by the cumulative distribution function, the probability distribution function --- for discrete random variables --- and the probability density function --- for continuous random variables.
+\item The expected value of a random variable $Y$, denoted $\exp(Y)$, is its probability-weighted average value. The variance of $Y$ is $\sigma^2_{Y}=\exp[(Y-\mu_{Y})^2]$, and the standard deviation of $Y$ is the square root of its variance.
+\item The joint probabilities for two random variables, $X$ and $Y$, are summarized by their joint probability distribution. The conditional probability distribution of $Y$ given $X=x$ is the probability distribution of $Y$, conditional on $X$ taking on the value $x$.
+\item A normally distributed random variable has a bell-shaped probability density.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Summary}
+\begin{enumerate}\setcounter{enumi}{4}
+\item Simple random sampling produces $n$ random observations, $Y_{1},\ldots,Y_{n}$, that are independently and identically distributed (i.i.d.).
+\item The sample average, $\mean{Y}$, is a random variable with a sampling distribution. If $Y_{1},\ldots,Y_{n}$ are i.i.d., then
+\begin{itemize}
+\item The sampling distribution of $\mean{Y}$ has mean $\mu_{Y}$ and variance $\sigma^2_{\mean{Y}}=\sigma^2_{Y}/n$;
+\item The law of large numbers states that $\mean{Y}$ converges in probability to $\mu_{Y}$.
+\item By the central limit theorem, $\mean{Y}$ has a normal distribution for large $n$,
+\begin{align*}
+\frac{\mean{Y}-\mu_{Y}}{\sigma_Y/\sqrt{n}} ~\sim~ N(0,1)
+\end{align*}
+or equivalently
+\begin{align*}
+\mean{Y} ~\sim~ N(\mu_{Y}, \sigma_Y^2/n)
+\end{align*}
+\end{itemize}
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

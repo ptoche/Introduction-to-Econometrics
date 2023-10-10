@@ -1,0 +1,644 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Research Design and Causality},
+  pdfauthor={Patrick Toche, ptoche@fullerton.edu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{amsmath}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Research Design and Causality}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Econ 440 - Introduction to Econometrics}
+\author{Patrick Toche,
+\href{mailto:ptoche@fullerton.edu}{\nolinkurl{ptoche@fullerton.edu}}}
+\date{05 May 2022}
+
+\begin{document}
+\maketitle
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{research-design-identifies-causality}{%
+\section{Research Design Identifies
+Causality}\label{research-design-identifies-causality}}
+
+\includegraphics{Problem-Empirical-IV-Regression_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-problem-of-endogeneity}{%
+\section{The Problem of Endogeneity}\label{the-problem-of-endogeneity}}
+
+\begin{itemize}
+\item
+  \textbf{Endogeneity} remains the hardest (and most common) econometric
+  challenge
+\item
+  Difference-in-Difference and Fixed Effects are used to address
+  endogeneity
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{Requires} panel data.
+  \item
+    Cannot use time-varying omitted variables that are correlated with
+    regressors.
+  \end{itemize}
+\item
+  Instrumental Variables: Find some source of exogenous variation that
+  removes the endogeneity.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{instrumental-variables}{%
+\section{Instrumental Variables}\label{instrumental-variables}}
+
+\includegraphics{Problem-Empirical-IV-Regression_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{understanding-instrumental-variables}{%
+\section{Understanding Instrumental
+Variables}\label{understanding-instrumental-variables}}
+
+\begin{itemize}
+\item
+  \textbf{X} and \textbf{Y} are correlated
+\item
+  Confounding variable \textbf{Z} that meets the conditions of omitted
+  variable bias:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Causes \(Y\) (in error term \(u)\)
+  \item
+    Correlated with \(X\)
+  \end{enumerate}
+\item
+  Causality from \(X\) to \(Y\):
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \(X \rightarrow Y\) (causal, front door)
+  \item
+    \(X \leftarrow Z \rightarrow Y\) (non-causal, back door)
+  \end{enumerate}
+\item
+  Consider variable \textbf{I} which causes \textbf{X} but \emph{not}
+  \textbf{Y}
+\item
+  Variable \textbf{I} has no backdoors between it and \(Y\)
+\item
+  The only way to reach \(Y\) from \(I\) is through \(X\):
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(I \rightarrow X \rightarrow Y\)
+  \end{itemize}
+\item
+  Variable \textbf{I} is a good instrument for \(X\) if it satisfies two
+  conditions:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{Inclusion condition:} \(I\) statistically-significantly
+    explains \(X\)
+  \item
+    \textbf{Exclusion condition:} \(I\) is uncorrelated with \(u\), so
+    it does not directly affect \(Y\)
+  \end{enumerate}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(I\) only affects \(Y\) \emph{through} its effect on \(X\)
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{example-how-does-veteran-status-affect-earnings}{%
+\section{Example: How does veteran status affect
+earnings?}\label{example-how-does-veteran-status-affect-earnings}}
+
+\[
+\text{Earnings}_{i}
+    = \beta_0+\beta_1 \, \text{Veteran}_{i}
+    + \text{u}_{i}
+\] - Veteran\(_i\) is endogenous, correlated with other things in
+\(u_i\) - Choice to enlist in military for non-random reasons
+
+\begin{itemize}
+\tightlist
+\item
+  We want to split variation in \(X\) into an exogenous part and an
+  endogenous part: \[
+  \begin{align*}
+  \text{Earnings}_i &= \beta_0 + \beta_1 \, \text{Veteran}_i + u_i \\
+  \text{Earnings}_i &= \beta_0 + \beta_1 \,  (\text{Veteran}_i^{Ex.}+\text{Veteran}_i^{End.})+u_i\\
+  \text{Earnings}_i &= \beta_0 + \beta_1 \, \text{Veteran}_i^{Ex.} + \underbrace{\beta_1 \text{Veteran}_i^{End.}+u_i}_{w_i}\\
+  \text{Earnings}_i &= \beta_0 + \beta_1 \, \text{Veteran}_i^{Ex.} + w_i
+  \end{align*}
+  \]
+\end{itemize}
+
+--
+
+\begin{itemize}
+\item
+  What would a plausible source of Veteran\(_i^{Ex.}\) be?
+\item
+  Choices to enlist in the military for ``random'' reasons, uncorrelated
+  with \(u_i\) (other things that affect Earnings\(_i)\)
+\item
+  We isolate the \emph{exogenous variation} in \(X_i\) with an
+  instrumental variable that is:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Correlated with the explanatory variable (relevance)
+\item
+  Uncorrelated with the error term (exogenous)
+\end{enumerate}
+
+\[\text{Earnings}_{i}=\beta_0+\beta_1 \, \text{Veteran}_{i}+\text{u}_{i}\]
+
+We want an instrument \(I\) for Veteran\(_i\) which is: 1.
+\textbf{Relevant:} \(cor(Veteran_i, I_i)\neq 0\) 2. \textbf{Exogenous:}
+\(cor(I_i, u_i)\neq 0\)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{relevance}{%
+\subsubsection{Relevance}\label{relevance}}
+
+\begin{itemize}
+\item
+  \textbf{Relevance}: we need \(I_i\) to vary with our endogenous
+  \(X_i\) variable
+\item
+  We can \emph{test} this condition using a regression and \(t\)-test on
+  the relevant coefficient
+\item
+  \textbf{Example}: For \emph{veteran} status, consider several
+  potential \(I_i\) variables:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Social security number
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Irrelevant} uncorrelated with military service
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Physical fitness
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Likely relevant} may be correlated with military service
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Vietnam War Draft
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Relevant} being drawn in draft causes military service
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{exogeneity}{%
+\subsubsection{Exogeneity}\label{exogeneity}}
+
+\begin{itemize}
+\item
+  \textbf{Exogeneity:} we need \(I_i\) to be ``as good as randomly
+  assigned'', uncorrelated with \(u_i\) (other factors that determine
+  \(Y_i)\)
+\item
+  \textbf{Example}: For \emph{veteran} status, consider several
+  potential \(I_i\) variables:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Social security number
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Exogenous} uncorrelated with other factors of earnings
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Physical fitness
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Not exogeous} correlated with many other factors of earnings
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Vietnam War Draft
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Exogenous} lottery was random!
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{choice-of-instrument}{%
+\subsubsection{Choice of Instrument}\label{choice-of-instrument}}
+
+\begin{itemize}
+\tightlist
+\item
+  Instrument must be
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Correlated with our endogenous variable \((X_i)\)
+\item
+  Uncorrelated with omitted variables that affect \(Y_i\)
+\end{enumerate}
+
+\begin{itemize}
+\item
+  To summarize: \textbf{the instrument only affects the outcome through
+  its relationship with the endogenous variable}
+\item
+  \textbf{Example}: For \emph{veteran} status, our several potential
+  \(I_i\) variables:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Social security number
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Not relevant}
+\item
+  \textbf{Exogenous}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Physical fitness
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Relevant}
+\item
+  \textbf{Not exogenous}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Vietnam War Draft
+\end{enumerate}
+
+\begin{itemize}
+\item
+  \textbf{Relevant}
+\item
+  \textbf{Exogenous}
+\item
+  The Vietnam War Draft is the only \textbf{valid instrument}
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{dag-form}{%
+\section{DAG Form}\label{dag-form}}
+
+\includegraphics{Problem-Empirical-IV-Regression_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{itemize}
+\item
+  Causal relation from \(X\) to \(Y\):
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \(Vet \rightarrow Earn\)
+  \item
+    \(Vet \leftarrow U \rightarrow Earn\)
+  \end{enumerate}
+\item
+  We want the causal effect of
+\item
+  \(Vet \rightarrow Earn\)
+\item
+  With our instrument
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(Draft \rightarrow Vet \rightarrow Earn\)
+  \end{itemize}
+\item
+  With our instrument
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(Draft \rightarrow Vet \rightarrow Earn\)
+  \end{itemize}
+\item
+  Based on our assumptions on independence and exogeneity:
+\end{itemize}
+
+\[
+(\text{Effect of the draft on earnings}) =
+(\text{Effect of the draft on veteran status})
+\times 
+(\text{Effect of veteran status on earnings})
+\] - To find effect of veteran status on earnings, rearrange the
+equation: \[
+(\text{Effect of veteran status on earnings}) =
+(\text{Effect of the draft on earnings})
+/
+(\text{Effect of the draft on veteran status})
+\] ---
+
+\hypertarget{estimating-instrumental-variables}{%
+\section{Estimating Instrumental
+Variables}\label{estimating-instrumental-variables}}
+
+Estimate the effect of veteran status on earnings. \[
+\text{Earnings}_i = \beta_0 + \beta_1 \, \text{Veteran}_i + u_i
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  Consider two related effects:
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Effect of instrument on the endogenous variable: \[
+  \text{Veteran}_i = \gamma_0 + \gamma_1 \, \text{Draft}_i + w_i
+  \]
+\item
+  Effect of instrument on the outcome variable: \[
+  \text{Earnings}_i = \pi_0 + \pi_1 \text{Draft}_i + v_i
+  \] ---
+\end{enumerate}
+
+\hypertarget{example-police-and-crime-rate}{%
+\section{Example: Police and Crime
+Rate}\label{example-police-and-crime-rate}}
+
+\begin{itemize}
+\item
+  Police \(\rightarrow\) crime (more police reduces crime)
+\item
+  Crime \(\rightarrow\) Police (high crime areas tend to have more
+  police)
+\item
+  \(cor(\text{Police}, \text{u})\neq 0\): population, income per capita,
+  drug use, recessions, demography, etc.
+\item
+  How do (more) police affect crime rates?
+  \[\text{Crime}_{it}=\beta_0+\beta_1 \, \text{Police}_{it}+\text{u}_{it}\]
+\item
+  Police \(\rightarrow\) crime (more police reduces crime)
+\item
+  Crime \(\rightarrow\) Police (high crime areas tend to have more
+  police)
+\item
+  \(cor(\text{Police}, \text{u})\neq 0\): population, income per capita,
+  drug use, recessions, demography, etc..
+\item
+  Levitt (2002): use number of firefighters as an \textbf{instrument}
+  for police.
+\item
+  \emph{Some} variation in Police is \textbf{endogenous}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    More police hired to combat rising crime
+  \item
+    Changes in economy, demographics, etc, correlated with crime
+  \end{itemize}
+\item
+  \emph{Some} variation in Police is \textbf{exogenous}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Some police might be hired for reasons \emph{not} connected to crime
+  \item
+    Perhaps city gets a larger budget one year
+  \end{itemize}
+\item
+  Exogenous, non-crime-related changes affect number of
+  \emph{Firefighters} in a city (excess budget, etc)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Isolate that portion of variation in Police that covaries with
+    Firefighters (exogenous)
+  \item
+    Throw out variation in Police that is endogenous (covaries with
+    things that vary with crime)
+  \item
+    See how the exogenous variation in Firefighters helps explain
+    variation in Crime via Police!
+  \end{itemize}
+\end{itemize}
+
+Levitt, Steven D, (2002), ``Using Electoral Cycles in Police Hiring to
+Estimate the Effect of Police on Crime: Reply,'' \emph{American Economic
+Review} 92(4): 1244-1250.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{two-stage-least-squares}{%
+\subsubsection{Two-Stage Least Squares}\label{two-stage-least-squares}}
+
+\begin{itemize}
+\tightlist
+\item
+  Equation of interest:
+\end{itemize}
+
+\[
+\widehat{Y_i} 
+    = \widehat{\beta_0} 
+    + \widehat{\beta_1} X_{1i} 
+    + \widehat{\beta_2} X_{2i}
+    + \widehat{u_i}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{First Stage}: use \(IV\) to explain \(X_{1i}\) in an
+  \textbf{auxiliary regression}:
+\end{itemize}
+
+\[
+\widehat{X_{1i}} 
+    = \hat{\gamma_0} 
+    + \hat{\gamma_1} Z_i 
+    + \hat{\gamma_2} X_{2i} 
+    + \hat{\epsilon_i}
+\]
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Second Stage}: substitute the \emph{predicted} value of
+  \(\widehat{X_{1i}}\) in the original regression:
+\end{itemize}
+
+\[
+\widehat{Y_i}
+    = \hat{\beta_0}
+    + \hat{\beta_1} \widehat{X_{1i}}
+    + \hat{\beta_2} X_{2i}
+    + \hat{u_i}
+\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{understanding-instrumental-variables-1}{%
+\subsubsection{Understanding Instrumental
+Variables}\label{understanding-instrumental-variables-1}}
+
+\includegraphics{Problem-Empirical-IV-Regression_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\end{document}

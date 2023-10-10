@@ -1,0 +1,94 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Weight]{Hypothesis Testing \& Confidence Intervals: Weight \& Height}
+\date{}
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~5, Exercise~3.}
+Suppose a random sample of $200$ $20$-year-old men is selected from a population and their heights and weights are recorded. A regression of weight on height yields:
+\begin{align*}
+\verywidehat{\vn{Weight}} 
+  = \muse{-99.41}{2.15} + \muse{3.94}{0.31}\,\vn{Height},
+  \quad R^2 = 0.81,
+  \quad \vn{SER} = 10.2
+\end{align*}
+where $\vn{Weight}$ is measured in pounds and $\vn{Height}$ is measured in inches. Two of your classmates differ in height by $1.5$ inches. Construct a $99\%$ confidence interval for the difference in their weights.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Interval for a Mean Difference}
+
+In the regression of $Y$ on $X$, construct a confidence interval for the difference $\Delta Y$.
+
+\begin{answer}
+Let $u$ denote the error in the regression of $Y$ on $X$:
+\begin{align*}
+Y = \beta_{0} + \beta_{1} X + u
+\end{align*}
+Consider two observations $X_{i}$ and $X_{j}$ and let the difference be $\Delta X=X_{i}-X_{j}$. Likewise for $\Delta Y$. By construction, the data and parameters satisfy:
+\begin{align*}
+Y_{i} & = \beta_{0} + \beta_{1} X_{i} + u_{i}\\
+Y_{j} & = \beta_{0} + \beta_{1} X_{j} + u_{j}\\
+\implies 
+\Delta Y & = \beta_{1}\,\Delta X + \Delta u
+\end{align*}
+It follows that a confidence interval for $\Delta Y$ is a confidence interval for $\beta_{1}\,\Delta X$ and since $\Delta X$ is a constant, the confidence interval is just:
+\begin{align*}
+\left[ \hat{\beta}_{1} \pm t_{\alpha/2} \cdot \SE(\hat{\beta}_{1}) \right] \cdot \Delta X 
+\end{align*}
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores}
+
+Construct a $99\%$ confidence interval for the difference in their weights.
+
+\begin{answer}
+To construct a confidence interval for the difference in their weights, relate the expected difference in their weights to the observed difference in their height:
+\begin{align*}
+\Delta\verywidehat{\vn{Weight}} 
+  = \Delta\,\vn{Height}\,\hat{\beta}_{1}
+\end{align*}
+The standard error for the expected difference is:
+\begin{align*}
+\SE(\Delta\verywidehat{\vn{Weight}})
+  = \Delta\,\vn{Height}\, \SE(\hat{\beta}_{1})
+\end{align*}
+A confidence interval for the difference in their weights may be constructed in a manner analogous to a confidence interval for the slope coefficient $\beta_{1}$:
+\begin{align*}
+\hat{\beta}_{1} \cdot \Delta\,\vn{Height} 
+    & \pm t_{\alpha/2} \cdot \SE(\hat{\beta}_{1}) \cdot \Delta\,\vn{Height} \\
+    = \quad 3.94 \cdot 1.5 
+    & \pm 2.58 \cdot 0.31 \cdot 1.5 
+\end{align*}
+The critical $t$-value, $t_{\alpha/2}\approx2.5758$, may be computed with \Rinline{qnorm(1-0.01/2)}.
+A $99\%$ confidence interval for the difference in their weights is therefore:
+\begin{align*}
+4.71 < \beta_{1} < 7.11
+% 1.5 * 3.94 - 1.5 * 2.5758 * 0.31
+% 4.712253
+% 1.5 * 3.94 + 1.5 * 2.5758 * 0.31
+% 7.107747
+\end{align*}
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

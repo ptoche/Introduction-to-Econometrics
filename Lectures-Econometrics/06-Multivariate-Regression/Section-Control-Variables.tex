@@ -1,0 +1,55 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Control Variables}
+\emph{Control Variables:}
+\begin{itemize}
+\item A control variable is a regressor included to hold constant factors that, if neglected, could lead the estimated causal effect of interest to suffer from omitted variable bias. 
+\item Effect of class size in California districts: 
+Consider the potential omitted variable bias arising from omitting outside learning opportunities from a test score regression. 
+\begin{itemize}
+\item Outside learning opportunities is a broad concept that is difficult to measure. 
+\item Outside learning opportunities are correlated with the students' economic background, which can be measured.
+\end{itemize}
+\item A measure of economic background can be included in a test score regression to control for omitted income-related determinants of test scores. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Control Variables}
+\emph{Class size in California districts:}
+\begin{itemize}
+\item Augment the regression of test scores on $\vn{STR}$ and $\vn{PctEL}$ with the percentage of students receiving a free or subsidized school lunch $\vn{LchPct}$. 
+\item Students are eligible for this program if their family income is less than a certain threshold (approximately $150\%$ of the poverty line), so $\vn{LchPct}$ measures the fraction of economically disadvantaged children in the district. 
+\item The estimated regression is
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = 700.2 - 1.00 \times \vn{STR} - 0.122 \times \vn{PctEL} - 0.547 \times \vn{LchPct}
+\end{align*} 
+\item Including the control variable $\vn{LchPct}$ changes the coefficient on $\vn{STR}$ only slightly from $-1.10$ to $-1.00$.
+\item The coefficient on $\vn{LchPct}$ is very large: The difference in test scores between a district with $\vn{LchPct}=0\%$ and one with $\vn{LchPct}=50\%$ is estimated to be $27.4$ points, approximately the difference between the $75$th and $25$th percentiles of test scores. 
+\item Would eliminating the reduced-price lunch program boost the district's test scores?
+\item If we treat the coefficient on $\vn{STR}$ as causal, why not the coefficient on $\vn{LchPct}$?
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Conditional Mean Independence}
+\emph{Conditional Mean Independence:}
+\begin{itemize}
+\item The conditional expectation of the error terms (given the variables of interest and controls) is independent of the variable of interest (but it can depend on the control variables).
+\item By including control variables, the variables of interest are no longer correlated with the error term. If conditional mean independence holds, the regressors of interest can be treated as if they were randomly assigned: After adding control variables in the regression, the conditional mean of the error term is independent of the regressors. 
+\item The least-squares estimators of the coefficients on the $X_{i}$s are unbiased estimators of the causal effects of the $X_{i}$s. The least-squares estimators of the coefficients on the $W_{i}$s are biased, but their estimates are of no special interest. 
+\item \emph{Class size in California districts:}\\ 
+$\vn{LchPct}$ is correlated with factors that enter the error term, such as learning opportunities outside school, and does not have a causal interpretation. If the conditional mean independence assumption holds, the mean of the error term, given the control variables $\vn{PctEL}$ and $\vn{LchPct}$, does not depend on the student-teacher ratio. Thus, among schools with the same values of $\vn{PctEL}$ and $\vn{LchPct}$, class size is ``as-if'' randomly assigned.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

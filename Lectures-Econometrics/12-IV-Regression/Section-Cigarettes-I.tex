@@ -1,0 +1,50 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Demand for Cigarettes}
+\begin{itemize}
+\item Use TSLS to estimate the elasticity of demand for cigarettes using annual data for the $48$ contiguous U.S. states for 1985 through 1995.
+\item \emph{Regressand:} 
+$Q^{\text{cigarettes}}$
+\newlinequad
+The number of packs of cigarettes sold per capita in the state.
+\item \emph{Regressor:} 
+$P^{\text{cigarettes}}$
+\newlinequad
+The average real price per pack of cigarettes, including all taxes.
+\item \emph{Instrument:} 
+$\vn{SalesTax}$
+\newlinequad
+The portion of the tax on cigarettes arising from the general sales tax, measured in dollars per pack (in real dollars, deflated by the Consumer Price Index). 
+\item \emph{Instrument relevance:}
+A high sales tax increases the after-tax sales price.
+\item \emph{Instrument exogeneity:}
+The sales tax must affect the demand for cigarettes only indirectly through the price. General sales tax rates vary from state to state, because of political considerations, not factors related to the demand for cigarettes. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{The Demand for Cigarettes}
+\begin{itemize}
+\item \emph{First Stage:} 
+\begin{align*}
+\verywidehat{\ln(P^{\text{cigarettes}})} 
+  = \muse{4.62}{0.03} + \muse{0.031}{0.005} \vn{SalesTax}
+    \quad \bar{R}^2 = 0.47
+\end{align*}
+\item As expected, higher sales taxes mean higher after-tax prices. 
+\item The variation in the sales tax on cigarettes explains $47\%$ of the variance of cigarette prices across states.
+\item \emph{Second Stage:} 
+\begin{align*}
+\verywidehat{\ln(Q^{\text{cigarettes}})} 
+  = \muse{9.72}{1.53} -\muse{1.08}{0.32}\, \verywidehat{\ln(P^{\text{cigarettes}})}
+\end{align*}
+\item An increase in the price of $1\%$ reduces consumption by $1.08\%$. This suggests that the demand for cigarettes is surprisingly elastic. However, there clearly are omitted variables --- At the very least we must control for income. 
+\item To include control variables in the regression, we extend the simple TSLS to allow multiple regressors. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

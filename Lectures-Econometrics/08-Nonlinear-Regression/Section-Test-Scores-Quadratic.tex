@@ -1,0 +1,171 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Nonlinear Effects on Test Scores of the Student-Teacher Ratio}
+\emph{California Test Score Data:}
+\begin{itemize}
+\item The economic background of the students is an important factor in explaining performance on standardized tests. \item Economic background variables: Measure the fraction of students in the district who come from poor families.
+\begin{itemize}
+\item The percentage of students qualifying for a subsidized lunch.
+\item The percentage of students whose families qualify for income assistance. 
+\item Average annual per capita income in the school district.
+\end{itemize}
+\item Students from affluent districts do better on the tests than students from poor districts.
+\item Test scores and district income are strongly positively correlated, with Pearson's correlation coefficient $r=0.71$.
+\item Some curvature in the relationship between test scores and district income is not captured by the linear regression. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Linear Regression Function}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-02-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Quadratic regression model:}
+\begin{itemize}
+\item A quadratic population regression model relating test scores and income:
+\begin{align*}
+\vn{TestScore}_{i} = \beta_{0} + \beta_{1}\, Income_{i} + \beta_{2}\, (Income_{i})^{2} + u_{i}
+\end{align*}
+\item Estimate the quadratic equation by OLS:
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = \muse{607.3}{2.9} + \muse{3.85}{0.27}\,Income - \muse{0.0423}{0.0048}\,Income^2
+  \quad \bar{R}^2 = 0.554
+\end{align*}
+\item The quadratic function captures the curvature in the scatterplot: It is steep for low values of district income but flattens out when district income is high. 
+\item Test $H_{0}\colon\beta_{2}=0, \quad H_{1}\colon\beta_{2}\ne0$
+\begin{align*}
+t^{\text{act}} 
+  = \frac{\hat{\beta}_{2}-0}{\SE(\hat{\beta}_{2})}
+  = \frac{-0.0423}{0.0048}
+  = -8.81
+\end{align*}
+\item Since $t^{\text{act}}>1.96$, we can reject the null hypothesis. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Quadratic Regression Function}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.8\textheight,keepaspectratio]%
+{StockWatson4e-08-fig-03-Zoom}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\begin{itemize}
+\item What is the predicted change in test scores associated with a change in district income of $\$1000$, based on the estimated quadratic regression function? 
+\item In the linear regression, the regression coefficients had a natural interpretation --- Not so in a non-linear regression. 
+\item The effect depends on the initial district income: The slope of the estimated quadratic regression function is steeper at low values of income. 
+\item Consider two cases: 
+\begin{itemize}
+\item An increase in district income from $\$10,000$ per capita to $\$11,000$ per capita.
+\item An increase in district income from $\$40,000$ per capita to $\$41,000$ per capita.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Predicted change in test scores:}
+\begin{itemize}
+\item An increase in district income from $\$10,000$ per capita to $\$11,000$ per capita.
+\begin{align*}
+\Delta\hat{Y} 
+  & = (\hat{\beta}_{0} + \hat{\beta}_{1} \times 11 + \hat{\beta}_{2} \times 11^{2})
+    - (\hat{\beta}_{0} + \hat{\beta}_{1} \times 10 + \hat{\beta}_{2} \times 10^{2})\\
+  & = (607.3 + 3.85 \times 11 - 0.0423 \times 11^{2})
+    - (607.3 + 3.85 \times 10 - 0.0423 \times 10^{2})\\
+  & = 644.53 - 641.57\\
+  & = 2.96
+\end{align*}
+\item An increase in district income from $\$40,000$ per capita to $\$41,000$ per capita.
+\begin{align*}
+\Delta\hat{Y} 
+  & = (\hat{\beta}_{0} + \hat{\beta}_{1} \times 41 + \hat{\beta}_{2} \times 41^{2})
+    - (\hat{\beta}_{0} + \hat{\beta}_{1} \times 40 + \hat{\beta}_{2} \times 40^{2})\\
+  & = (607.3 + 3.85 \times 41 - 0.0423 \times 41^{2})
+    - (607.3 + 3.85 \times 40 - 0.0423 \times 40^{2})\\
+  & = 694.04 - 693.62\\
+  & = 0.42
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Standard errors of estimated effects:}
+\begin{itemize}
+\item Linear regression: 
+\begin{align*}
+\SE(\Delta\hat{Y}) = \SE(\hat{\beta}_{1}) \Delta X_{1} \\
+\hat{\beta}_{1}\Delta X_{1} \pm 1.96 \SE(\hat{\beta}_{1}) \Delta X_{1} 
+\end{align*}
+\item Non-Linear regression: 
+\begin{align*}
+\Delta\hat{Y} 
+    & = \hat{\beta}_{1} \times (11-10) + \hat{\beta}_{2} \times (11^2-10^2)
+      = \hat{\beta}_{1} + 21 \hat{\beta}_{2}\\
+\SE(\Delta\hat{Y}) 
+    & = \SE(\hat{\beta}_{1}+21\hat{\beta}_{2})
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Standard errors of estimated effects:}
+\begin{itemize}
+\item To compute the standard error of $\hat{\beta}_{1} + 21 \hat{\beta}_{2}$, consider the $F$-statistic of
+\begin{align*}
+H_{0}\colon \beta_{1} + 21 \beta_{2} = 0, \quad
+H_{1}\colon \beta_{1} + 21 \beta_{2} \ne 0
+\end{align*}
+Since $F=299.94$ and $\Delta\hat{Y}=2.96$,
+\begin{align*}
+\SE(\Delta\hat{Y}) 
+     = \frac{\abs{\Delta\hat{Y}}}{\sqrt{F}}
+     = \frac{2.96}{\sqrt{299.94}}
+     \approx 0.17
+\end{align*}
+\item A $95\%$ confidence interval for the change in the expected value of $Y$ is:
+\begin{align*}
+2.96 \pm 1.96 \times 0.17 = (2.63, 3.29)
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+

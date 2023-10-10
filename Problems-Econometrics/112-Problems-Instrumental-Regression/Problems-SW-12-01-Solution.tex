@@ -1,0 +1,146 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Instrumental Variables]{Instrumental Variables: Demand for Cigarettes}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=1\textheight,keepaspectratio]%
+{StockWatson4e-12-tbl-01}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+\exercise{Stock \& Watson, Introduction (4th), Chapter~12, Exercise~1.}
+This question refers to the panel data IV regressions summarized in Table 12.1.
+\begin{enumerate}
+\item Suppose the federal government is considering a new tax on cigarettes that is estimated to increase the retail price by $\$0.50$ per pack. If the current price per pack is $\$7.50$, use the IV regression in column (1) to predict the change in demand. Construct a $95\%$ confidence interval for the change in demand.
+\item Suppose the United States enters a recession and income falls by $2\%$. Use the IV regression in column (1) to predict the change in demand.
+\item Suppose the recession lasts less than one year. Do you think that the IV regression in column (1) will provide a reliable answer to the question in (b)? Why or why not?
+\item Suppose the $F$-statistic in column (1) were $3.7$ instead of $33.7$. Would the IV regression provide a reliable answer to the question posed in (a)? Why or why not?
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Suppose the federal government is considering a new tax on cigarettes that is estimated to increase the retail price by $\$0.50$ per pack. If the current price per pack is $\$7.50$, use the IV regression in column (1) to predict the change in demand. Construct a $95\%$ confidence interval for the change in demand.
+
+\begin{answer}
+The change in the log-price difference if the price rises from $\$7.50$ to $\$8.00$ is:
+\begin{align*}
+\ln(P^{\text{cigarettes}}_{i,1995}) - \ln(P^{\text{cigarettes}}_{i,1985})
+= \ln(8.00) - \ln(7.50) \approx 0.0645
+% (log(8.00) - log(7.50))
+% 0.06453852
+% 100 * (log(8.00) - log(7.50))
+% 6.453852
+\end{align*}
+The expected change in cigarette demand is about $6\%$ per year:
+\begin{align*}
+-0.94 \cdot 0.0645 \approx -6.07\%
+% - 0.94 * 6.453852
+% - 6.066621
+\end{align*}
+This effect may seem large, but it is a long-run estimate of the elasticity over a ten-year period.
+
+The $95\%$ confidence interval for the change in demand is:
+\begin{align*}
+0.0645 \cdot (-0.94 \pm 1.96 \cdot 0.21)
+\approx [-8.72\%, -3.41\%]
+% -(0.94 - 1.96 * 0.21) *  0.06453852 * 100
+% -3.410215
+% -(0.94 + 1.96 * 0.21) *  0.06453852 * 100
+% -8.723026
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Suppose the United States enters a recession and income falls by $2\%$. Use the IV regression in column (1) to predict the change in demand.
+
+\begin{answer}
+After a $2\%$ fall in income, the predicted percentage change in cigarette demand is
+\begin{align*}
+0.53 \cdot (-0.02) \approx -1.06\%
+% 100 * 0.53 * (-0.02)
+% -1.06
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Suppose the recession lasts less than one year. Do you think that the IV regression in column (1) will provide a reliable answer to the question in (b)? Why or why not?
+
+\begin{answer}
+The estimated regression uses changes in log-prices over a ten-year period, between 1995 and 1985, to identify the elasticity parameter. The regression therefore yields an estimate of the long-run elasticity of cigarette demand. 
+
+The price elasticity of demand for most goods is larger in the long run than in the short run, because it takes time for consumers to change their purchasing habits, particularly for changes that may not be immediately noticeable. The force of habits is particularly strong for addictive goods like cigarettes. 
+
+The IV regression in column (1) will not provide a reliable answer to the question in (b) when recessions last less than one year. And since recessions are typically expected to last between two and four quarters, it is conceivable that the change in cigarette demand induced by a two-year recession would not be much larger than the change induced by a very short recession, as even price-conscious consumers may hope to ``ride out'' the recession without reducing their smoking habits.
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications}
+
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item Suppose the $F$-statistic in column (1) were $3.7$ instead of $33.7$. Would the IV regression provide a reliable answer to the question posed in (a)? Why or why not?
+
+\begin{answer}
+The ``rule of thumb'' is that if $F<10$, the instrument is deemed to be weak. 
+
+If the F-statistic in column (1) was $3.7$ instead of $33.7$, it would suggest a weak instrument, violating the ``relevant instrument'' condition. Statistical inference with weak instruments is imprecise. Thus the IV regression would not provide a reliable answer to question (a).
+\end{answer}
+
+\end{enumerate}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

@@ -1,0 +1,22 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Least Squares Assumptions}
+\emph{Assumptions for causal inference:}
+\begin{itemize}
+\item Causal inference is possible only under a strict set of assumptions.
+\begin{enumerate}
+\item Errors have zero mean: $\exp[\hat{u}_{i}| X_{1i}=x_{1},\ldots,X_{ki}=x_{k}]=0$. \,
+The conditional distribution of $u_{i}$ given $X_{1i},\ldots,X_{ki}$ has zero mean.
+\item Regressors are i.i.d.: $X_{1i},\ldots,X_{ki} \sim \text{i.i.d.}$. \, Random sampling implies the regressors are independently and identically distributed.
+\item Large outliers are unlikely: The regressand and regressors have finite kurtosis, $\exp[Y^{4}]<\infty, \exp[X_{j}^{4}]<\infty$.
+\item No perfect multicollinearity among the regressors. 
+\end{enumerate}
+\item Under these assumptions, the least-squares estimators $\hat{\beta}_{0},\ldots,\hat{\beta}_{k}$ are jointly normally distributed with
+\begin{align*}
+\hat{\beta}_{j} \sim \N(\beta_{j}, \sigma_{\beta_{j}}^{2}), j=0,\ldots,k.
+\end{align*}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

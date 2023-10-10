@@ -1,0 +1,27 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Student-t Distribution}
+\begin{itemize}
+\item \emph{Student-t Distribution:} The distribution of the ratio of a standard normal random variable to the square root of an independently distributed chi-squared random variable!
+\item Named after Statistician William Sealy Gosset, who used the pseudonym ``Student.''
+\item The Student-t distribution is the theoretical distribution of a standardized normal distribution when the standard deviation used in the standardization procedure is estimated from the sample data. The distribution is parameterized by the ``degrees of freedom''. 
+\item Let $Z$ be a standard normal random variable, let $W$ be a chi-squared random variable with $m$ degrees of freedom, with $Z$ and $W$ independently distributed, then
+\begin{align*}
+Z \sim N(0, 1), 
+\quad
+W \sim \chi^2 (m), 
+\quad
+Z \indep W
+\implies
+\frac{Z}{\sqrt{W/m}} \sim t(m)
+\end{align*}
+\item The Student-t distribution has a bell shape similar to that of the normal distribution, but with ``fatter'' tails. As the degrees of freedom are increased, the Student-t distribution tends to the standard normal distribution. For values of $m$ larger than $20$ there is little practical difference between the two distributions. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+
+% f <- function(x) pt(2, df=x)/pnorm(2)
+% f(1:20) 
+% 0.8722604 0.9293921 0.9519950 0.9638699 0.9711234 0.9759908 0.9794735 0.9820844 0.9841123 0.9857315 0.9870536 0.9881531 0.9890816 0.9898758 0.9905629 0.9911631 0.9916918 0.9921611 0.9925803 0.9929571

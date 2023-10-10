@@ -1,0 +1,57 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Intervals for a Single Coefficient}
+\begin{itemize}
+\item A two-sided confidence interval for coefficient $\beta_{j}$, for given significance level $\alpha$, is an interval that contains the true value of $\beta_{j}$ with probability $(1-\alpha)\%$.
+\begin{align*}
+\hat{\beta}_{j} \pm t_{\alpha/2,dof} \SE(\hat{\beta}_{j})
+\end{align*}
+where $t_{\alpha/2,dof}$ is the critical $t$-value for significance $\alpha$ and degrees of freedom $dof$.
+\item For large $dof$ and $\alpha=0.10$, $t_{\alpha/2,dof}\to1.64$.
+\item For large $dof$ and $\alpha=0.05$, $t_{\alpha/2,dof}\to1.96$.
+\item For large $dof$ and $\alpha=0.01$, $t_{\alpha/2,dof}\to2.58$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Sets for Multiple Coefficients}
+\emph{Joint Hypotheses in Matrix Notation}
+\begin{itemize}
+\item A confidence set is the generalization to two or more coefficients of a confidence interval for a single coefficient.
+\begin{align*}
+\symbf{R} \symbf{\beta} = \symbf{r}
+\end{align*}
+where $\symbf{R}$ is a $q \times (k+1)$ non-random matrix with full row rank and $\symbf{r}$ is a non-random $q \times 1$ vector. The number of rows $q$ of $\symbf{R}$ is the number of restrictions under the null hypothesis. 
+\item Example: Let $k=2$ and $H_{0}\colon\beta_{1}+\beta_{2}=0$. This can be represented in matrix form with $\symbf{\beta}=[\beta_{0}~\beta_{1}~\beta_{0}]^{\prime}$, $\symbf{R}=[0~1~1]$, where $r=0$ and $q=1$. 
+\item \emph{Asymptotic Distribution of the F-Statistic:}
+\newlineqquad
+The heteroskedasticity-robust F-statistic testing the joint hypothesis
+\begin{align*}
+F = (\symbf{R}\symbf{\hat{\beta}}-\symbf{r})^{\prime} 
+[(\symbf{R}\symbf{\hat{\Sigma}}\symbf{R}^{\prime}]^{-1}-\symbf{r})^{\prime}]
+(\symbf{R}\symbf{\hat{\beta}}-\symbf{r})/q
+\end{align*}
+Under the null hypothesis $F\xrightarrow{d}F_{q,\infty}$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Confidence Sets for Multiple Coefficients}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]%
+{StockWatson4e-07-fig-01-Zoom}
+\caption{\textbf{$95\%$ Confidence Set for Coefficients on $\vn{STR}$ $(\beta_{1})$ and $Expn$ $(\beta_{2})$.}
+The ellipse contains the pairs of values of $\beta_{1}$ and $\beta_{2}$ that cannot be rejected using the $F$-statistic at the $5\%$ significance level. The point $(0,0)$ is not contained in the confidence set, so the null hypothesis $H_{0}\colon\beta_{1}=0~\text{and}~\beta_{2}=0$ is rejected at the $5\%$ significance level.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

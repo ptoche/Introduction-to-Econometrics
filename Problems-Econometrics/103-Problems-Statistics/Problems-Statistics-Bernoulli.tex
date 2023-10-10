@@ -1,0 +1,146 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Statistics: Bernoulli Distribution}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{Let $Y$ be a Bernoulli random variable with success probability $\Pr(Y=1)=p$,\ and let $Y_1,\ldots,Y_n$ be i.i.d. draws from this distribution. Let $\hat{p}$ be the fraction of successes ($1$s) in this sample.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: Bernoulli Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{0}
+
+\item Show that $\hat{p} = \mean{Y}$.
+
+\begin{answer}
+$\hat{p}$ is the fraction of successes in this sample, so
+\begin{align*}
+\hat{p} = \frac{1}{n} \cdot (Y_1 + \ldots + Y_n)
+\end{align*}
+The mean $\mean{Y}$ is the expected value of $Y$,
+\begin{align*}
+\mean{Y} 
+  = \exp[Y]
+  & = \frac{1}{n} \cdot (\exp[Y_1] + \ldots \exp[Y_n])
+\end{align*}
+And since $\hat{p}$ is a fixed sample value,
+\begin{align*}
+\hat{p}
+    = \exp[\hat{p}]
+    = \frac{1}{n} \cdot (\exp[Y_1] + \ldots \exp[Y_n])
+    = \mean{Y}
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: Bernoulli Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{1}
+
+\item Show that $\hat{p}$ is an unbiased estimator of $p$.
+
+\begin{answer}
+The random variable $Y_i$ takes value $1$ with probability $p$ and $0$ with probability $1-p$,
+\begin{align*}
+\exp[Y_i] 
+  = p \cdot 1 + (1-p) \cdot 0 = p
+\end{align*}
+By definition of the fraction of successes $\hat{p}$,
+\begin{align*}
+\hat{p}
+  & = \frac{1}{n} \cdot (Y_1 + \ldots + Y_n)\\
+\implies 
+\exp[\hat{p}]
+  & = \frac{1}{n} \cdot (\exp[Y_1] + \ldots + \exp[Y_n])\\
+  & = \frac{1}{n} \cdot (p + \ldots + p)\\
+  & = \frac{1}{n} \cdot n \cdot p
+    = p
+\implies
+  \exp[\hat{p}-p] 
+    = 0
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: Bernoulli Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{2}
+
+\item Show that $\var(\hat{p})=p(1-p)/n$.
+
+\begin{answer}
+\begin{align*}
+\var(\hat{p}) 
+    = \var(\mean{Y})
+  & = \var\left(\frac{1}{n}(Y_1 + \ldots + Y_n)\right)\\
+  & = \frac{1}{n^2} \cdot \var(Y_1 + \ldots + Y_n)
+      \qquad \text{because $n$ is constant}\\
+  & = \frac{1}{n^2} \cdot (\var(Y_1) + \ldots + \var(Y_n))
+      \qquad \text{because the $Y_i$s are i.i.d.}\\
+  & = \frac{1}{n^2} \cdot (\var(Y) + \ldots + \var(Y))
+      \qquad \text{because the $Y_i$s are i.i.d.}\\
+  & = \frac{1}{n^2} \cdot n \cdot \var(Y)\\
+  & = \frac{1}{n} \cdot \var(Y)
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Problems and Applications: Bernoulli Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{3}
+
+\item Show that $\var(\hat{p})=p(1-p)/n$.
+
+\begin{answer}
+Now compute $\var(Y)$
+\begin{align*}
+\exp[Y]
+  & = p \cdot 1\phantom{^2} + (1-p) \cdot 0\phantom{^2} 
+   = p\\
+\exp[Y^2]
+ & = p \cdot 1^2 + (1-p) \cdot 0^2 
+   = p\\
+\var(Y) 
+ & = \exp[Y^2] - (\exp[Y])^2
+   = p - p^2
+   = p(1-p)\\
+\implies 
+\var(\hat{p}) 
+ & = \var(\mean{Y}) 
+   = \frac{\var(Y)}{n}
+   = \frac{p(1-p)}{n}
+\end{align*}
+\end{answer}
+
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

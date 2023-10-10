@@ -1,0 +1,459 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+  ignorenonframetext,
+  t, svgnames, handout]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Stock and Watson Chapter 8: Replication},
+  pdfauthor={Patrick Toche, ptoche@fullerton.edu},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{lmodern}% bug: converts \pounds to dollar sign
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}% font encoding, load before inputenc
+\usepackage{fontspec}% font encoding
+\frenchspacing
+\defaultfontfeatures{
+   Mapping=tex-text,
+   Scale=MatchLowercase,
+}
+%   \setsansfont{Montserrat}
+\setsansfont{Lato}
+\setmonofont{Droid Sans Mono}
+\newfontfamily\fontbold{Lato Bold}
+\newfontfamily\fontitalic{Lato Italic}
+\newfontfamily\fontbolditalic{Lato Bold Italic}
+\newfontfamily\quotefont{Minotaur}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+
+\colorlet{themetext}{black}
+\colorlet{themefill}{RoyalBlue!50}
+\colorlet{themecolor}{NavyBlue}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamertemplate{title page}[empty]
+\usecolortheme{seahorse}
+\setbeamercovered{transparent=4}
+\setbeamercolor{palette primary}{use=structure,fg=black,bg=themefill}
+\setbeamercolor{title}{fg=black}
+\setbeamercolor{frametitle}{fg=black}
+\setbeamercolor{itemize item}{fg=themecolor}
+\setbeamercolor{enumerate item}{fg=themecolor}
+\setbeamercolor{itemize subitem}{fg=themecolor}
+\setbeamercolor{enumerate subitem}{fg=themecolor}
+\setbeamertemplate{itemize item}[triangle] 
+\setbeamertemplate{itemize subitem}{\raisebox{-0.7ex}{\scalebox{1}[2.5]{\bfseries\textendash}}} 
+\setbeamertemplate{enumerate subitem}{\alph{enumii}.}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Stock and Watson Chapter 8: Replication}
+\subtitle{Econ 440 - Introduction to Econometrics}
+\author{Patrick Toche,
+\href{mailto:ptoche@fullerton.edu}{\nolinkurl{ptoche@fullerton.edu}}}
+\date{17 April 2022}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Replication}
+\protect\hypertarget{replication}{}
+Replicate regression results from James H. Stock and Mark W. Watson,
+Introduction to econometrics, Pearson, 4th Edition, Chapter 8. The data
+used is available in the Stata format \(caschool.dta\) and in the Excel
+format \(caschool.xlsx\).
+\end{frame}
+
+\begin{frame}[fragile]{Load dataset}
+\protect\hypertarget{load-dataset}{}
+Let's load the Stata dataset using the \texttt{haven} library.
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(haven)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_dta}\NormalTok{(}\StringTok{"caschool.dta"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 18
+##   observat dist_cod county  district gr_span enrl_tot teachers calw_pct meal_pct
+##      <dbl>    <dbl> <chr>   <chr>    <chr>      <dbl>    <dbl>    <dbl>    <dbl>
+## 1        1    75119 Alameda Sunol G~ KK-08        195    10.9     0.510     2.04
+## 2        2    61499 Butte   Manzani~ KK-08        240    11.1    15.4      47.9 
+## 3        3    61549 Butte   Thermal~ KK-08       1550    82.9    55.0      76.3 
+## 4        4    61457 Butte   Golden ~ KK-08        243    14      36.5      77.0 
+## 5        5    61523 Butte   Palermo~ KK-08       1335    71.5    33.1      78.4 
+## 6        6    62042 Fresno  Burrel ~ KK-08        137     6.40   12.3      87.0 
+## # ... with 9 more variables: computer <dbl>, testscr <dbl>, comp_stu <dbl>,
+## #   expn_stu <dbl>, str <dbl>, avginc <dbl>, el_pct <dbl>, read_scr <dbl>,
+## #   math_scr <dbl>
+\end{verbatim}
+
+\normalsize You can also use the Excel file of course
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_xlsx}\NormalTok{(}\StringTok{"caschool.xlsx"}\NormalTok{, }\AttributeTok{trim\_ws=}\ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Data cleaning}
+\protect\hypertarget{data-cleaning}{}
+The variable names are inconsistent with the textbook and other versions
+of the dataset used in other exercises, so let's rename them:
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(df)[}\FunctionTok{names}\NormalTok{(df) }\SpecialCharTok{==} \StringTok{"avginc"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"income"}
+\FunctionTok{names}\NormalTok{(df)[}\FunctionTok{names}\NormalTok{(df) }\SpecialCharTok{==} \StringTok{"testscr"}\NormalTok{] }\OtherTok{\textless{}{-}} \StringTok{"testscore"}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Linear Regression of Test Score on District
+Income}
+\protect\hypertarget{linear-regression-of-test-score-on-district-income}{}
+\begin{block}{The simple linear regression.}
+\protect\hypertarget{the-simple-linear-regression.}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(testscore }\SpecialCharTok{\textasciitilde{}}\NormalTok{ income, }\AttributeTok{data=}\NormalTok{df)}
+\FunctionTok{summary}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = testscore ~ income, data = df)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -39.57  -8.80   0.60   9.03  32.53 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 625.3836     1.5324   408.1   <2e-16 ***
+## income        1.8785     0.0905    20.8   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.4 on 418 degrees of freedom
+## Multiple R-squared:  0.508,  Adjusted R-squared:  0.506 
+## F-statistic:  431 on 1 and 418 DF,  p-value: <2e-16
+\end{verbatim}
+
+\normalsize
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Tidy up with broom}
+\protect\hypertarget{tidy-up-with-broom}{}
+Once we have estimated a model, it is convenient to use the
+\texttt{broom} library to tidy things up:
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(broom)}
+\FunctionTok{tidy}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)   625.      1.53       408.  0       
+## 2 income          1.88    0.0905      20.8 2.75e-66
+\end{verbatim}
+
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]{Nonlinear Regression of Test Score on District
+Income}
+\protect\hypertarget{nonlinear-regression-of-test-score-on-district-income}{}
+\begin{block}{The quadratic regression.}
+\protect\hypertarget{the-quadratic-regression.}{}
+To run a nonlinear regression on \(var\), we can use the \(I()\)
+wrapper:
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lm}\NormalTok{(testscore }\SpecialCharTok{\textasciitilde{}}\NormalTok{ income }\SpecialCharTok{+} \FunctionTok{I}\NormalTok{(income}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{), }\AttributeTok{data=}\NormalTok{df)}
+\end{Highlighting}
+\end{Shaded}
+
+\normalsize or use the more versatile \(poly(var)\):
+
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m2 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(testscore }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(income,}\DecValTok{2}\NormalTok{,}\AttributeTok{raw=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{data=}\NormalTok{df)}
+\FunctionTok{tidy}\NormalTok{(m2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 5
+##   term                         estimate std.error statistic  p.value
+##   <chr>                           <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)                  607.       3.05       199.   0       
+## 2 poly(income, 2, raw = TRUE)1   3.85     0.304       12.7  2.69e-31
+## 3 poly(income, 2, raw = TRUE)2  -0.0423   0.00626     -6.76 4.71e-11
+\end{verbatim}
+
+\normalsize but note that we set the \texttt{raw=TRUE} option: ``if
+true, use raw and not orthogonal polynomials.'\,'
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Nonlinear Regression of Test Score on District
+Income}
+\protect\hypertarget{nonlinear-regression-of-test-score-on-district-income-1}{}
+\begin{block}{The cubic regression.}
+\protect\hypertarget{the-cubic-regression.}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m3 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(testscore }\SpecialCharTok{\textasciitilde{}} \FunctionTok{poly}\NormalTok{(income,}\DecValTok{3}\NormalTok{,}\AttributeTok{raw=}\ConstantTok{TRUE}\NormalTok{), }\AttributeTok{data=}\NormalTok{df)}
+\FunctionTok{tidy}\NormalTok{(m3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 4 x 5
+##   term                           estimate std.error statistic   p.value
+##   <chr>                             <dbl>     <dbl>     <dbl>     <dbl>
+## 1 (Intercept)                  600.        5.83        103.   4.61e-298
+## 2 poly(income, 3, raw = TRUE)1   5.02      0.859         5.84 1.06e-  8
+## 3 poly(income, 3, raw = TRUE)2  -0.0958    0.0374       -2.56 1.07e-  2
+## 4 poly(income, 3, raw = TRUE)3   0.000685  0.000472      1.45 1.47e-  1
+\end{verbatim}
+
+\normalsize
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Linear-Log Regression}
+\protect\hypertarget{linear-log-regression}{}
+\begin{block}{The linear-log regression.}
+\protect\hypertarget{the-linear-log-regression.}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m4 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(testscore }\SpecialCharTok{\textasciitilde{}} \FunctionTok{log}\NormalTok{(income), }\AttributeTok{data=}\NormalTok{df)}
+\FunctionTok{tidy}\NormalTok{(m4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)    558.       4.20     133.  0       
+## 2 log(income)     36.4      1.57      23.2 4.77e-77
+\end{verbatim}
+
+\normalsize
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Log-Linear Regression}
+\protect\hypertarget{log-linear-regression}{}
+\begin{block}{The linear-log regression.}
+\protect\hypertarget{the-linear-log-regression.-1}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m5 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{log}\NormalTok{(testscore) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ income, }\AttributeTok{data=}\NormalTok{df)}
+\FunctionTok{tidy}\NormalTok{(m5)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)  6.44     0.00236     2724.  0       
+## 2 income       0.00284  0.000140      20.4 1.41e-64
+\end{verbatim}
+
+\normalsize
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Log-Log Regression}
+\protect\hypertarget{log-log-regression}{}
+\begin{block}{The log-log regression.}
+\protect\hypertarget{the-log-log-regression.}{}
+\scriptsize
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m6 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(}\FunctionTok{log}\NormalTok{(testscore) }\SpecialCharTok{\textasciitilde{}} \FunctionTok{log}\NormalTok{(income), }\AttributeTok{data=}\NormalTok{df)}
+\FunctionTok{tidy}\NormalTok{(m6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic  p.value
+##   <chr>          <dbl>     <dbl>     <dbl>    <dbl>
+## 1 (Intercept)   6.34     0.00645     982.  0       
+## 2 log(income)   0.0554   0.00241      23.0 4.52e-76
+\end{verbatim}
+
+\normalsize
+\end{block}
+\end{frame}
+
+\end{document}

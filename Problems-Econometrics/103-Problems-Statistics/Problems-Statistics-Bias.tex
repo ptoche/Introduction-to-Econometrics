@@ -1,0 +1,49 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Statistics: Statistical Bias}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bias in a Telephone Survey}
+In a given population, $11\%$ of the likely voters are African American. A survey using a simple random sample of $600$ landline telephone numbers finds $8\%$ African Americans. Is there evidence that the survey is biased? Explain.
+
+\begin{answer}
+The null hypothesis for a two-sided test is
+\begin{align*}
+H_0 \colon p = 0.11\\
+H_1 \colon p \ne 0.11
+\end{align*}
+with sample size $n=600$. 
+The $t$-statistic is
+\begin{align*}
+\hat{t}  
+    = \frac{\hat{p}-p_{0}}{\SE(\hat{p})}
+  & = \frac{\hat{p}-p_{0}}{\sqrt{\hat{p}(1-\hat{p})/n}}\\
+  & = \frac{0.08-0.11}{0.08(1-0.08)/600}
+   \approx \frac{-0.03}{0.011}
+   \approx -2.709\\  
+% se <- function(p,n)sqrt(p*(1-p)/n) 
+% se(0.08, 600)
+% 0.0110755
+% (0.08-0.11)/se(0.08, 600)
+% 2.708682
+% se(0.11, 600)
+% 0.01277367
+% (0.08-0.11)/se(0.11, 600)
+% -2.348581
+\end{align*}
+On the basis of this sample, the two-sided null hypothesis can be rejected at the $0.01$ significance level. 
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

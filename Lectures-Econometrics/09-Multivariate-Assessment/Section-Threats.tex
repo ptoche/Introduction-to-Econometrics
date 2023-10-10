@@ -1,0 +1,26 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[shrink=5]
+\frametitle{Threats to Internal Validity}
+\begin{enumerate}
+\item \emph{Omitted Variable Bias:}
+Adding a variable to a regression has both costs and benefits: Including the variable when it does not belong reduces the precision of the estimators of the other regression coefficients. Trade-off: \emph{bias vs. variance} of the coefficient of interest. 
+\item \emph{Functional Form Misspecification:}
+The functional form of the estimated regression function differs from that of the population regression function. The estimator of the partial effect of a change in one of the variables could be biased. 
+\item \emph{Errors-in-Variables Bias:}
+The effect of measurement error in $Y$ is different from that of measurement error in $X$. 
+If an explanatory variable $X$ is measured imprecisely, the bias persists in large samples. 
+%Example: If the measured variable $X$ equals the actual value plus a mean-zero, independently distributed measurement error, then the OLS estimator in a regression with a single right-hand variable is biased toward $0$!
+If $Y$  is measured imprecisely, the variance of $\hat{\beta}_{1}$ is increased, but $\hat{\beta}_{1}$ is not biased. 
+Solutions:
+Instrumental variables regression; develop a mathematical model of the measurement error. 
+\item \emph{Sample Selection:}
+If the selection process influences the availability of data and that process is related to the dependent variable beyond depending on the regressors. Such sample selection induces correlation between one or more regressors and the error term, leading to bias and inconsistency of the OLS estimator.
+\item \emph{Simultaneous Causality:}
+If causality also runs from the dependent variable to one or more regressors ($Y$ causes $X$), the OLS estimator is biased and inconsistent. 
+Solutions: instrumental variables regression;  randomized controlled experiment in which the reverse causality channel is neutralized.
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

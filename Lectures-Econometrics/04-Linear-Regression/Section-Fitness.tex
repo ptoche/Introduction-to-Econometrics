@@ -1,0 +1,86 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Measures of Fit}
+\begin{itemize}
+\item \emph{Explained Sum of Squares (ESS):}\\
+The sum of squared deviations of the predicted value, $\hat{Y}_i$, from its average: 
+\begin{align*}
+ESS = \sum_{i=1}^{n}(\hat{Y}_i-\mean{Y})^2
+\end{align*}
+\item \emph{Total Sum of Squares (TSS):}\\
+The sum of squared deviations of $Y_i$ from its average:
+\begin{align*}
+TSS = \sum_{i=1}^{n}(Y_i-\mean{Y})^2
+\end{align*}
+\item \emph{Regression $R^{2}$:}\\ 
+The fraction of the sample variance of $Y$ explained by $X$. 
+\begin{align*}
+R^{2} = \frac{ESS}{TSS}
+\end{align*}
+\item The $R^2$ ranges between $0$ and $1$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Measures of Fit}
+\begin{itemize}
+\item \emph{Sum of Squared Residuals (SSR):}\\
+The sum of squared residuals from a least squares regression: 
+\begin{align*}
+SSR = \sum_{i=1}^{n}\hat{u}_{i}^2
+\end{align*}
+\item \emph{Equivalent Definition of $R^{2}$:}
+\begin{align*}
+R^{2} = 1 - \frac{SSR}{TSS}
+\end{align*}
+\item Follows from the identity:
+\begin{align*}
+TSS = ESS + SSR
+\end{align*}
+\item If $X_i$ explains none of the variation of $Y_i$, then\\ 
+$\hat{\beta}_{1}=0$ and $\hat{Y}_{i}=\hat{\beta}_{0}=\mean{Y}$, and $ESS=0$, $SSR=TSS$, and $R^{2}=0$.
+\item If $X_{i}$ explains all of the variation of $Y_{i}$, then\\
+$Y_{i}=\hat{Y}_{i}$ for all $i$, and $\hat{u}_{i}=0$, and $ESS=TSS$ and $R^{2}=1$. 
+\item The $SSR$ is sometimes denoted $RSS$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Standard Error of the Regression}
+\begin{itemize}
+\item \emph{Standard Error of the Regression ($\vn{SER}$):}\\ 
+An estimator of the standard deviation of the regression error measured in the units of the dependent variable. 
+\item The $\vn{SER}$ is computed with the sample counterparts:
+\begin{align*}
+\vn{SER} & = s_{\hat{u}}\\
+s_{\hat{u}}^2 
+    & = \frac{SSR}{n-2}
+      = \frac{1}{n-2} \sum_{i=1}^{n} \hat{u}_{i}^2
+\end{align*}
+\item The adjusted divisor $n-2$ is an adjustment for the lost ``degrees of freedom'' when estimating the two coefficients $\beta_{0}$ and $\beta_{1}$. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{OLS Prediction}
+\begin{itemize}
+\item \emph{In-Sample Prediction:}\\ 
+The predicted value $\hat{Y}_{i}$ for the $i$th observation is the value of $Y$ predicted by the OLS regression line when $X$ takes on its value $X_{i}$ for that observation.
+\item \emph{Out-of-Sample Prediction:}\\ 
+The predicted value $\hat{Y}$ for some value $X$ not in the estimation sample. 
+\item Any prediction should be accompanied by an estimate of its accuracy, for instance $\hat{Y} \pm \vn{SER}$. 
+\item The California test score data regression reports $R^{2}=0.051$ and $\vn{SER}=18.6$. Thus, the regressor $\vn{STR}$ explains $5.1\%$ of the variance of the dependent variable $\vn{TestScore}$. The standard deviation of the regression residuals is large. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

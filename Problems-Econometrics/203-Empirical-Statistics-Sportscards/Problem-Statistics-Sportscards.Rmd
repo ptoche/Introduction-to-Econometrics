@@ -1,0 +1,94 @@
+---
+title: "Empirical Exercise 2, Stock and Watson Chapter 3"
+subtitle: "Econ 440 - Introduction to Econometrics"
+author: "Patrick Toche, ptoche@fullerton.edu"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup,  include=FALSE, eval=TRUE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+options(digits=5)
+```
+
+
+### Tips
+Show the output, not just the code. Don't forget to answer the questions! 
+
+
+### Load dataset
+```{r data, include=TRUE, eval=TRUE}
+library(readxl)
+df <- read_xlsx("Sportscards.xlsx", trim_ws=TRUE)
+head(df)
+```
+
+
+## (a) 
+
+### (i) 
+
+Suppose that, absent any endowment effect, all the subjects prefer good A to good B. What fraction of the experiment's subjects would you expect to trade the good that they were given for the other good? 
+
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+The fraction of subjects expected to trade the good they were given, absent any endowment effect, is $0$.
+
+### (ii) 
+
+Suppose that, absent any endowment effect, 50% of the subjects prefer good A to good B, and the other 50% prefer good B to good A. What fraction of the subjects would you expect to trade the good they were given for the other good?
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+The fraction of subjects expected to trade the good they were given, absent any endowment effect, is $0$.
+
+### (iii) 
+
+Suppose that, absent any endowment effect, X% of the subjects prefer good A to good B, and the other (100 - X)% prefer good B to good A. Show that you would expect 50% of the subjects to trade the good they were given for the other good.
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+Discuss your reasoning here.
+
+## (b)
+
+(b1) Using the sports-card data, what fraction of the subjects traded the good they were given? 
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+The fraction of subjects that traded the good they were given is $0$.
+
+(b2) Is the fraction significantly different from 50%? 
+
+The fraction is/not significantly different from 50%, because X,Y,Z.
+
+(b3) Is there evidence of an endowment effect? 
+
+There is/not evidence of an endowment effect, because X,Y,Z.
+
+
+## (c) 
+
+Some have argued that the endowment effect may be present but that it is likely to disappear as traders gain more trading experience. Half of the experimental subjects were dealers, and the other half were nondealers. Dealers have more experience than nondealers. Repeat (b) for dealers and nondealers. Is there a significant difference in their behavior?
+```{r,  include=TRUE, eval=TRUE}
+## fill this space with your code
+```
+
+The fraction of dealers that traded the good they were given is $0$.
+
+The fraction of nondealers that traded the good they were given is $0$.
+
+There is/not a significant difference in their behavior, because X,Y,Z.
+
+## (d) 
+
+Is the evidence consistent with the hypothesis that the endowment effect disappears as traders gain more experience?
+
+The evidence is/not consistent with the hypothesis that the endowment effect disappears as traders gain more experience, because X,Y,Z.
+
+

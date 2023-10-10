@@ -1,0 +1,28 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Fixed Effects: Assumptions for Causal Inference}
+\emph{Assumptions for Causal Inference}
+\begin{align*}
+Y_{it} = \beta_{1} X_{it} + \alpha_{i} + u_{it}
+\end{align*}
+where $\beta_{1}$ is the causal effect of $X$ on $Y$. 
+\begin{enumerate}
+\item $\exp[u_{it}|X_{i1},X_{i2},\ldots,X_{iT},\alpha_{i}]$: The conditional mean of errors is zero.
+\item $X_{i1},X_{i2},\ldots,X_{iT},u_{i1},u_{i2},\ldots,u_{iT}$ are i.i.d. draws from the joint distribution.
+\item $(X_{it}, u_{it})$ have non-zero finite fourth moments: outliers are unlikely.
+\item No perfect multicollinearity. 
+\end{enumerate}
+\begin{itemize}
+\item \emph{Autocorrelation:} 
+\newline
+If $X_{it}$ is correlated with $X_{is}$ for different values of $s$ and $t$, then $X_{it}$ is ``autocorrelated'' or ``serially correlated''. 
+\item \emph{HAR standard errors:}
+\newline
+Heteroskedasticity-and Autocorrelation-Robust (HAR) standard errors:
+\newlinequad
+Standard errors that are valid if $u_{it}$ is (potentially or effectively) heteroskedastic and correlated over time within an entity. Example: \emph{clustered standard errors}.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

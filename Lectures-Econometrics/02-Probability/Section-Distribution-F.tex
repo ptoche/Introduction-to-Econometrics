@@ -1,0 +1,26 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Fisher's F Distribution}
+\begin{itemize}
+\item \emph{F Distribution:} The distribution of the ratio of two independently distributed chi-squared random variables. Used to conduct F-tests, particularly in the context of Analysis of Variance (ANOVA) and when comparing the fits of different linear regression models, e.g. Chow test. 
+\item Named after Statistician Ronald Aylmer Fisher.
+\item Let $V$ be a chi-squared random variable with $n$ degrees of freedom, let $W$ be a chi-squared random variable with $m$ degrees of freedom, with $V$ and $W$ independently distributed, then
+\begin{align*}
+W \sim \chi^2 (m), 
+\quad
+V \sim \chi^2 (n),
+\quad
+W \indep V
+\implies
+F = \frac{W/m}{V/n} \sim F(m, n)
+\end{align*}
+\item Special case:
+\begin{align*}
+F(m, n\to\infty) \to  \chi^2(m)
+\end{align*}
+\item The $95$th percentile of the $F(3,30)$ distribution is $2.92$; The $95$th percentile of the $F(3,90)$ distribution is $2.71$. In the limit, as $n\to\infty$, the $95$th percentile tends to $2.60$.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  

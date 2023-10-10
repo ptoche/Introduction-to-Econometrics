@@ -1,0 +1,111 @@
+% !TEX root = ../../MakeBeamer.tex
+\title[Probability]{Review of Probability: Distribution Function}
+\date{}
+
+
+\begin{document}
+
+
+\inputfile{../Section-Cover-Problems}
+
+
+\def\ask{Let $Y$ denote the number of ``heads'' that occur when two coins are tossed.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Probability Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{0}
+\item Derive the probability distribution of $Y$.
+\end{enumerate}
+
+\begin{answer}
+Let the sample space be $\Omega=\{(H,H),(H,T),(T,H),(T,T)\}$, with associated probabilities
+\begin{align*}
+\Pr[(H,H)] 
+  = \Pr[(H,T)] 
+  = \Pr[(T,H)]
+  = \Pr[(H,H)] 
+  = \frac{1}{4}
+\end{align*}
+We have $Y=0$ if $(T,T)$; $Y=1$ if $(H,T)$ or $(T,H)$; and $Y=2$ if $(H,H)$.
+The sample space is $\Omega_Y=\{0,1,2\}$ with probability distribution:
+\begin{align*}
+\Pr[Y=0] & = \frac{1}{4} \\
+\Pr[Y=1] & = \frac{1}{4} + \frac{1}{4} = \frac{1}{2}\\
+\Pr[Y=2] & = \frac{1}{4}
+\end{align*}
+Importantly, check that $\Pr[Y=0]+\Pr[Y=1]+Pr[Y=2]=1$. 
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Probability Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{1}
+\item Derive the cumulative probability distribution of $Y$.
+\end{enumerate}
+
+\begin{answer}
+The cumulative distribution adds up the probabilities for each outcome from $Y=0$ to $Y=2$:
+\begin{align*}
+\Pr[Y=0] & = \frac{1}{4} \\
+\Pr[Y=1~\text{or}~Y=0] & = \frac{1}{4} + \frac{1}{2} = \frac{3}{4}\\
+\Pr[Y=2~\text{or}~Y=1~\text{or}~Y=0] & = \frac{1}{4} + \frac{3}{4} = 1
+\end{align*}
+By an abuse of notation, we sometimes write $\Pr[Y<0]=0$ and $\Pr[Y<\infty]=1$.
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Probability Distribution}
+\ask
+\begin{enumerate}\setcounter{enumi}{2}
+\item Derive the mean and variance of $Y$.
+\end{enumerate}
+
+\begin{answer}
+Intuitively (but beware of intuitions!) we guess $\exp[Y]=1$, which is easy to check:
+\begin{align*}
+\exp[Y] 
+  = \frac{1}{4} \cdot 0
+  + \frac{1}{2} \cdot 1
+  + \frac{1}{4} \cdot 2
+  = 1 
+\end{align*}
+The variance may be calculated directly:
+\begin{align*}
+\var[Y] 
+& = \frac{1}{4} \cdot \left(0-1\right)^2
+  + \frac{1}{2} \cdot \left(1-1\right)^2
+  + \frac{1}{4} \cdot \left(2-1\right)^2
+  = \frac{1}{2}
+\end{align*}
+
+Or indirectly:
+\begin{align*}
+\var[Y] 
+& = \exp[Y^2] - \left(\exp[Y]\right)^2\\
+& = \frac{1}{4} \cdot 0^2
+  + \frac{1}{2} \cdot 1^2
+  + \frac{1}{4} \cdot 2^2
+  - 1^2
+  = \frac{3}{2} - 1 
+  = \frac{1}{2}
+    \tick
+\end{align*}
+\end{answer}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

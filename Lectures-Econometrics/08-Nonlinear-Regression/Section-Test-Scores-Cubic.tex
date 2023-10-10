@@ -1,0 +1,26 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Test Scores and District Income}
+\emph{Cubic regression model:}
+\begin{itemize}
+\item Estimate of cubic regression model relating test scores and income:
+\begin{align*}
+\verywidehat{\vn{TestScore}} 
+  = \muse{600.1}{5.1} & + \muse{5.02}{0.71}\,Income - \muse{0.096}{0.029}\,Income^2\\
+                     & + \muse{0.00069}{0.00035}\,Income^3, \quad \bar{R}^2 = 0.555
+\end{align*}
+\item Test $H_{0}\colon\beta_{3}=0, \quad H_{1}\colon\beta_{3}\ne0$
+\begin{align*}
+t^{\text{act}} 
+  = \frac{\hat{\beta}_{3}-0}{\SE(\hat{\beta}_{3})}
+  = \frac{0.00069}{0.00035}
+  \approx 1.97
+% 0.00069/0.00035
+% 1.971429
+\end{align*}
+\item Since $t^{\text{act}}>1.96$, we can reject the null hypothesis at the $5\%$ level --- barely. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

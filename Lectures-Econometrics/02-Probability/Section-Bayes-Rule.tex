@@ -1,0 +1,23 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Bayes' Rule}
+\begin{itemize}
+\item \emph{Bayes' Rule:}
+\begin{emphalign*}
+\Pr(A | B ) = \frac{\Pr (B | A) \cdot \Pr(A)}{\Pr(B)}
+\end{emphalign*}
+\item \emph{Example:} Interpreting the results of screening tests. The test is not perfect --- false positives and false negatives randomly occur. 
+\item A positive test is therefore only a presumption of sickness, not an absolute certainty.
+\item Let $\Pr(\text{sick})$ be the unconditional probability of being sick. Bayes' rule gives the probability of being sick conditional on testing positive, $\Pr(\text{sick}|\text{positive})$:
+\begin{align*}
+\Pr(\text{sick}|\text{positive}) 
+  & = \frac{\Pr(\text{positive}|\text{sick}) \cdot \Pr(\text{sick})} {\Pr(\text{positive})}
+\end{align*}
+\item $\Pr(\text{sick}|\text{positive})$ is larger than $\Pr(\text{sick})$
+\item $\Pr(\text{sick}|\text{positive})$ and $\Pr(\text{positive}|\text{sick})$ are commonly confused, but they can be very different. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+

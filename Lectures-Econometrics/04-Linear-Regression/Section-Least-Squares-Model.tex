@@ -1,0 +1,129 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Linear Regression with One Regressor}
+\begin{itemize}
+\item \emph{Problem of Regression:} 
+A linear regression model relates one variable, $X$, to another variable, $Y$. The intercept and slope of the line relating $X$ and $Y$ are unknown characteristics of the population joint distribution of $X$ and $Y$. The econometric problem is to estimate the intercept and slope using a sample of data on these two variables.
+\item Linear regression is a statistical procedure that can be used for causal inference and for prediction. 
+\begin{itemize}
+\item \emph{Causal inference:} using data to estimate the effect on an outcome of interest of an intervention that changes the value of another variable. 
+\item \emph{Prediction:} using the observed value of some variable to predict the value of another variable.
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Population Regression Function}
+\begin{itemize}
+\item \emph{Population Regression Function:}
+The linear population regression function assumes that the expectation of $Y_i$ conditional on $X_i$ is linear in $X_i$:
+\begin{align*}
+\exp[Y_i|X_i] = \beta_0 + \beta_1 X_i
+\end{align*}
+\item Let $u_i$ denote the error made by predicting $Y_i$ using its conditional mean $\exp[Y_i|X_i]$. 
+\item The actual regression relation can be written:
+\begin{align*}
+Y_i = \beta_0 + \beta_1 X_i + u_i
+\end{align*}
+\item $Y$ is the dependent variable, with realizations $Y_1, \ldots, Y_n$.
+\item $X$ is the independent variable, with realizations $X_1, \ldots, X_n$.
+\item $u$ is the error term, assumed random. The realized errors are the difference between the actual values of the dependent variable and their predicted values:
+\begin{align*}
+u_i = Y_i  - \exp[Y_i|X_i]
+\end{align*}
+\item $\beta_0$ and $\beta_1$ are the \emph{coefficients} of the population regression: $\beta_0$ the intercept, $\beta_1$ the slope. 
+\item The slope $\beta_1$ is the difference in $Y$ associated with a unit difference in $X$. The intercept is the value of the population regression line when $X=0$: it is the point at which the population regression line intersects the $Y$ axis.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Sample Regression Function}
+\begin{itemize}
+\item \emph{Sample Regression Function:} 
+(\textit{aka} sample regression line) 
+The straight line constructed using the OLS estimators $\hat{\beta}_0+\hat{\beta}_1\,X$. 
+\item \emph{Predicted values:} 
+The predicted value of $Y_i$ given $X_i$ is:
+\begin{align*}
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1\, X_i
+\end{align*}
+\item \emph{Residuals:} 
+The residuals $\hat{u}_i$ are sample estimates of the population errors $u_i$, that is the difference between $Y_i$ and its predicted value $\hat{Y}_i$:
+\begin{align*}
+\hat{u}_i 
+  = Y_i - \hat{Y}_i
+  = Y_i - \hat{\beta}_0 - \hat{\beta}_1\, X_i
+\end{align*}
+\item \emph{Estimators:} 
+$\hat{\beta}_0$ and $\hat{\beta}_1$ are the estimators of the unknown coefficients of the population regression, $\beta_0$, $\beta_1$. Each estimate depends on the particular sample drawn.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Scatter Plot with Regression Line}
+\begin{minipage}{0.48\linewidth}
+\begin{enumerate}
+\item<2-> The population regression line has a negative slope. What does it mean about the relation between student-teacher ratios and test scores?
+\item<3-> The observations do not fall exactly on the population regression line. For example, the value of $Y$ for district $1$, $Y_1$, is greater than the population regression line. What does it mean for the predicted value of $Y_1$?
+\item<4-> What does it imply for the error term for that district, $u_1$?
+\item<5-> What about $Y_2$ and $u_2$?
+\end{enumerate}
+\end{minipage}\hfill%
+\begin{minipage}{0.50\linewidth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]%
+{StockWatson4e-04-fig-01-Zoom}
+\only<1->{\caption{\textbf{Scatterplot of Student-Teacher Ratio and Test Scores.}}}
+\end{figure}
+\end{minipage}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<handout>
+\frametitle{Scatter Plot with Regression Line}
+\begin{minipage}{0.52\linewidth}
+\begin{enumerate}
+\item The population regression line has a negative slope, which means that districts with lower student-teacher ratios tend to have higher test scores. 
+\item The observations do not fall exactly on the population regression line. For example, the value of $Y$ for district $1$, $Y_1$, is greater than the population regression line: Test scores in district $1$ were better than predicted by the population regression line.
+\item The error term for district $1$, $u_1$, is positive.
+\item The value for district $2$, $Y_2$, is smaller than the population regression line. The error term $u_2$ is negative.
+\end{enumerate}
+\end{minipage}\hfill%
+\begin{minipage}{0.48\linewidth}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]%
+{StockWatson4e-04-fig-01-Zoom}
+\caption{\textbf{Scatterplot of Student-Teacher Ratio and Test Scores.}}
+\end{figure}
+\end{minipage}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer>
+\frametitle{Scatter Plot with Regression Line}
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.6\textheight,keepaspectratio]%
+{StockWatson4e-04-fig-01-Zoom}
+\caption{\textbf{Scatterplot of Student-Teacher Ratio and Test Scores.} The population regression line has a negative slope, which means that districts with lower student-teacher ratios tend to have higher test scores. The observations do not fall exactly on the population regression line. For example, the value of $Y$ for district $1$, $Y_1$, is greater than the population regression line: Test scores in district $1$ were better than predicted by the population regression line --- The error term for that district, $u_1$, is positive.}
+\end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

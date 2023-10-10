@@ -1,0 +1,34 @@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item The population regression line, $\beta_0 + \beta_1 X$, is the mean of $Y$ as a function of the value of $X$. 
+\item The slope, $\beta_1$, is the expected difference in $Y$ values between two observations with $X$ values that differ by one unit. 
+\item The intercept, $\beta_0$, determines the level of the regression line.
+\item The population regression line can be estimated using sample observations $(Y_i, X_i)$ by ordinary least squares (OLS) or another suitable method. 
+\item The OLS estimators of the regression intercept and slope are denoted $\hat{\beta}_0$ and $\hat{\beta}_1$. 
+\item The predicted value of $Y$ given $X$ is $\hat{\beta}_0+\hat{\beta}_1X$.
+\item The $R^2$ and standard error of the regression ($\vn{SER}$) are measures of how
+close the values of $Y_i$ are to the estimated regression line. The $R^2$ is between $0$ and $1$, with a larger value indicating that the $Y_i$s are closer to the line. 
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item A regression error is the deviation of the observed value from the true value. A regression residual is the difference between the observed value and the estimated value. The standard error of the regression estimates the standard deviation of the regression errors.
+\item There are three key assumptions for estimating causal effects using the linear regression model: 
+\begin{enuminline}
+\item The regression errors, $u_i$, have a mean of $0$, conditional on the regressors $X_i$: $\exp[u_{i}|X_{i}]=0$. 
+\item The sample observations are i.i.d. random draws from the population; \item Large outliers are unlikely: $X_{i}$ and $Y_{i}$ have nonzero finite fourth moments.
+\end{enuminline}
+If these assumptions hold, the OLS estimator $\hat{\beta}_1$ is (1) an unbiased estimator of the causal effect $\beta_1$, (2) consistent, and (3) normally distributed when the sample is large.
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
